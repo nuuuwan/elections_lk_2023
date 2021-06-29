@@ -22,5 +22,7 @@ pip install -i https://test.pypi.org/simple/ elections_lk-nuuuwan
 
 ### 1.0.0 (PRE-RELEASE ONLY)
 
+* Added getters for presidential election data
+
 
 ### WISHLIST

@@ -42,5 +42,7 @@ setuptools.setup(
         'selenium',
         'tweepy',
         'utils-nuuuwan',
+        'matplotlib',
+        'geo-nuuuwan',
     ],
 )
