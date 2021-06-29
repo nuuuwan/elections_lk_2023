@@ -19,6 +19,8 @@ class TestCase(unittest.TestCase):
         election_data = presidential.get_election_data(2019)
         self.assertGreater(len(election_data), 160)
         first_result = election_data[0]
+        self.assertIn('summary', first_result)
+        self.assertIn('ed_id', first_result)
 
 
 if __name__ == '__main__':

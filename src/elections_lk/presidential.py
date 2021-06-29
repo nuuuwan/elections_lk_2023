@@ -21,6 +21,7 @@ def get_election_years():
         2019,
     ]
 
+
 def _clean_by_party(by_party):
     return {
         'party_id': by_party['party_code'],
@@ -54,7 +55,8 @@ def _clean_pd_result(pd_result):
 
     return cleaned_result
 
-# @cache(CACHE_NAME, CACHE_TIMEOUT)
+
+@cache(CACHE_NAME, CACHE_TIMEOUT)
 def get_election_data(year):
     url = os.path.join(
         'https://raw.githubusercontent.com',
@@ -72,11 +74,3 @@ def get_election_data(year):
         pd_results,
     )), key=lambda result: result['time_ut'])
     return cleaned_pd_results
-
-
-
-if __name__ == '__main__':
-    election_data = get_election_data(2019)
-    first_result = election_data[-1]
-    import json
-    print(json.dumps(first_result, indent=2))
