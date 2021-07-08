@@ -2,12 +2,14 @@
 
 ## Release History
 
-### 1.0.0
+### 1.0.1
 
-* Added getters for presidential election data
 * Added *party_color*
 * Added various getter helpers for *presidential*
 
+### 1.0.0
+
+* Added getters for presidential election data
 
 ## Setup and Install
 
