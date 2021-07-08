@@ -1,7 +1,7 @@
 """Implements presidential."""
 import os
 
-from utils import www, timex
+from utils import timex, www
 from utils.cache import cache
 
 from elections_lk._constants import CACHE_NAME, CACHE_TIMEOUT
@@ -41,10 +41,15 @@ def _clean_pd_result(pd_result):
         '%Y-%m-%d %H:%M:%S',
     )
 
-    cleaned_result['by_party'] = sorted(list(map(
-        _clean_by_party,
-        pd_result['by_party'],
-    )), key=lambda for_party: -for_party['votes'])
+    cleaned_result['by_party'] = sorted(
+        list(
+            map(
+                _clean_by_party,
+                pd_result['by_party'],
+            )
+        ),
+        key=lambda for_party: -for_party['votes'],
+    )
 
     cleaned_result['summary'] = {
         'valid': pd_result['summary']['valid'],
@@ -65,12 +70,19 @@ def get_election_data(year):
     )
     log.info('Downloading data from %s', url)
     all_results = www.read_json(url)
-    pd_results = list(filter(
-        lambda result: result['level'] == 'POLLING-DIVISION',
-        all_results,
-    ))
-    cleaned_pd_results = sorted(list(map(
-        _clean_pd_result,
-        pd_results,
-    )), key=lambda result: result['time_ut'])
+    pd_results = list(
+        filter(
+            lambda result: result['level'] == 'POLLING-DIVISION',
+            all_results,
+        )
+    )
+    cleaned_pd_results = sorted(
+        list(
+            map(
+                _clean_pd_result,
+                pd_results,
+            )
+        ),
+        key=lambda result: result['time_ut'],
+    )
     return cleaned_pd_results
