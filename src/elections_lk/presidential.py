@@ -1,7 +1,7 @@
 """Implements presidential."""
 import os
 
-from utils import timex, www
+from utils import ds, timex, www
 from utils.cache import cache
 
 from elections_lk._constants import CACHE_NAME, CACHE_TIMEOUT
@@ -33,8 +33,8 @@ def _clean_pd_result(pd_result):
     cleaned_result = {}
     cleaned_result['ed_id'] = 'EC-' + pd_result['ed_code']
     cleaned_result['pd_id'] = 'EC-' + pd_result['pd_code']
-    cleaned_result['ed_name'] = 'EC-' + pd_result['ed_name']
-    cleaned_result['pd_name'] = 'EC-' + pd_result['pd_name']
+    cleaned_result['ed_name'] = pd_result['ed_name']
+    cleaned_result['pd_name'] = pd_result['pd_name']
     cleaned_result['time_ut'] = pd_result['timestamp']
     cleaned_result['time'] = timex.format_time(
         pd_result['timestamp'],
@@ -86,3 +86,24 @@ def get_election_data(year):
         key=lambda result: result['time_ut'],
     )
     return cleaned_pd_results
+
+
+def get_party_result(result, party_id):
+    """Get party result."""
+    for_partys = list(
+        filter(
+            lambda d: d['party_id'] == party_id,
+            result['by_party'],
+        )
+    )
+    return for_partys[0] if len(for_partys) == 1 else None
+
+
+def get_winning_party_info(result):
+    """Get winning party result."""
+    return result['by_party'][0]
+
+
+def get_election_data_index(year):
+    """Get election data, indexed by PD."""
+    return ds.dict_list_to_index(get_election_data(year), 'pd_id')

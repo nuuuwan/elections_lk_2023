@@ -5,6 +5,8 @@
 ### 1.0.0
 
 * Added getters for presidential election data
+* Added *party_color*
+* Added various getter helpers for *presidential*
 
 
 ## Setup and Install
