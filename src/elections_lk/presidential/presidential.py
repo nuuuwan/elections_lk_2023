@@ -1,7 +1,7 @@
 """Implements presidential."""
 import os
 
-from utils import ds, jsonx, timex
+from utils import ds, timex, www
 from utils.cache import cache
 
 from elections_lk._constants import CACHE_NAME, CACHE_TIMEOUT
@@ -63,12 +63,12 @@ def _clean_pd_result(pd_result):
 
 @cache(CACHE_NAME, CACHE_TIMEOUT)
 def get_election_data(year):
-    data_file = os.path.join(
-        'src/elections_lk/presidential/data',
+    url = os.path.join(
+        'https://raw.githubusercontent.com/nuuuwan/elections_lk/data',
         'elections_lk.presidential.%d.json' % year,
     )
-    log.info('Reading data from %s', data_file)
-    all_results = jsonx.read(data_file)
+    log.info('Downloading data from %s', url)
+    all_results = www.read_json(url)
     pd_results = list(
         filter(
             lambda result: result['level'] == 'POLLING-DIVISION',

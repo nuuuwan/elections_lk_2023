@@ -208,10 +208,8 @@ def analyze():
         sub_region_type=ENTITY_TYPE.ED,
         func_get_color_value=_func_get_color_value,
         func_value_to_color=_func_value_to_color,
-
         func_format_color_value=_func_format_color_value,
         func_render_label=_func_render_label,
-
         func_get_area_value=_func_get_area_value,
         func_format_area_value=_func_format_area_value,
     )
