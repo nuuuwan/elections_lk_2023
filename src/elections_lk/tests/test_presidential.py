@@ -2,7 +2,7 @@
 
 import unittest
 
-from elections_lk import presidential
+from elections_lk.presidential import presidential
 
 
 class TestCase(unittest.TestCase):

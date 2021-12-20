@@ -1,6 +1,0 @@
-bs4
-selenium
-tweepy
-matplotlib
-utils-nuuuwan
-geo-nuuuwan
