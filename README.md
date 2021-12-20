@@ -37,3 +37,4 @@ pip install -i https://test.pypi.org/simple/ elections_lk-nuuuwan
   *  [2021-12-20 02:22PM] Various
   *  [2021-12-20 02:34PM] Added nested folders
   *  [2021-12-20 02:55PM] Reading from remote
+  *  [2021-12-20 02:55PM] Updated version
