@@ -9,7 +9,7 @@ with open('README.md', 'r') as fh:
     long_description = fh.read()
 
 IS_RELEASE = True
-MAJOR, MINOR, PATCH = 1, 0, 2
+MAJOR, MINOR, PATCH = 1, 0, 3
 if IS_RELEASE:
     version = '%d.%d.%d' % (MAJOR, MINOR, PATCH)
 else:
