@@ -31,3 +31,4 @@ pip install -i https://test.pypi.org/simple/ elections_lk-nuuuwan
   *  [2021-12-20 09:40AM] Made data files local
   *  [2021-12-20 09:45AM] Load data complete
   *  [2021-12-20 09:46AM] Added constants
+  *  [2021-12-20 01:47PM] Added analysis
