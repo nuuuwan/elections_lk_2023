@@ -7,20 +7,6 @@ from elections_lk._constants import CACHE_NAME, CACHE_TIMEOUT
 from elections_lk._utils import log
 
 
-def get_election_years():
-    """Implement presidential."""
-    return [
-        1989,
-        1994,
-        2000,
-        2001,
-        2004,
-        2010,
-        2015,
-        2020,
-    ]
-
-
 def _clean_by_party(by_party):
     return {
         'party_id': by_party['party_code'],
