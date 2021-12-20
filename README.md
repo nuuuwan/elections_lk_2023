@@ -29,3 +29,4 @@ pip install -i https://test.pypi.org/simple/ elections_lk-nuuuwan
 *The source code for this library can be found at https://github.com/nuuuwan/elections_lk.*
   *  [2021-12-20 09:34AM] Cleanup
   *  [2021-12-20 09:40AM] Made data files local
+  *  [2021-12-20 09:45AM] Load data complete
