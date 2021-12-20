@@ -34,3 +34,4 @@ pip install -i https://test.pypi.org/simple/ elections_lk-nuuuwan
   *  [2021-12-20 01:47PM] Added analysis
   *  [2021-12-20 01:47PM] Updated version
   *  [2021-12-20 01:50PM] Fixed unittests
+  *  [2021-12-20 02:22PM] Various

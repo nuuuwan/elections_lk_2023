@@ -44,6 +44,5 @@ setuptools.setup(
         'utils-nuuuwan',
         'matplotlib',
         'geo-nuuuwan',
-        'infographics-nuuuuwan=1.0.7',
     ],
 )
