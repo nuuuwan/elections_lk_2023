@@ -8,18 +8,11 @@ DIST_NAME = 'elections_lk'
 with open('README.md', 'r') as fh:
     long_description = fh.read()
 
-IS_RELEASE = True
-MAJOR, MINOR, PATCH = 1, 0, 4
-if IS_RELEASE:
-    version = '%d.%d.%d' % (MAJOR, MINOR, PATCH)
-else:
-    # PRE-RELEASE
-    ts = time.strftime('%Y%m%d%H%M%S0000', time.localtime())
-    version = '%d.%d.%d.%s' % (MAJOR, MINOR, PATCH, ts)
+VERSION = 1.0.5
 
 setuptools.setup(
     name='%s-nuuuwan' % DIST_NAME,
-    version=version,
+    version=VERSION,
     author='Nuwan I. Senaratna',
     author_email='nuuuwan@gmail.com',
     description='',
