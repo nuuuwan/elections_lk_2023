@@ -1,6 +1,5 @@
 '''Setup.'''
 
-import time
 
 import setuptools
 
@@ -8,7 +7,7 @@ DIST_NAME = 'elections_lk'
 with open('README.md', 'r') as fh:
     long_description = fh.read()
 
-VERSION = 1.0.5
+VERSION = "1.0.5"
 
 setuptools.setup(
     name='%s-nuuuwan' % DIST_NAME,
