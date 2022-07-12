@@ -40,7 +40,7 @@ setuptools.setup(
     install_requires=[
         'bs4',
         'selenium',
-        'tweepy==3.10.0',
+        'tweepy',
         'utils-nuuuwan',
         'matplotlib',
         'geo-nuuuwan',
