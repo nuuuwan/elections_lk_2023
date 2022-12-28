@@ -31,7 +31,6 @@ class TestSeats(TestCase):
         ) in [
             [dict(UNP=50, SLFP=46, JVP=4), 3, dict(UNP=2, SLFP=1)],
             [dict(UNP=50, SLFP=30, JVP=20), 3, dict(UNP=1, SLFP=1, JVP=1)],
-            [dict(UNP=50, SLFP=46, JVP=4), 3, dict(UNP=2, SLFP=1)],
             [
                 dict(SLPP=674_603, SJB=387_145, NPP=67_600),
                 18,
@@ -41,4 +40,21 @@ class TestSeats(TestCase):
             self.assertEqual(
                 expected_party_to_non_bonus_seats,
                 Seats.assign_nonbonus_seats(party_to_votes, total_seats),
+            )
+
+    def test_get_party_to_seats(self):
+        for (party_to_votes, total_seats, expected_party_to_seats,) in [
+            [dict(UNP=50, SLFP=46, JVP=4), 3, dict(UNP=2, SLFP=1)],
+            [dict(UNP=50, SLFP=30, JVP=20), 3, dict(UNP=2, SLFP=1)],
+            [
+                dict(SLPP=674_603, SJB=387_145, NPP=67_600),
+                19,
+                dict(SLPP=12, SJB=6, NPP=1),
+            ],
+        ]:
+            self.assertEqual(
+                expected_party_to_seats,
+                Seats.get_party_to_seats(
+                    party_to_votes, total_seats, 0.05, 1
+                ),
             )

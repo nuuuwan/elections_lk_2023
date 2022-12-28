@@ -53,12 +53,16 @@ class Seats:
         )
 
     @staticmethod
-    def get_party_to_seats(total_seats, party_to_votes, p_limit, bonus):
+    def get_party_to_seats(party_to_votes, total_seats, p_limit, bonus):
         eligible_party_to_votes = (
             eligible_party_to_votes
-        ) = Seats.get_qualified_party_set(party_to_votes, p_limit)
-        party_to_non_bonus_seats = Seats.assign_nonbonus_seats(
+        ) = Seats.get_eligible_party_to_votes(party_to_votes, p_limit)
+        party_to_seats = Seats.assign_nonbonus_seats(
             eligible_party_to_votes,
             total_seats - bonus,
         )
-        return party_to_non_bonus_seats
+
+        if bonus > 0:
+            winning_party = list(party_to_seats.keys())[0]
+            party_to_seats[winning_party] += bonus
+        return party_to_seats
