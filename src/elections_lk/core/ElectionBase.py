@@ -25,3 +25,16 @@ class ElectionBase:
     @property
     def total_valid(self):
         return self.country_result.valid
+
+    @property
+    def party_to_seats(self):
+        party_to_seats = {}
+        for party, seats in self.country_result.party_to_seats.items():
+            party_to_seats[party] = seats
+
+        for ed_result in self.ed_result_idx.values():
+            for party, seats in ed_result.party_to_seats.items():
+                if party not in party_to_seats:
+                    party_to_seats[party] = 0
+                party_to_seats[party] += seats
+        return party_to_seats
