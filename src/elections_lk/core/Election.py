@@ -56,6 +56,15 @@ def get_result(election_type, year, d):
     )
 
 
+def filter_by_ent_type(raw_result_list, ent_type):
+    return list(
+        filter(
+            lambda d: ent_types.get_entity_type(d['entity_id']) == ent_type,
+            raw_result_list,
+        )
+    )
+
+
 def get_result_idx(election_type, year, raw_result_list, ent_type):
     return dict(
         list(
@@ -64,13 +73,7 @@ def get_result_idx(election_type, year, raw_result_list, ent_type):
                     d['entity_id'],
                     get_result(election_type, year, d),
                 ],
-                list(
-                    filter(
-                        lambda d: ent_types.get_entity_type(d['entity_id'])
-                        == ent_type,
-                        raw_result_list,
-                    )
-                ),
+                filter_by_ent_type(raw_result_list, ent_type),
             )
         )
     )
