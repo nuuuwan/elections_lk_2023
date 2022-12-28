@@ -1,7 +1,8 @@
 import os
 
 from gig import ent_types
-from utils.www import read_tsv
+from utils import timex, www
+from utils.cache import cache
 
 from elections_lk.core.ElectionBase import ElectionBase
 from elections_lk.core.ElectionType import ElectionType
@@ -105,16 +106,21 @@ def get_result_idx(election_type, year, raw_result_list, ent_type):
     )
 
 
+@cache('get_raw_result_list', timex.SECONDS_IN.YEAR)
+def get_raw_result_list(election_type, year):
+    return www.read_tsv(
+        os.path.join(
+            GIG2_URL_ROOT,
+            f'government-elections-{election_type}'
+            + f'.regions-ec.{year}.tsv',
+        )
+    )
+
+
 class Election(ElectionBase):
     @staticmethod
     def init(election_type, year):
-        raw_result_list = read_tsv(
-            os.path.join(
-                GIG2_URL_ROOT,
-                f'government-elections-{election_type}'
-                + f'.regions-ec.{year}.tsv',
-            )
-        )
+        raw_result_list = get_raw_result_list(election_type, year)
 
         return Election(
             election_type,
