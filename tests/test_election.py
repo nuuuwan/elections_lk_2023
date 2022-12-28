@@ -17,6 +17,7 @@ class TestElection(TestCase):
         self.assertEqual(len(election.pd_result_idx), 160)
         self.assertEqual(election.total_polled, 13_387_950)
         self.assertEqual(election.total_valid, 13_252_499)
+        self.assertEqual(election.party_to_seats, dict(SLPP=1))
 
         test_pd_result = election.get_pd_result(TEST_PD_ID)
         self.assertEqual(test_pd_result.region_id, TEST_PD_ID)
@@ -69,6 +70,10 @@ class TestElection(TestCase):
         self.assertEqual(len(election.pd_result_idx), 160)
         self.assertEqual(election.total_polled, 12_343_309)
         self.assertEqual(election.total_valid, 11_598_936)
+        self.assertEqual(election.party_to_seats['SLPP'], 145)
+        self.assertEqual(election.party_to_seats['SJB'], 54)
+        self.assertEqual(election.party_to_seats['ITAK'], 10)
+        self.assertEqual(election.party_to_seats['JJB'], 3)
 
         test_pd_result = election.get_pd_result(TEST_PD_ID)
         self.assertEqual(test_pd_result.region_id, TEST_PD_ID)
