@@ -43,22 +43,26 @@ def get_seats(election_type, year, region_id):
     return 0
 
 
+def get_result(election_type, year, d):
+    return Result(
+        d['entity_id'],
+        parse_int(d['valid']),
+        parse_int(d['rejected']),
+        parse_int(d['polled']),
+        parse_int(d['electors']),
+        extract_party_to_votes(d),
+        get_seats(election_type, year, d['entity_id']),
+        {},
+    )
+
+
 def get_result_idx(election_type, year, raw_result_list, ent_type):
     return dict(
         list(
             map(
                 lambda d: [
                     d['entity_id'],
-                    Result(
-                        d['entity_id'],
-                        parse_int(d['valid']),
-                        parse_int(d['rejected']),
-                        parse_int(d['polled']),
-                        parse_int(d['electors']),
-                        extract_party_to_votes(d),
-                        get_seats(election_type, year, d['entity_id']),
-                        {},
-                    ),
+                    get_result(election_type, year, d),
                 ],
                 list(
                     filter(
