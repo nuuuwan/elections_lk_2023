@@ -50,3 +50,24 @@ class Result:
         assert result.rejected <= result.polled
         assert result.polled <= result.electors, result
         return result
+
+    @staticmethod
+    def concat(concat_region_id, result_list):
+        valid = sum([r.valid for r in result_list])
+        rejected = sum([r.rejected for r in result_list])
+        polled = sum([r.polled for r in result_list])
+        electors = sum([r.electors for r in result_list])
+        party_to_votes = {}
+        for r in result_list:
+            for k, v in r.party_to_votes.items():
+                if k not in party_to_votes:
+                    party_to_votes[k] = 0
+                party_to_votes[k] += v
+        return Result(
+            concat_region_id,
+            valid,
+            rejected,
+            polled,
+            electors,
+            party_to_votes,
+        )

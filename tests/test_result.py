@@ -14,6 +14,18 @@ TEST_RESULT = Result.loadFromDict(
     )
 )
 
+TEST_RESULT2 = Result.loadFromDict(
+    dict(
+        entity_id='EC-01B',
+        valid=400,
+        rejected=10,
+        polled=410,
+        electors=451,
+        UNP=100,
+        SLFP=300,
+    )
+)
+
 
 class TestResult(TestCase):
     def test_load_from_dict(self):
@@ -43,3 +55,19 @@ class TestResult(TestCase):
     def test_p_turnout(self):
         result = TEST_RESULT
         self.assertEqual(result.p_turnout, 0.8)
+
+    def test_concat(self):
+        result = Result.concat('EC-01', [TEST_RESULT, TEST_RESULT2])
+
+        self.assertEqual(result.region_id, 'EC-01')
+        self.assertEqual(result.valid, 1300)
+        self.assertEqual(result.rejected, 110)
+        self.assertEqual(result.polled, 1410)
+        self.assertEqual(result.electors, 1701)
+        self.assertEqual(
+            result.party_to_votes,
+            dict(
+                UNP=600,
+                SLFP=700,
+            ),
+        )
