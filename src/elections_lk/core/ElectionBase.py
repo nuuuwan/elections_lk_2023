@@ -21,3 +21,7 @@ class ElectionBase:
     @property
     def total_polled(self):
         return self.country_result.polled
+
+    @property
+    def total_valid(self):
+        return self.country_result.valid
