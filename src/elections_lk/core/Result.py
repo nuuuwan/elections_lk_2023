@@ -24,6 +24,10 @@ class Result:
     def p_turnout(self):
         return self.polled / self.electors
 
+    @property
+    def valid_long(self):
+        return sum(self.party_to_votes.values())
+
     def get_party_votes(self, party):
         return self.party_to_votes[party]
 

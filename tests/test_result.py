@@ -41,6 +41,7 @@ class TestResult(TestCase):
 
         self.assertEqual(result.region_id, 'EC-01A')
         self.assertEqual(result.valid, 900)
+        self.assertEqual(result.valid_long, 900)
         self.assertEqual(result.rejected, 100)
         self.assertEqual(result.polled, 1000)
         self.assertEqual(result.electors, 1250)
@@ -79,6 +80,7 @@ class TestResult(TestCase):
 
         self.assertEqual(result.region_id, 'EC-01')
         self.assertEqual(result.valid, 1300)
+        self.assertEqual(result.valid_long, 1300)
         self.assertEqual(result.rejected, 110)
         self.assertEqual(result.polled, 1410)
         self.assertEqual(result.electors, 1701)
