@@ -15,6 +15,8 @@ GIG2_URL_ROOT = (
 
 
 def parse_int(x):
+    if not x:
+        return 0
     return (int)((float)(x))
 
 
@@ -26,7 +28,22 @@ def extract_party_to_votes(d):
     return party_to_votes
 
 
-def get_result_idx(raw_result_list, ent_type):
+def get_seats(election_type, year, region_id):
+    region_type = ent_types.get_entity_type(region_id)
+    if election_type == ElectionType.PRESIDENTIAL:
+        if region_type == ent_types.ENTITY_TYPE.COUNTRY:
+            return 1
+
+    if election_type == ElectionType.PARLIAMENTARY:
+        if region_type == ent_types.ENTITY_TYPE.COUNTRY:
+            return 29
+        if region_type == ent_types.ENTITY_TYPE.ED:
+            return YEAR_TO_REGION_TO_SEATS[year][region_id]
+
+    return 0
+
+
+def get_result_idx(election_type, year, raw_result_list, ent_type):
     return dict(
         list(
             map(
@@ -39,7 +56,7 @@ def get_result_idx(raw_result_list, ent_type):
                         parse_int(d['polled']),
                         parse_int(d['electors']),
                         extract_party_to_votes(d),
-                        0,
+                        get_seats(election_type, year, d['entity_id']),
                         {},
                     ),
                 ],
@@ -56,20 +73,6 @@ def get_result_idx(raw_result_list, ent_type):
 
 
 class Election(ElectionBase):
-    def get_seats(self, region_id):
-        region_type = ent_types.get_entity_type(region_id)
-        if self.election_type == ElectionType.PRESIDENTIAL:
-            if region_type == ent_types.ENTITY_TYPE.COUNTRY:
-                return 1
-
-        if self.election_type == ElectionType.PARLIAMENTARY:
-            if region_type == ent_types.ENTITY_TYPE.COUNTRY:
-                return 29
-            if region_type == ent_types.ENTITY_TYPE.ED:
-                return YEAR_TO_REGION_TO_SEATS[self.year][region_id]
-
-        return 0
-
     @staticmethod
     def init(election_type, year):
         raw_result_list = read_tsv(
@@ -84,14 +87,20 @@ class Election(ElectionBase):
             election_type,
             year,
             get_result_idx(
+                election_type,
+                year,
                 raw_result_list,
                 ent_types.ENTITY_TYPE.PD,
             ),
             get_result_idx(
+                election_type,
+                year,
                 raw_result_list,
                 ent_types.ENTITY_TYPE.ED,
             ),
             get_result_idx(
+                election_type,
+                year,
                 raw_result_list,
                 ent_types.ENTITY_TYPE.COUNTRY,
             )['LK'],
