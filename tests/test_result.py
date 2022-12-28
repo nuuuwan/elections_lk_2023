@@ -2,28 +2,36 @@ from unittest import TestCase
 
 from elections_lk.core.Result import Result
 
-TEST_RESULT = Result.loadFromDict(
-    dict(
-        entity_id='EC-01A',
-        valid=900,
-        rejected=100,
-        polled=1000,
-        electors=1250,
+TEST_RESULT = Result(
+    region_id='EC-01A',
+    valid=900,
+    rejected=100,
+    polled=1000,
+    electors=1250,
+    party_to_votes=dict(
         UNP=500,
         SLFP=400,
-    )
+    ),
+    seats=1,
+    party_to_seats=dict(
+        UNP=1,
+    ),
 )
 
-TEST_RESULT2 = Result.loadFromDict(
-    dict(
-        entity_id='EC-01B',
-        valid=400,
-        rejected=10,
-        polled=410,
-        electors=451,
+TEST_RESULT2 = Result(
+    region_id='EC-01B',
+    valid=400,
+    rejected=10,
+    polled=410,
+    electors=451,
+    party_to_votes=dict(
         UNP=100,
         SLFP=300,
-    )
+    ),
+    seats=1,
+    party_to_seats=dict(
+        SLFP=1,
+    ),
 )
 
 
