@@ -28,6 +28,12 @@ class Result:
     def p_turnout(self):
         return self.polled / self.electors
 
+    def get_party_votes(self, party):
+        return self.party_to_votes[party]
+
+    def get_party_votes_p(self, party):
+        return self.get_party_votes(party) / self.valid
+
     @staticmethod
     def extractPartyToVotes(d):
         party_to_votes = {}

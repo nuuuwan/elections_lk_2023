@@ -56,6 +56,16 @@ class TestResult(TestCase):
         result = TEST_RESULT
         self.assertEqual(result.p_turnout, 0.8)
 
+    def test_get_party_votes(self):
+        result = TEST_RESULT
+        self.assertEqual(result.get_party_votes('UNP'), 500)
+        self.assertEqual(result.get_party_votes('SLFP'), 400)
+
+    def test_get_party_votes_p(self):
+        result = TEST_RESULT
+        self.assertEqual(result.get_party_votes_p('UNP'), 0.5555555555555556)
+        self.assertEqual(result.get_party_votes_p('SLFP'), 0.4444444444444444)
+
     def test_concat(self):
         result = Result.concat('EC-01', [TEST_RESULT, TEST_RESULT2])
 

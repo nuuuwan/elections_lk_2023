@@ -1,6 +1,7 @@
 import os
 from dataclasses import dataclass
 
+from gig import ent_types
 from utils.www import read_tsv
 
 from elections_lk.core.ElectionType import ElectionType
@@ -11,9 +12,21 @@ GIG2_URL_ROOT = (
 )
 
 
-def is_pd(d):
-    region_id = d['entity_id']
-    return len(region_id) == 6 and region_id[:3] == 'EC-'
+def get_result_idx(raw_result_list, ent_type):
+    return dict(
+        list(
+            map(
+                lambda d: [d['entity_id'], Result.loadFromDict(d)],
+                list(
+                    filter(
+                        lambda d: ent_types.get_entity_type(d['entity_id'])
+                        == ent_type,
+                        raw_result_list,
+                    )
+                ),
+            )
+        )
+    )
 
 
 @dataclass
@@ -21,9 +34,14 @@ class Election:
     election_type: ElectionType
     year: int
     pd_result_idx: dict
+    ed_result_idx: dict
+    country_result: Result
 
     def get_pd_result(self, pd_id):
         return self.pd_result_idx[pd_id]
+
+    def get_ed_result(self, ed_id):
+        return self.ed_result_idx[ed_id]
 
     @staticmethod
     def init(election_type, year):
@@ -34,21 +52,13 @@ class Election:
                 + f'.regions-ec.{year}.tsv',
             )
         )
-        raw_pd_result_list = list(
-            filter(
-                is_pd,
-                raw_result_list,
-            )
-        )
-        pd_result_idx = dict(
-            [
-                [d['entity_id'], Result.loadFromDict(d)]
-                for d in raw_pd_result_list
-            ]
-        )
 
         return Election(
             election_type,
             year,
-            pd_result_idx,
+            get_result_idx(raw_result_list, ent_types.ENTITY_TYPE.PD),
+            get_result_idx(raw_result_list, ent_types.ENTITY_TYPE.ED),
+            get_result_idx(raw_result_list, ent_types.ENTITY_TYPE.COUNTRY)[
+                'LK'
+            ],
         )
