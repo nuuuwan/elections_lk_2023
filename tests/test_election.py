@@ -23,6 +23,10 @@ class TestElection(TestCase):
             test_pd_result.seats,
             0,
         )
+        self.assertEqual(
+            test_pd_result.party_to_seats,
+            dict(),
+        )
 
         test_ed_result = election.get_ed_result(TEST_ED_ID)
         self.assertEqual(test_ed_result.region_id, TEST_ED_ID)
@@ -30,6 +34,10 @@ class TestElection(TestCase):
         self.assertEqual(
             test_ed_result.seats,
             0,
+        )
+        self.assertEqual(
+            test_ed_result.party_to_seats,
+            dict(),
         )
 
         country_result = election.country_result
@@ -47,6 +55,10 @@ class TestElection(TestCase):
             country_result.seats,
             1,
         )
+        self.assertEqual(
+            country_result.party_to_seats,
+            dict(SLPP=1),
+        )
 
     def test_init_parliamentary(self):
         election = TEST_ELECTION_PARLIAMENTARY
@@ -61,6 +73,10 @@ class TestElection(TestCase):
             test_pd_result.seats,
             0,
         )
+        self.assertEqual(
+            test_pd_result.party_to_seats,
+            dict(),
+        )
 
         test_ed_result = election.get_ed_result(TEST_ED_ID)
         self.assertEqual(test_ed_result.region_id, TEST_ED_ID)
@@ -68,6 +84,10 @@ class TestElection(TestCase):
         self.assertEqual(
             test_ed_result.seats,
             19,
+        )
+        self.assertEqual(
+            test_ed_result.party_to_seats,
+            dict(SLPP=12, SJB=6, JJB=1),
         )
 
         country_result = election.country_result
@@ -84,4 +104,16 @@ class TestElection(TestCase):
         self.assertEqual(
             country_result.seats,
             29,
+        )
+        self.assertEqual(
+            country_result.party_to_seats,
+            dict(
+                SLPP=17,
+                SJB=7,
+                JJB=1,
+                ITAK=1,
+                UNP=1,
+                AITC=1,
+                OPPP=1,
+            ),
         )

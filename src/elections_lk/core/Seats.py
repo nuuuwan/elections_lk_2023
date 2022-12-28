@@ -48,21 +48,32 @@ class Seats:
                         party_to_non_bonus_seats.items(),
                     )
                 ),
-                key=lambda x: -x[1],
+                key=lambda x: -(x[1] + party_to_votes[x[0]] / total_votes),
             )
         )
 
     @staticmethod
     def get_party_to_seats(party_to_votes, total_seats, p_limit, bonus):
+        party_to_votes = dict(
+            sorted(party_to_votes.items(), key=lambda x: -x[1])
+        )
+
         eligible_party_to_votes = (
             eligible_party_to_votes
         ) = Seats.get_eligible_party_to_votes(party_to_votes, p_limit)
-        party_to_seats = Seats.assign_nonbonus_seats(
-            eligible_party_to_votes,
-            total_seats - bonus,
-        )
 
-        if bonus > 0:
-            winning_party = list(party_to_seats.keys())[0]
+        nonbonus_seats = total_seats - bonus
+        if nonbonus_seats > 0:
+            party_to_seats = Seats.assign_nonbonus_seats(
+                eligible_party_to_votes,
+                nonbonus_seats,
+            )
+        else:
+            party_to_seats = {}
+
+        if bonus > 0 and total_seats >= bonus:
+            winning_party = list(party_to_votes.keys())[0]
+            if winning_party not in party_to_seats:
+                party_to_seats[winning_party] = 0
             party_to_seats[winning_party] += bonus
         return party_to_seats

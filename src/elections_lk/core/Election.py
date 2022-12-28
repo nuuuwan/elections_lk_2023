@@ -6,6 +6,7 @@ from utils.www import read_tsv
 from elections_lk.core.ElectionBase import ElectionBase
 from elections_lk.core.ElectionType import ElectionType
 from elections_lk.core.Result import Result
+from elections_lk.core.Seats import Seats
 from elections_lk.core.YEAR_TO_REGION_TO_SEATS import YEAR_TO_REGION_TO_SEATS
 
 NON_PARTY_FIELDS = ['entity_id', 'valid', 'rejected', 'polled', 'electors']
@@ -43,16 +44,41 @@ def get_seats(election_type, year, region_id):
     return 0
 
 
+def get_limit_and_bonus(election_type, region_id):
+    if election_type == ElectionType.PRESIDENTIAL:
+        return [0, 1]
+    elif election_type == ElectionType.PARLIAMENTARY:
+        region_type = ent_types.get_entity_type(region_id)
+        if region_type == ent_types.ENTITY_TYPE.ED:
+            return [0.05, 1]
+        elif region_type == ent_types.ENTITY_TYPE.COUNTRY:
+            return [0, 0]
+        elif region_type == ent_types.ENTITY_TYPE.PD:
+            return [0, 0]
+        else:
+            raise Exception('Invalid region type: ' + region_type)
+    raise Exception('Invalid election type: ' + election_type)
+
+
 def get_result(election_type, year, d):
+    region_id = d['entity_id']
+    party_to_votes = extract_party_to_votes(d)
+
+    seats = get_seats(election_type, year, d['entity_id'])
+    limit, bonus = get_limit_and_bonus(election_type, region_id)
+    party_to_seats = Seats.get_party_to_seats(
+        party_to_votes, seats, limit, bonus
+    )
+
     return Result(
-        d['entity_id'],
+        region_id,
         parse_int(d['valid']),
         parse_int(d['rejected']),
         parse_int(d['polled']),
         parse_int(d['electors']),
-        extract_party_to_votes(d),
-        get_seats(election_type, year, d['entity_id']),
-        {},
+        party_to_votes,
+        seats,
+        party_to_seats,
     )
 
 
