@@ -15,6 +15,7 @@ class TestElection(TestCase):
         self.assertEqual(election.election_type, ElectionType.PRESIDENTIAL)
         self.assertEqual(election.year, 2019)
         self.assertEqual(len(election.pd_result_idx), 160)
+        self.assertEqual(election.total_polled, 13_387_950)
 
         test_pd_result = election.get_pd_result(TEST_PD_ID)
         self.assertEqual(test_pd_result.region_id, TEST_PD_ID)
@@ -65,6 +66,7 @@ class TestElection(TestCase):
         self.assertEqual(election.election_type, ElectionType.PARLIAMENTARY)
         self.assertEqual(election.year, 2020)
         self.assertEqual(len(election.pd_result_idx), 160)
+        self.assertEqual(election.total_polled, 12_343_309)
 
         test_pd_result = election.get_pd_result(TEST_PD_ID)
         self.assertEqual(test_pd_result.region_id, TEST_PD_ID)

@@ -17,3 +17,7 @@ class ElectionBase:
 
     def get_ed_result(self, ed_id):
         return self.ed_result_idx[ed_id]
+
+    @property
+    def total_polled(self):
+        return self.country_result.polled
