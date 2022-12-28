@@ -1,9 +1,9 @@
 import os
-from dataclasses import dataclass
 
 from gig import ent_types
 from utils.www import read_tsv
 
+from elections_lk.core.ElectionBase import ElectionBase
 from elections_lk.core.ElectionType import ElectionType
 from elections_lk.core.Result import Result
 from elections_lk.core.YEAR_TO_REGION_TO_SEATS import YEAR_TO_REGION_TO_SEATS
@@ -55,20 +55,7 @@ def get_result_idx(raw_result_list, ent_type):
     )
 
 
-@dataclass
-class Election:
-    election_type: ElectionType
-    year: int
-    pd_result_idx: dict
-    ed_result_idx: dict
-    country_result: Result
-
-    def get_pd_result(self, pd_id):
-        return self.pd_result_idx[pd_id]
-
-    def get_ed_result(self, ed_id):
-        return self.ed_result_idx[ed_id]
-
+class Election(ElectionBase):
     def get_seats(self, region_id):
         region_type = ent_types.get_entity_type(region_id)
         if self.election_type == ElectionType.PRESIDENTIAL:
