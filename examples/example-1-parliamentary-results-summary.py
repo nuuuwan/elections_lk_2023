@@ -22,13 +22,12 @@ def summary_for_year(year):
     print(year)
     print('-' * 32)
     summary_by_party(election)
-    print('.' * 32)
-    summary_by_ed(election)
+    # print('.' * 32)
+    # summary_by_ed(election)
 
 
 def main():
-    # 1989, 1994, 2000, 2001, 2004, 2010, 2015
-    for year in [2020]:
+    for year in [1989, 1994, 2000, 2001, 2004, 2010, 2015, 2020]:
         summary_for_year(year)
 
 
