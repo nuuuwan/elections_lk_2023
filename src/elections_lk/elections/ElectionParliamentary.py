@@ -28,6 +28,7 @@ def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
 
 @dataclass
 class ElectionParliamentary(Election):
+    '''Parliamentary election.'''
     pd_results: list[Result]
 
     election_type = 'parliamentary'
@@ -35,6 +36,7 @@ class ElectionParliamentary(Election):
 
     @cached_property
     def ed_final_results(self) -> list[FinalResult]:
+        '''Get final results for each electoral district.'''
         ed_results = Result.mapAndConcat(
             self.pd_results, lambda entity_id: entity_id[:5]
         )
@@ -48,6 +50,7 @@ class ElectionParliamentary(Election):
 
     @cached_property
     def national_list_final_result(self) -> FinalResult:
+        '''Get final results for national list.'''
         country_result = Result.concat('LK', self.pd_results)
         party_to_seats = Dict(
             Seats.get_party_to_seats(
@@ -61,6 +64,7 @@ class ElectionParliamentary(Election):
 
     @cached_property
     def country_final_result(self) -> FinalResult:
+        '''Get final results for the country.'''
         country_result = Result.concat('LK', self.pd_results)
         return FinalResult.fromResult(
             country_result,

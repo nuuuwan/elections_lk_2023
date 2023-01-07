@@ -18,6 +18,7 @@ CACHE_NAME, CACHE_TIMEOUT = (
 
 
 def parse_int(x):
+    '''Parse int, but return 0 if x is None or empty string.'''
     if not x:
         return 0
     return (int)(round((float)(x), 0))
@@ -25,6 +26,7 @@ def parse_int(x):
 
 @cache(CACHE_NAME, CACHE_TIMEOUT)
 def get_raw_result_list(election_type: str, year: int) -> list:
+    '''Get raw result list from remote data source.'''
     url = os.path.join(
         GIG2_URL_ROOT,
         f'government-elections-{election_type}' + f'.regions-ec.{year}.tsv',
@@ -33,6 +35,7 @@ def get_raw_result_list(election_type: str, year: int) -> list:
 
 
 def filter_by_entity_type(raw_result_list: list, entity_type: str) -> list:
+    '''Filter raw result list by entity type.'''
     return list(
         filter(
             lambda x: ent_types.get_entity_type(x['entity_id'])
@@ -45,6 +48,7 @@ def filter_by_entity_type(raw_result_list: list, entity_type: str) -> list:
 def get_result_list(
     election_type: str, year: int, entity_type: str
 ) -> list[Result]:
+    '''Get result list from remote data source.'''
     filtered_raw_result_list = filter_by_entity_type(
         get_raw_result_list(election_type, year), entity_type
     )

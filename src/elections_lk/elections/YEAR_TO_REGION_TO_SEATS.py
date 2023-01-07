@@ -1,3 +1,4 @@
+'''This file contains the number of seats for each region in each election.'''
 YEAR_TO_REGION_TO_SEATS = {
     1989: {
         'EC-01': 20,
