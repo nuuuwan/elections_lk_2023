@@ -10,6 +10,7 @@ class ElectionPresidential(Election):
     pd_results: list[Result]
 
     election_type = 'presidential'
+    years =  [1982, 1988, 1994, 1999, 2005, 2010, 2015, 2019]
 
     @cached_property
     def ed_results(self) -> list[Result]:

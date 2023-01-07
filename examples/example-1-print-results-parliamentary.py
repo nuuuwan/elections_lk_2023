@@ -16,29 +16,18 @@ def humanize(x):
 
 
 def main():
-    year = 2020
-    election = ElectionParliamentary.load(year)
-
-    for final_result in election.ed_final_results + [
-        election.national_list_final_result
-    ]:
+    for year in [2000]:
         print('-' * 32)
-        print(final_result.region_id)
+        print(year)
         print('-' * 32)
-
-        for party, votes in final_result.party_to_votes.items_othered(0.01):
-            print(party, '\t', humanize(votes))
-
-        print('-' * 8)
-        print('valid', '\t', humanize(final_result.summary_statistics.valid))
-        print(
-            'reje.', '\t', humanize(final_result.summary_statistics.rejected)
-        )
-        print('poll.', '\t', humanize(final_result.summary_statistics.polled))
-        print(
-            'elec.', '\t', humanize(final_result.summary_statistics.electors)
-        )
-
+        election = ElectionParliamentary.load(year)
+        for result in election.pd_results + [election.ed_final_results[10]]:
+            if result.region_id[:5] != 'EC-11':
+                continue
+            print('-' * 32)             
+            print(result.region_id)
+            for party, votes in result.party_to_votes.items_othered(0.005):
+                print('\t'.join([party, humanize(votes)]))
 
 if __name__ == '__main__':
     main()
