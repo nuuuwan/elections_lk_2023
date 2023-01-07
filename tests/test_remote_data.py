@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from gig import ent_types
 
-from elections_lk.core import remote_data
+from elections_lk.elections import remote_data
 
 
 class TestRemoteData(TestCase):

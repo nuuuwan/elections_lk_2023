@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from elections_lk.core.Election import Election
+from elections_lk.elections.Election import Election
 
 
 class TestElection(TestCase):

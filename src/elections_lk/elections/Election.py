@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from gig import ent_types
 
-from elections_lk.core import remote_data
+from elections_lk.elections import remote_data
 
 
 @dataclass
