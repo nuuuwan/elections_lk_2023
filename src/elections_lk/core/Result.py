@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from elections_lk.core.Dict import Dict
 from elections_lk.core.EntityID import EntityID
+from elections_lk.core.PartyToVotes import PartyToVotes
 from elections_lk.core.SummaryStatistics import SummaryStatistics
 
 
@@ -9,7 +9,7 @@ from elections_lk.core.SummaryStatistics import SummaryStatistics
 class Result:
     entity_id: EntityID
     summary_statistics: SummaryStatistics
-    party_to_votes: Dict
+    party_to_votes: PartyToVotes
 
     @property
     def valid_long(self):
@@ -27,7 +27,9 @@ class Result:
             [r.summary_statistics for r in result_list]
         )
 
-        party_to_votes = Dict.concat([r.party_to_votes for r in result_list])
+        party_to_votes = PartyToVotes.concat(
+            [r.party_to_votes for r in result_list]
+        )
 
         return cls(
             entity_id=concat_entity_id,
