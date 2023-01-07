@@ -45,7 +45,6 @@ class TestResult(TestCase):
                 electors=1250,
             ),
         )
-        self.assertEqual(result.valid_long, 900)
         self.assertEqual(
             result.party_to_votes,
             dict(
@@ -53,16 +52,6 @@ class TestResult(TestCase):
                 SLFP=400,
             ),
         )
-
-    def test_get_party_votes(self):
-        result = TEST_RESULT
-        self.assertEqual(result.get_party_votes('UNP'), 500)
-        self.assertEqual(result.get_party_votes('SLFP'), 400)
-
-    def test_get_party_votes_p(self):
-        result = TEST_RESULT
-        self.assertEqual(result.get_party_votes_p('UNP'), 0.5555555555555556)
-        self.assertEqual(result.get_party_votes_p('SLFP'), 0.4444444444444444)
 
     def test_concat(self):
         result = Result.concat('EC-01', [TEST_RESULT, TEST_RESULT2])
@@ -77,7 +66,6 @@ class TestResult(TestCase):
                 electors=1701,
             ),
         )
-        self.assertEqual(result.valid_long, 1300)
 
         self.assertEqual(
             result.party_to_votes,

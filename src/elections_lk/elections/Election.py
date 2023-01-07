@@ -8,6 +8,7 @@ from elections_lk.elections import remote_data
 @dataclass
 class Election:
     '''Base class for all elections.'''
+
     year: int
 
     @classmethod

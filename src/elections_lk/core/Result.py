@@ -11,16 +11,6 @@ class Result:
     summary_statistics: SummaryStatistics
     party_to_votes: PartyToVotes
 
-    @property
-    def valid_long(self):
-        return sum(self.party_to_votes.values())
-
-    def get_party_votes(self, party):
-        return self.party_to_votes[party]
-
-    def get_party_votes_p(self, party):
-        return self.get_party_votes(party) / self.summary_statistics.valid
-
     @classmethod
     def concat(cls, concat_entity_id: EntityID, result_list: list):
         summary_statistics = SummaryStatistics.concat(

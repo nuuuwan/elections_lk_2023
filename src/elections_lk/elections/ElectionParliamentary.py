@@ -29,6 +29,7 @@ def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
 @dataclass
 class ElectionParliamentary(Election):
     '''Parliamentary election.'''
+
     pd_results: list[Result]
 
     election_type = 'parliamentary'

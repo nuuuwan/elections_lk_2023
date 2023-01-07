@@ -8,6 +8,7 @@ from elections_lk.elections.Election import Election
 @dataclass
 class ElectionPresidential(Election):
     '''Presidential election.'''
+
     pd_results: list[Result]
 
     election_type = 'presidential'
