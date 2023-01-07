@@ -22,10 +22,10 @@ def main():
         print('-' * 32)
         election = ElectionParliamentary.load(year)
         for result in election.pd_results + [election.ed_final_results[10]]:
-            if result.region_id[:5] != 'EC-11':
+            if result.entity_id[:5] != 'EC-11':
                 continue
             print('-' * 32)
-            print(result.region_id)
+            print(result.entity_id)
             for party, votes in result.party_to_votes.items_othered(0.005):
                 print('\t'.join([party, humanize(votes)]))
 

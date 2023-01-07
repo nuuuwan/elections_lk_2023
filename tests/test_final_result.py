@@ -3,7 +3,7 @@ from unittest import TestCase
 from elections_lk.core import FinalResult, SummaryStatistics
 
 TEST_RESULT = FinalResult(
-    region_id='EC-01A',
+    entity_id='EC-01A',
     summary_statistics=SummaryStatistics(
         valid=900,
         rejected=100,
@@ -20,7 +20,7 @@ TEST_RESULT = FinalResult(
 )
 
 TEST_RESULT2 = FinalResult(
-    region_id='EC-01B',
+    entity_id='EC-01B',
     summary_statistics=SummaryStatistics(
         valid=400,
         rejected=10,

@@ -64,7 +64,7 @@ class TestRemoteData(TestCase):
             self.assertEqual(len(result_list), n_results)
             first_result = result_list[0]
             self.assertEqual(
-                ent_types.get_entity_type(first_result.region_id),
+                ent_types.get_entity_type(first_result.entity_id),
                 entity_type,
             )
             self.assertEqual(first_result.party_to_votes[party], votes)

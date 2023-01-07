@@ -18,7 +18,7 @@ def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
     party_to_seats = StrToInt(
         Seats.get_party_to_seats(
             party_to_votes=ed_result.party_to_votes.d,
-            total_seats=YEAR_TO_REGION_TO_SEATS[year][ed_result.region_id],
+            total_seats=YEAR_TO_REGION_TO_SEATS[year][ed_result.entity_id],
             p_limit=P_LIMIT_ED,
             bonus=BONUS_ED,
         )
@@ -36,7 +36,7 @@ class ElectionParliamentary(Election):
     @cached_property
     def ed_final_results(self) -> list[FinalResult]:
         ed_results = Result.mapAndConcat(
-            self.pd_results, lambda region_id: region_id[:5]
+            self.pd_results, lambda entity_id: entity_id[:5]
         )
 
         return list(

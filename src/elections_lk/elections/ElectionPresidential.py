@@ -15,7 +15,7 @@ class ElectionPresidential(Election):
     @cached_property
     def ed_results(self) -> list[Result]:
         return Result.mapAndConcat(
-            self.pd_results, lambda region_id: region_id[:5]
+            self.pd_results, lambda entity_id: entity_id[:5]
         )
 
     @cached_property

@@ -3,7 +3,7 @@ from unittest import TestCase
 from elections_lk.core import Result, SummaryStatistics
 
 TEST_RESULT = Result(
-    region_id='EC-01A',
+    entity_id='EC-01A',
     summary_statistics=SummaryStatistics(
         valid=900,
         rejected=100,
@@ -17,7 +17,7 @@ TEST_RESULT = Result(
 )
 
 TEST_RESULT2 = Result(
-    region_id='EC-01B',
+    entity_id='EC-01B',
     summary_statistics=SummaryStatistics(
         valid=400,
         rejected=10,
@@ -35,7 +35,7 @@ class TestResult(TestCase):
     def test_init(self):
         result = TEST_RESULT
 
-        self.assertEqual(result.region_id, 'EC-01A')
+        self.assertEqual(result.entity_id, 'EC-01A')
         self.assertEqual(
             result.summary_statistics,
             SummaryStatistics(
@@ -67,7 +67,7 @@ class TestResult(TestCase):
     def test_concat(self):
         result = Result.concat('EC-01', [TEST_RESULT, TEST_RESULT2])
 
-        self.assertEqual(result.region_id, 'EC-01')
+        self.assertEqual(result.entity_id, 'EC-01')
         self.assertEqual(
             result.summary_statistics,
             SummaryStatistics(
@@ -92,7 +92,7 @@ class TestResult(TestCase):
             [TEST_RESULT, TEST_RESULT2], lambda x: x[:5]
         )[0]
 
-        self.assertEqual(result.region_id, 'EC-01')
+        self.assertEqual(result.entity_id, 'EC-01')
         self.assertEqual(
             result.summary_statistics,
             SummaryStatistics(

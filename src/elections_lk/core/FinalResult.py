@@ -16,22 +16,22 @@ class FinalResult(Result):
     @staticmethod
     def fromResult(result: Result, party_to_seats: StrToInt):
         return FinalResult(
-            result.region_id,
+            result.entity_id,
             result.summary_statistics,
             result.party_to_votes,
             party_to_seats,
         )
 
     @classmethod
-    def concat(cls, concat_region_id, result_list):
+    def concat(cls, concat_entity_id, result_list):
 
-        result = Result.concat(concat_region_id, result_list)
+        result = Result.concat(concat_entity_id, result_list)
         party_to_seats = StrToInt.concat(
             [r.party_to_seats for r in result_list]
         )
 
         return FinalResult(
-            result.region_id,
+            result.entity_id,
             result.summary_statistics,
             result.party_to_votes,
             party_to_seats,

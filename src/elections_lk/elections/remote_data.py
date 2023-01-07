@@ -66,7 +66,7 @@ def get_result_list(election_type, year, entity_type):
         )
         result_list.append(
             Result(
-                region_id=raw_result['entity_id'],
+                entity_id=raw_result['entity_id'],
                 summary_statistics=SummaryStatistics(
                     valid=parse_int(raw_result['valid']),
                     rejected=parse_int(raw_result['rejected']),
@@ -76,5 +76,5 @@ def get_result_list(election_type, year, entity_type):
                 party_to_votes=party_to_votes,
             )
         )
-    result_list = sorted(result_list, key=lambda result: result.region_id)
+    result_list = sorted(result_list, key=lambda result: result.entity_id)
     return result_list
