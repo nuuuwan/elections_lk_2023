@@ -26,12 +26,9 @@ class Result:
             [r.summary_statistics for r in result_list]
         )
 
-        party_to_votes = {}
-        for r in result_list:
-            for k, v in r.party_to_votes.items():
-                if k not in party_to_votes:
-                    party_to_votes[k] = 0
-                party_to_votes[k] += v
+        party_to_votes = StrToInt.concat(
+            [r.party_to_votes for r in result_list]
+        )
 
         return cls(
             region_id=concat_region_id,

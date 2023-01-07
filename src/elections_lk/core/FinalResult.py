@@ -14,12 +14,9 @@ class FinalResult(Result):
 
         result = Result.concat(concat_region_id, result_list)
         seats = sum([r.seats for r in result_list])
-        party_to_seats = {}
-        for r in result_list:
-            for k, v in r.party_to_seats.items():
-                if k not in party_to_seats:
-                    party_to_seats[k] = 0
-                party_to_seats[k] += v
+        party_to_seats = StrToInt.concat(
+            [r.party_to_seats for r in result_list]
+        )
 
         return FinalResult(
             result.region_id,
