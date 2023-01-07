@@ -30,13 +30,9 @@ class ElectionPresidential(Election):
     @property
     def country_final_result(self) -> FinalResult:
         country_result = Result.concat('LK', self.pd_results)
-        winning_party = list(country_result.party_to_votes.items_sorted())[0][
-            0
-        ]
-        return FinalResult(
-            country_result.region_id,
-            country_result.summary_statistics,
-            country_result.party_to_votes,
+        winning_party = country_result.party_to_votes.sorted_keys()[0]
+        return FinalResult.fromResult(
+            country_result,
             seats=1,
             party_to_seats={winning_party: 1},
         )
