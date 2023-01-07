@@ -43,7 +43,7 @@ class TestSeats(TestCase):
                 Seats.assign_nonbonus_seats(party_to_votes, total_seats),
             )
 
-    def test_get_party_to_seats(self):
+    def test_get_party_to_seats_ed(self):
         for (party_to_votes, total_seats, expected_party_to_seats,) in [
             [dict(UNP=50, SLFP=46, JVP=4), 0, dict()],
             [dict(UNP=50, SLFP=46, JVP=4), 3, dict(UNP=2, SLFP=1)],

@@ -13,6 +13,11 @@ GIG2_URL_ROOT = (
 )
 NON_PARTY_FIELDS = ['entity_id', 'valid', 'rejected', 'polled', 'electors']
 
+CACHE_NAME, CACHE_TIMEOUT = (
+    'remote_data-v20230107-1816',
+    timex.SECONDS_IN.YEAR,
+)
+
 
 def parse_int(x):
     if not x:
@@ -20,14 +25,13 @@ def parse_int(x):
     return (int)(round((float)(x), 0))
 
 
-@cache('get_raw_result_list', timex.SECONDS_IN.YEAR)
+@cache(CACHE_NAME, CACHE_TIMEOUT)
 def get_raw_result_list(election_type, year):
     url = os.path.join(
         GIG2_URL_ROOT,
-        f'government-elections-{election_type}'
-        + f'.regions-ec.{year}.tsv',
+        f'government-elections-{election_type}' + f'.regions-ec.{year}.tsv',
     )
-    return www.read_tsv(url)
+    return www.read_tsv(url, cached=False)
 
 
 def filter_by_entity_type(raw_result_list, entity_type):

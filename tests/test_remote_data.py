@@ -25,7 +25,7 @@ class TestRemoteData(TestCase):
         raw_result_list = remote_data.get_raw_result_list(
             'presidential', 2019
         )
-        self.assertEqual(len(raw_result_list), 14510)
+        self.assertEqual(len(raw_result_list), 14_532)
         keys = list(raw_result_list[0].keys())
         for k in ['entity_id', 'valid', 'rejected', 'polled', 'electors']:
             self.assertIn(k, keys)
@@ -35,7 +35,7 @@ class TestRemoteData(TestCase):
             'presidential', 2019
         )
         for entity_type, n_results in [
-            [ent_types.ENTITY_TYPE.PD, 160],
+            [ent_types.ENTITY_TYPE.PD, 182],
             [ent_types.ENTITY_TYPE.ED, 22],
             [ent_types.ENTITY_TYPE.COUNTRY, 1],
         ]:
@@ -52,7 +52,7 @@ class TestRemoteData(TestCase):
 
     def test_get_result_list(self):
         for entity_type, n_results, party, votes in [
-            [ent_types.ENTITY_TYPE.PD, 160, 'SLPP', 16_986],
+            [ent_types.ENTITY_TYPE.PD, 182, 'SLPP', 16_986],
             [ent_types.ENTITY_TYPE.ED, 22, 'SLPP', 727_713],
             [ent_types.ENTITY_TYPE.COUNTRY, 1, 'SLPP', 6_924_255],
         ]:

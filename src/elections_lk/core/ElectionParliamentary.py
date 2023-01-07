@@ -62,10 +62,14 @@ class ElectionParliamentary(Election):
 
     @cached_property
     def country_final_result(self) -> FinalResult:
-        return FinalResult.concat(
-            'LK',
-            self.ed_final_results
-            + [
-                self.national_list_final_result,
-            ],
+        country_result = Result.concat('LK', self.pd_results)
+        return FinalResult.fromResult(
+            country_result,
+            StrToInt.concat(
+                [
+                    final_result.party_to_seats
+                    for final_result in self.ed_final_results
+                ]
+                + [self.national_list_final_result.party_to_seats]
+            ),
         )
