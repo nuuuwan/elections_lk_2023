@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from elections_lk.core.StrToInt import StrToInt
+from elections_lk.core import StrToInt
 
 
 class TestStrToInt(TestCase):

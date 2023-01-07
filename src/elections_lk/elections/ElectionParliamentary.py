@@ -1,10 +1,7 @@
 from dataclasses import dataclass
 from functools import cached_property
 
-from elections_lk.core.FinalResult import FinalResult
-from elections_lk.core.Result import Result
-from elections_lk.core.Seats import Seats
-from elections_lk.core.StrToInt import StrToInt
+from elections_lk.core import FinalResult, Result, Seats, StrToInt
 from elections_lk.elections.Election import Election
 from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import \
     YEAR_TO_REGION_TO_SEATS

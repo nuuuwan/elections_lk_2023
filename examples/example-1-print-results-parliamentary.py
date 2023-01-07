@@ -1,4 +1,4 @@
-from elections_lk.elections.ElectionParliamentary import ElectionParliamentary
+from elections_lk.elections import ElectionParliamentary
 
 MIN_P_VOTES = 0.01
 

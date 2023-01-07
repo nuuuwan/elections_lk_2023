@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 from functools import cached_property
 
-from elections_lk.core.FinalResult import FinalResult
-from elections_lk.core.Result import Result
+from elections_lk.core import FinalResult, Result
 from elections_lk.elections.Election import Election
 
 

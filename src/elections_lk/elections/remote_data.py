@@ -4,9 +4,7 @@ from gig import ent_types
 from utils import timex, www
 from utils.cache import cache
 
-from elections_lk.core.Result import Result
-from elections_lk.core.StrToInt import StrToInt
-from elections_lk.core.SummaryStatistics import SummaryStatistics
+from elections_lk.core import Result, StrToInt, SummaryStatistics
 
 GIG2_URL_ROOT = (
     'https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2'

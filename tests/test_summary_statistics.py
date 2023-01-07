@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from elections_lk.core.SummaryStatistics import SummaryStatistics
+from elections_lk.core import SummaryStatistics
 
 TEST_RESULT = SummaryStatistics(
     valid=900,
