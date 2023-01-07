@@ -15,7 +15,6 @@ TEST_RESULT = FinalResult(
         UNP=500,
         SLFP=400,
     ),
-    seats=1,
     party_to_seats=dict(
         UNP=1,
     ),
@@ -33,7 +32,6 @@ TEST_RESULT2 = FinalResult(
         UNP=100,
         SLFP=300,
     ),
-    seats=1,
     party_to_seats=dict(
         SLFP=1,
     ),
