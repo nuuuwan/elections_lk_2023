@@ -35,3 +35,21 @@ class Result:
             summary_statistics=summary_statistics,
             party_to_votes=party_to_votes,
         )
+
+    @classmethod
+    def mapAndConcat(cls, result_list, func_map) -> list:
+        concat_region_id_to_result_list = {}
+        for result in result_list:
+            concat_region_id = func_map(result.region_id)
+            if concat_region_id not in concat_region_id_to_result_list:
+                concat_region_id_to_result_list[concat_region_id] = []
+            concat_region_id_to_result_list[concat_region_id].append(result)
+
+        result2_list = []
+        for (
+            concat_region_id,
+            result_list,
+        ) in concat_region_id_to_result_list.items():
+            result2_list.append(cls.concat(concat_region_id, result_list))
+
+        return result2_list

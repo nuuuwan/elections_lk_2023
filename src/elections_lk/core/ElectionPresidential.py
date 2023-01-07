@@ -23,23 +23,16 @@ class ElectionPresidential(Election):
 
     @property
     def ed_results(self) -> list[Result]:
-        ed_id_to_results = {}
-        for result in self.pd_results:
-            ed_id = result.region_id[:5]
-            if ed_id not in ed_id_to_results:
-                ed_id_to_results[ed_id] = []
-            ed_id_to_results[ed_id].append(result)
-
-        ed_results = []
-        for ed_id, results in ed_id_to_results.items():
-            ed_result = Result.concat(ed_id, results)
-            ed_results.append(ed_result)
-        return ed_results
+        return Result.mapAndConcat(
+            self.pd_results, lambda region_id: region_id[:5]
+        )
 
     @property
     def country_final_result(self) -> FinalResult:
         country_result = Result.concat('LK', self.pd_results)
-        winning_party = list(country_result.party_to_votes.items())[0]
+        winning_party = list(country_result.party_to_votes.items_sorted())[0][
+            0
+        ]
         return FinalResult(
             country_result.region_id,
             country_result.summary_statistics,

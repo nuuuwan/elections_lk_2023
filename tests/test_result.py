@@ -87,3 +87,19 @@ class TestResult(TestCase):
                 SLFP=700,
             ),
         )
+
+    def test_map_and_concat(self):
+        result = Result.mapAndConcat(
+            [TEST_RESULT, TEST_RESULT2], lambda x: x[:5]
+        )[0]
+
+        self.assertEqual(result.region_id, 'EC-01')
+        self.assertEqual(
+            result.summary_statistics,
+            SummaryStatistics(
+                valid=1300,
+                rejected=110,
+                polled=1410,
+                electors=1701,
+            ),
+        )
