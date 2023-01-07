@@ -60,10 +60,10 @@ class Dict:
 
     @staticmethod
     def concat(d_list):
-        d = {}
+        d2 = {}
         for d in d_list:
             for k, v in d.items():
-                if k not in d:
-                    d[k] = 0
-                d[k] += v
-        return Dict(d)
+                if k not in d2:
+                    d2[k] = 0
+                d2[k] += v
+        return Dict(d2)
