@@ -32,3 +32,9 @@ class TestElectionParliamentary(TestCase):
         self.assertEqual(
             national_list_final_result.party_to_seats['SLPP'], 17
         )
+
+    def test_country_final_result(self):
+        country_final_result = TEST_ELECTION.country_final_result
+        self.assertEqual(country_final_result.region_id, "LK")
+        self.assertEqual(country_final_result.seats, 225)
+        self.assertEqual(country_final_result.party_to_seats['SLPP'], 144)

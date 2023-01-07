@@ -64,4 +64,10 @@ class ElectionParliamentary(Election):
 
     @cached_property
     def country_final_result(self) -> FinalResult:
-        raise NotImplementedError
+        return FinalResult.concat(
+            'LK',
+            self.ed_final_results
+            + [
+                self.national_list_final_result,
+            ],
+        )
