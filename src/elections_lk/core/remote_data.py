@@ -22,13 +22,12 @@ def parse_int(x):
 
 @cache('get_raw_result_list', timex.SECONDS_IN.YEAR)
 def get_raw_result_list(election_type, year):
-    return www.read_tsv(
-        os.path.join(
-            GIG2_URL_ROOT,
-            f'government-elections-{election_type}'
-            + f'.regions-ec.{year}.tsv',
-        )
+    url = os.path.join(
+        GIG2_URL_ROOT,
+        f'government-elections-{election_type}'
+        + f'.regions-ec.{year}.tsv',
     )
+    return www.read_tsv(url)
 
 
 def filter_by_entity_type(raw_result_list, entity_type):

@@ -15,6 +15,13 @@ class TestStrToInt(TestCase):
         s = StrToInt({'a': 1, 'b': 2, 'c': 3})
         self.assertEqual(s.items_sorted(), [('c', 3), ('b', 2), ('a', 1)])
 
+    def test_items_othered(self):
+        s = StrToInt({'a': 1, 'b': 2, 'c': 3})
+        self.assertEqual(
+            s.items_othered(),
+            [('c', 3), ('b', 2), ('a', 1), (StrToInt.OTHERS, 0)],
+        )
+
     def test_keys_sorted(self):
         s = StrToInt({'a': 1, 'b': 2, 'c': 3})
         self.assertEqual(s.keys_sorted(), ['c', 'b', 'a'])

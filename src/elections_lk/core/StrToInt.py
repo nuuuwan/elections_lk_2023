@@ -1,9 +1,14 @@
+from functools import cached_property
+
+
 class StrToInt:
+    OTHERS = 'Others'
+
     def __init__(self, d: dict[str, int]):
         self.d = d
 
     def __getitem__(self, key: str) -> int:
-        return self.d[key]
+        return self.d.get(key, 0)
 
     def __len__(self) -> int:
         return len(self.d)
@@ -26,6 +31,19 @@ class StrToInt:
     def items_sorted(self):
         return sorted(self.items(), key=lambda x: x[1], reverse=True)
 
+    def items_othered(self, other_limit=0.1):
+        items_othered = {}
+        total = self.sum
+        v_other_sum = 0
+        for k, v in self.items_sorted():
+            p = v / total
+            if p >= other_limit:
+                items_othered[k] = v
+            else:
+                v_other_sum += v
+        items_othered[StrToInt.OTHERS] = v_other_sum
+        return list(items_othered.items())
+
     def keys_sorted(self):
         return [k for k, v in self.items_sorted()]
 
@@ -35,6 +53,10 @@ class StrToInt:
         if isinstance(other, dict):
             return self.d == other
         return False
+
+    @cached_property
+    def sum(self):
+        return sum(self.values())
 
     @staticmethod
     def concat(str_to_int_list):
