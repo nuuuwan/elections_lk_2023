@@ -59,10 +59,10 @@ class Dict:
         return sum(self.values())
 
     @staticmethod
-    def concat(str_to_int_list):
+    def concat(d_list):
         d = {}
-        for str_to_int in str_to_int_list:
-            for k, v in str_to_int.items():
+        for d in d_list:
+            for k, v in d.items():
                 if k not in d:
                     d[k] = 0
                 d[k] += v
