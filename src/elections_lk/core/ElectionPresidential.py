@@ -1,8 +1,6 @@
 from dataclasses import dataclass
+from functools import cached_property
 
-from gig import ent_types
-
-from elections_lk.core import remote_data
 from elections_lk.core.Election import Election
 from elections_lk.core.FinalResult import FinalResult
 from elections_lk.core.Result import Result
@@ -14,23 +12,16 @@ class ElectionPresidential(Election):
 
     election_type = 'presidential'
 
-    @classmethod
-    def load(cls, year: int) -> Election:
-        result_list = remote_data.get_result_list(
-            cls.election_type, year, ent_types.ENTITY_TYPE.PD
-        )
-        return ElectionPresidential(year, result_list)
-
-    @property
+    @cached_property
     def ed_results(self) -> list[Result]:
         return Result.mapAndConcat(
             self.pd_results, lambda region_id: region_id[:5]
         )
 
-    @property
+    @cached_property
     def country_final_result(self) -> FinalResult:
         country_result = Result.concat('LK', self.pd_results)
-        winning_party = country_result.party_to_votes.sorted_keys()[0]
+        winning_party = country_result.party_to_votes.keys_sorted()[0]
         return FinalResult.fromResult(
             country_result,
             seats=1,
