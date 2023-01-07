@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from functools import cached_property
 
+from elections_lk.core.EntityID import EntityID
 from elections_lk.core.Result import Result
 from elections_lk.core.StrToInt import StrToInt
 
@@ -23,7 +24,7 @@ class FinalResult(Result):
         )
 
     @classmethod
-    def concat(cls, concat_entity_id, result_list):
+    def concat(cls, concat_entity_id: EntityID, result_list: list):
 
         result = Result.concat(concat_entity_id, result_list)
         party_to_seats = StrToInt.concat(

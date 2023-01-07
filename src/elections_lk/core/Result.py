@@ -1,12 +1,13 @@
 from dataclasses import dataclass
 
+from elections_lk.core.EntityID import EntityID
 from elections_lk.core.StrToInt import StrToInt
 from elections_lk.core.SummaryStatistics import SummaryStatistics
 
 
 @dataclass
 class Result:
-    entity_id: str
+    entity_id: EntityID
     summary_statistics: SummaryStatistics
     party_to_votes: StrToInt
 
@@ -21,7 +22,7 @@ class Result:
         return self.get_party_votes(party) / self.summary_statistics.valid
 
     @classmethod
-    def concat(cls, concat_entity_id, result_list):
+    def concat(cls, concat_entity_id: EntityID, result_list: list):
         summary_statistics = SummaryStatistics.concat(
             [r.summary_statistics for r in result_list]
         )
@@ -37,7 +38,7 @@ class Result:
         )
 
     @classmethod
-    def mapAndConcat(cls, result_list, func_map) -> list:
+    def mapAndConcat(cls, result_list: list, func_map) -> list:
         concat_entity_id_to_result_list = {}
         for result in result_list:
             concat_entity_id = func_map(result.entity_id)

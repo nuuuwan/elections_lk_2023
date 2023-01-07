@@ -24,7 +24,7 @@ def parse_int(x):
 
 
 @cache(CACHE_NAME, CACHE_TIMEOUT)
-def get_raw_result_list(election_type, year):
+def get_raw_result_list(election_type: str, year: int) -> list:
     url = os.path.join(
         GIG2_URL_ROOT,
         f'government-elections-{election_type}' + f'.regions-ec.{year}.tsv',
@@ -32,7 +32,7 @@ def get_raw_result_list(election_type, year):
     return www.read_tsv(url, cached=False)
 
 
-def filter_by_entity_type(raw_result_list, entity_type):
+def filter_by_entity_type(raw_result_list: list, entity_type: str) -> list:
     return list(
         filter(
             lambda x: ent_types.get_entity_type(x['entity_id'])
@@ -42,7 +42,9 @@ def filter_by_entity_type(raw_result_list, entity_type):
     )
 
 
-def get_result_list(election_type, year, entity_type):
+def get_result_list(
+    election_type: str, year: int, entity_type: str
+) -> list[Result]:
     filtered_raw_result_list = filter_by_entity_type(
         get_raw_result_list(election_type, year), entity_type
     )
