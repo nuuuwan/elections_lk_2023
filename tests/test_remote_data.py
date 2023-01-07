@@ -6,6 +6,21 @@ from elections_lk.core import remote_data
 
 
 class TestRemoteData(TestCase):
+    def test_parse_int(self):
+        for x, expected_int in [
+            ['1', 1],
+            ['1.0', 1],
+            ['1.01234', 1],
+            ['0.9999', 1],
+            ['12', 12],
+            ['123.003', 123],
+            [0, 0],
+            ['0', 0],
+            ['', 0],
+            [None, 0],
+        ]:
+            self.assertEqual(remote_data.parse_int(x), expected_int)
+
     def test_get_raw_result_list(self):
         raw_result_list = remote_data.get_raw_result_list(
             'presidential', 2019

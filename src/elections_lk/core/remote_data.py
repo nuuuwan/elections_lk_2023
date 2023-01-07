@@ -14,10 +14,9 @@ NON_PARTY_FIELDS = ['entity_id', 'valid', 'rejected', 'polled', 'electors']
 
 
 def parse_int(x):
-    try:
-        return (int)(round((float)(x), 0))
-    except ValueError:
+    if not x:
         return 0
+    return (int)(round((float)(x), 0))
 
 
 @cache('get_raw_result_list', timex.SECONDS_IN.YEAR)
