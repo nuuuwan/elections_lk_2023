@@ -34,3 +34,22 @@ class TestRemoteData(TestCase):
                 ent_types.get_entity_type(first_result['entity_id']),
                 entity_type,
             )
+
+    def test_get_result_list(self):
+        for entity_type, n_results, party, votes in [
+            [ent_types.ENTITY_TYPE.PD, 160, 'SLPP', 75_499],
+            [ent_types.ENTITY_TYPE.ED, 22, 'SLPP', 855_870],
+            [ent_types.ENTITY_TYPE.COUNTRY, 1, 'SLPP', 6_924_255],
+        ]:
+            result_list = remote_data.get_result_list(
+                'presidential',
+                2019,
+                entity_type,
+            )
+            self.assertEqual(len(result_list), n_results)
+            first_result = result_list[0]
+            self.assertEqual(
+                ent_types.get_entity_type(first_result.region_id),
+                entity_type,
+            )
+            self.assertEqual(first_result.party_to_votes[party], votes)
