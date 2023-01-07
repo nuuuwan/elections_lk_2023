@@ -37,8 +37,8 @@ class TestRemoteData(TestCase):
 
     def test_get_result_list(self):
         for entity_type, n_results, party, votes in [
-            [ent_types.ENTITY_TYPE.PD, 160, 'SLPP', 75_499],
-            [ent_types.ENTITY_TYPE.ED, 22, 'SLPP', 855_870],
+            [ent_types.ENTITY_TYPE.PD, 160, 'SLPP', 16_986],
+            [ent_types.ENTITY_TYPE.ED, 22, 'SLPP', 727_713],
             [ent_types.ENTITY_TYPE.COUNTRY, 1, 'SLPP', 6_924_255],
         ]:
             result_list = remote_data.get_result_list(

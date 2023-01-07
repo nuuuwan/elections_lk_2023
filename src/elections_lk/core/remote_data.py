@@ -56,12 +56,13 @@ def get_result_list(election_type, year, entity_type):
             Result(
                 region_id=raw_result['entity_id'],
                 summary_statistics=SummaryStatistics(
-                    valid=raw_result['valid'],
-                    rejected=raw_result['rejected'],
-                    polled=raw_result['polled'],
-                    electors=raw_result['electors'],
+                    valid=parse_int(raw_result['valid']),
+                    rejected=parse_int(raw_result['rejected']),
+                    polled=parse_int(raw_result['polled']),
+                    electors=parse_int(raw_result['electors']),
                 ),
                 party_to_votes=party_to_votes,
             )
         )
+    result_list = sorted(result_list, key=lambda result: result.region_id)
     return result_list
