@@ -9,6 +9,16 @@ class FinalResult(Result):
     seats: int
     party_to_seats: StrToInt
 
+    @staticmethod
+    def fromResult(result: Result, seats, party_to_seats: StrToInt):
+        return FinalResult(
+            result.region_id,
+            result.summary_statistics,
+            result.party_to_votes,
+            seats,
+            party_to_seats,
+        )
+
     @classmethod
     def concat(cls, concat_region_id, result_list):
 
