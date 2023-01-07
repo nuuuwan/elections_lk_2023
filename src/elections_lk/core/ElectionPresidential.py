@@ -24,6 +24,5 @@ class ElectionPresidential(Election):
         winning_party = country_result.party_to_votes.keys_sorted()[0]
         return FinalResult.fromResult(
             country_result,
-            seats=1,
             party_to_seats={winning_party: 1},
         )

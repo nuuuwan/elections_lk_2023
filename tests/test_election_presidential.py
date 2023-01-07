@@ -35,5 +35,5 @@ class TestElectionPresidential(TestCase):
         self.assertEqual(
             country_final_result.party_to_votes['SLPP'], 6_548_292
         )
-        self.assertEqual(country_final_result.seats, 1)
+        self.assertEqual(country_final_result.total_seats, 1)
         self.assertEqual(country_final_result.party_to_seats['SLPP'], 1)

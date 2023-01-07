@@ -17,16 +17,15 @@ BONUS_NATIONAL_LIST = 0
 
 
 def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
-    seats = YEAR_TO_REGION_TO_SEATS[year][ed_result.region_id]
     party_to_seats = StrToInt(
         Seats.get_party_to_seats(
-            ed_result.party_to_votes.d,
-            seats,
+            party_to_votes=ed_result.party_to_votes.d,
+            total_seats=YEAR_TO_REGION_TO_SEATS[year][ed_result.region_id],
             p_limit=P_LIMIT_ED,
             bonus=BONUS_ED,
         )
     )
-    return FinalResult.fromResult(ed_result, seats, party_to_seats)
+    return FinalResult.fromResult(ed_result, party_to_seats)
 
 
 @dataclass
@@ -51,16 +50,15 @@ class ElectionParliamentary(Election):
     @cached_property
     def national_list_final_result(self) -> FinalResult:
         country_result = Result.concat('LK', self.pd_results)
-        seats = SEATS_NATIONAL_LIST
         party_to_seats = StrToInt(
             Seats.get_party_to_seats(
-                country_result.party_to_votes.d,
-                seats,
+                party_to_votes=country_result.party_to_votes.d,
+                total_seats=SEATS_NATIONAL_LIST,
                 p_limit=P_LIMIT_NATIONAL_LIST,
                 bonus=BONUS_NATIONAL_LIST,
             )
         )
-        return FinalResult.fromResult(country_result, seats, party_to_seats)
+        return FinalResult.fromResult(country_result, party_to_seats)
 
     @cached_property
     def country_final_result(self) -> FinalResult:

@@ -10,11 +10,11 @@ class FinalResult(Result):
     party_to_seats: StrToInt
 
     @cached_property
-    def seats(self) -> int:
+    def total_seats(self) -> int:
         return sum(self.party_to_seats.values())
 
     @staticmethod
-    def fromResult(result: Result, seats, party_to_seats: StrToInt):
+    def fromResult(result: Result, party_to_seats: StrToInt):
         return FinalResult(
             result.region_id,
             result.summary_statistics,

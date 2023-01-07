@@ -41,7 +41,7 @@ TEST_RESULT2 = FinalResult(
 class TestResult(TestCase):
     def test_init(self):
         result = TEST_RESULT
-        self.assertEqual(result.seats, 1)
+        self.assertEqual(result.total_seats, 1)
         self.assertEqual(
             result.party_to_seats,
             dict(
@@ -51,7 +51,7 @@ class TestResult(TestCase):
 
     def test_concat(self):
         result = FinalResult.concat('EC-01', [TEST_RESULT, TEST_RESULT2])
-        self.assertEqual(result.seats, 2)
+        self.assertEqual(result.total_seats, 2)
         self.assertEqual(
             result.party_to_seats,
             dict(

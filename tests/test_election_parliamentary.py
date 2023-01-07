@@ -22,13 +22,13 @@ class TestElectionParliamentary(TestCase):
         self.assertEqual(len(ed_final_results), 22)
         first_result = ed_final_results[0]
         self.assertEqual(first_result.region_id, "EC-01")
-        self.assertEqual(first_result.seats, 19)
+        self.assertEqual(first_result.total_seats, 19)
         self.assertEqual(first_result.party_to_seats['SLPP'], 12)
 
     def test_national_list_final_result(self):
         national_list_final_result = TEST_ELECTION.national_list_final_result
         self.assertEqual(national_list_final_result.region_id, "LK")
-        self.assertEqual(national_list_final_result.seats, 29)
+        self.assertEqual(national_list_final_result.total_seats, 29)
         self.assertEqual(
             national_list_final_result.party_to_seats['SLPP'], 17
         )
@@ -36,5 +36,5 @@ class TestElectionParliamentary(TestCase):
     def test_country_final_result(self):
         country_final_result = TEST_ELECTION.country_final_result
         self.assertEqual(country_final_result.region_id, "LK")
-        self.assertEqual(country_final_result.seats, 225)
+        self.assertEqual(country_final_result.total_seats, 225)
         self.assertEqual(country_final_result.party_to_seats['SLPP'], 144)
