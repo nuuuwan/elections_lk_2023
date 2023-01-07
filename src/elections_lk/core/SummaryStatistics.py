@@ -19,3 +19,14 @@ class SummaryStatistics:
     @property
     def p_turnout(self):
         return self.polled / self.electors
+
+    @staticmethod
+    def concat(
+        summary_statistics_list: list,
+    ):
+        return SummaryStatistics(
+            valid=sum([x.valid for x in summary_statistics_list]),
+            rejected=sum([x.rejected for x in summary_statistics_list]),
+            polled=sum([x.polled for x in summary_statistics_list]),
+            electors=sum([x.electors for x in summary_statistics_list]),
+        )

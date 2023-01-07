@@ -30,3 +30,14 @@ class TestSummaryStatistics(TestCase):
     def test_p_turnout(self):
         summary_statistics = TEST_RESULT
         self.assertEqual(summary_statistics.p_turnout, 0.8)
+
+    def test_concat(self):
+        self.assertEqual(
+            SummaryStatistics.concat([TEST_RESULT, TEST_RESULT]),
+            SummaryStatistics(
+                valid=1_800,
+                rejected=200,
+                polled=2_000,
+                electors=2_500,
+            ),
+        )
