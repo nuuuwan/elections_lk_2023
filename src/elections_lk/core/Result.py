@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from elections_lk.core.StrToInt import StrToInt
 from elections_lk.core.SummaryStatistics import SummaryStatistics
 
 
@@ -7,7 +8,7 @@ from elections_lk.core.SummaryStatistics import SummaryStatistics
 class Result:
     region_id: str
     summary_statistics: SummaryStatistics
-    party_to_votes: dict
+    party_to_votes: StrToInt
 
     @property
     def valid_long(self):

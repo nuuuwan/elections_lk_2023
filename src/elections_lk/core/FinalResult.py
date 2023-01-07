@@ -1,12 +1,13 @@
 from dataclasses import dataclass
 
 from elections_lk.core.Result import Result
+from elections_lk.core.StrToInt import StrToInt
 
 
 @dataclass
 class FinalResult(Result):
     seats: int
-    party_to_seats: dict
+    party_to_seats: StrToInt
 
     @classmethod
     def concat(cls, concat_region_id, result_list):
