@@ -2,6 +2,7 @@ from functools import cached_property
 
 
 class Dict:
+    '''Dictionary with some useful methods.'''
     OTHERS = 'Others'
 
     def __init__(self, d: dict[str, int]):
