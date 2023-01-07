@@ -5,6 +5,7 @@ from utils import timex, www
 from utils.cache import cache
 
 from elections_lk.core.Result import Result
+from elections_lk.core.StrToInt import StrToInt
 from elections_lk.core.SummaryStatistics import SummaryStatistics
 
 GIG2_URL_ROOT = (
@@ -46,11 +47,22 @@ def get_result_list(election_type, year, entity_type):
     )
     result_list = []
     for raw_result in filtered_raw_result_list:
-        party_to_votes = {
-            k: parse_int(v)
-            for k, v in raw_result.items()
-            if k not in NON_PARTY_FIELDS
-        }
+        party_and_str_votes = list(
+            filter(
+                lambda x: x[0] not in NON_PARTY_FIELDS,
+                raw_result.items(),
+            )
+        )
+        party_to_votes = StrToInt(
+            dict(
+                list(
+                    map(
+                        lambda x: (x[0], parse_int(x[1])),
+                        party_and_str_votes,
+                    )
+                ),
+            )
+        )
         result_list.append(
             Result(
                 region_id=raw_result['entity_id'],
