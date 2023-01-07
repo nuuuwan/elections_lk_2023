@@ -1,7 +1,7 @@
 from functools import cached_property
 
 
-class StrToInt:
+class Dict:
     OTHERS = 'Others'
 
     def __init__(self, d: dict[str, int]):
@@ -41,14 +41,14 @@ class StrToInt:
                 items_othered[k] = v
             else:
                 v_other_sum += v
-        items_othered[StrToInt.OTHERS] = v_other_sum
+        items_othered[Dict.OTHERS] = v_other_sum
         return list(items_othered.items())
 
     def keys_sorted(self):
         return [k for k, v in self.items_sorted()]
 
     def __eq__(self, other):
-        if isinstance(other, StrToInt):
+        if isinstance(other, Dict):
             return self.d == other.d
         if isinstance(other, dict):
             return self.d == other
@@ -66,4 +66,4 @@ class StrToInt:
                 if k not in d:
                     d[k] = 0
                 d[k] += v
-        return StrToInt(d)
+        return Dict(d)

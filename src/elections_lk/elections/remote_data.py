@@ -4,7 +4,7 @@ from gig import ent_types
 from utils import timex, www
 from utils.cache import cache
 
-from elections_lk.core import Result, StrToInt, SummaryStatistics
+from elections_lk.core import Dict, Result, SummaryStatistics
 
 GIG2_URL_ROOT = (
     'https://raw.githubusercontent.com/nuuuwan/gig-data/master/gig2'
@@ -56,7 +56,7 @@ def get_result_list(
                 raw_result.items(),
             )
         )
-        party_to_votes = StrToInt(
+        party_to_votes = Dict(
             dict(
                 list(
                     map(

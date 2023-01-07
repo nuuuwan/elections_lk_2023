@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from functools import cached_property
 
-from elections_lk.core import FinalResult, Result, Seats, StrToInt
+from elections_lk.core import Dict, FinalResult, Result, Seats
 from elections_lk.elections.Election import Election
 from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import \
     YEAR_TO_REGION_TO_SEATS
@@ -15,7 +15,7 @@ BONUS_NATIONAL_LIST = 0
 
 
 def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
-    party_to_seats = StrToInt(
+    party_to_seats = Dict(
         Seats.get_party_to_seats(
             party_to_votes=ed_result.party_to_votes.d,
             total_seats=YEAR_TO_REGION_TO_SEATS[year][ed_result.entity_id],
@@ -49,7 +49,7 @@ class ElectionParliamentary(Election):
     @cached_property
     def national_list_final_result(self) -> FinalResult:
         country_result = Result.concat('LK', self.pd_results)
-        party_to_seats = StrToInt(
+        party_to_seats = Dict(
             Seats.get_party_to_seats(
                 party_to_votes=country_result.party_to_votes.d,
                 total_seats=SEATS_NATIONAL_LIST,
@@ -64,7 +64,7 @@ class ElectionParliamentary(Election):
         country_result = Result.concat('LK', self.pd_results)
         return FinalResult.fromResult(
             country_result,
-            StrToInt.concat(
+            Dict.concat(
                 [
                     final_result.party_to_seats
                     for final_result in self.ed_final_results
