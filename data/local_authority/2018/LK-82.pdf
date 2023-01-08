@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="On 13th November 2015 members for the Independent Election Commission were appointed thus establishing the Election Commission with effect from November 2015 under the 19th Amendment to the Constitution. Mr. Mahinda Deshapriya, Commissioner of Elections was appointed as the Chairman of Election Commission while the other two members of the Commission were Mr. N.J. Abeyesekere PC. and Prof. S. Rantnajeevan H. Hoole. The Department of Elections was replaced by the Election Commission."/>
+    <meta name="keywords" content="Election, Election Commission of Sri Lanka, Election Commission, Voter Sri lanka, Sri Lanka Election, Election Sri Lanka, Voter Registration, Sarana Mawatha, Rajagiriya Elections, election, Mahinda Deshpriya"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>Election Commission of Sri lanka</title>
+    <link href="./css/bootstrap.min_1.css" rel="stylesheet">
+    <link href="./css/cover.css" rel="stylesheet">
+  <style type="text/css"></style></head>
+  <body>
+
+   <div class="site-wrapper">
+   <div class="site-wrapper-inner">
+   <div class="cover-container">
+   <div class="cover"> <img src="./img/symbole.png" alt="crest">
+   </div>
+   	<div class="inner cover">
+              <h1 id="sinf">ue;sjrK fldñIka iNdj</h1>
+              <h2 id="taf">தேர்தல் ஆணைக்குழு</h2>
+              <h1 id="enf">Election Commission</h1>
+            </div>
+            <div class="cover">
+            <div class="row">
+
+                    <div class="col-md-4">
+                    <h3 id="sinf">wdhqfndajka</h3>
+					<div>
+					          <p id="sinf" class="fsin">ue;sjrK fldñIka iNdfõ ks, fjí wvúhg Tn idorfhka ms<&zwj;s.ksuq</p>
+					</div>
+                    <a href="https://elections.gov.lk/si/" id="sinf" class="btn btn btn-color btn-block">isxy,</a>
+					</div>
+
+                    <div class="col-md-4">
+                    <h3 id="taf">வணக்கம்</h3>
+					<div>
+                    <p class="fta">தேர்தல் ஆணைக்குழுவின் உத்தியோகபூர்வ இணையத்தளத்திற்கு அன்புடன் வரவேற்கின்றோம்</p>
+					</div>
+                    <a href="https://elections.gov.lk/ta/" class="btn btn btn-color btn-block"><samall>தமிழ்</samall></a>
+					</div>
+
+                    <div class="col-md-4">
+                    <h3  id="enf">WELCOME</h3>
+					<div>
+                    <p class="fen">WELCOME TO THE OFFICIAL WEBSITE OF THE ELECTION COMMISSION</p>
+					</div>
+                    <a href="https://elections.gov.lk/en/" class="btn btn btn-color btn-block">English</a>
+                    </div>
+
+                </div>
+               </div>
+               
+            <div class="mastfoot">
+              <div class="inner">
+                  <p>©<script>document.write(new Date().getFullYear());</script> Election Commission of Sri Lanka</p>                   
+              </div>
+              </div>
+        </div>
+      </div>
+    </div>
+    <script src="./css/jquery-2.1.3.min.js"></script>
+    <script src="./css/bootstrap.min.js"></script>
+ </body></html>

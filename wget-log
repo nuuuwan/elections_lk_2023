@@ -1,0 +1,13 @@
+--2023-01-08 07:59:08--  https://elections.gov.lk/web/wp-content/uploads/election-results/local-authorities-elections/2018/nu-of-mem-elected/Trincomalee_Si.pdf
+Resolving elections.gov.lk (elections.gov.lk)... 222.165.190.40
+Connecting to elections.gov.lk (elections.gov.lk)|222.165.190.40|:443... connected.
+WARNING: cannot verify elections.gov.lk's certificate, issued by ‘CN=Sectigo RSA Domain Validation Secure Server CA,O=Sectigo Limited,L=Salford,ST=Greater Manchester,C=GB’:
+  Unable to locally verify the issuer's authority.
+HTTP request sent, awaiting response... 200 OK
+Length: 714546 (698K) [application/pdf]
+Saving to: ‘data/local_authority/2018/Trincomalee.pdf’
+
+           data/local   0%[                         ]       0  --.-KB/s                         data/local_  10%[=>                       ]  72.00K   326KB/s                        data/local_a  14%[==>                      ] 104.00K   241KB/s                       data/local_au  19%[===>                     ] 136.00K   159KB/s                      data/local_aut  37%[========>                ] 264.00K   241KB/s                     data/local_auth  42%[=========>               ] 296.00K   225KB/s                    data/local_autho  44%[==========>              ] 312.00K   193KB/s                   data/local_author  60%[==============>          ] 424.00K   232KB/s                  data/local_authori  72%[=================>       ] 504.00K   240KB/s                 data/local_authorit  81%[===================>     ] 568.00K   246KB/s                data/local_authority  90%[=====================>   ] 632.00K   250KB/s               data/local_authority/ 100%[========================>] 697.80K   263KB/s    in 2.6s    
+
+2023-01-08 07:59:16 (263 KB/s) - ‘data/local_authority/2018/Trincomalee.pdf’ saved [714546/714546]
+
