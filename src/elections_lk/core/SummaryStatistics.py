@@ -30,3 +30,11 @@ class SummaryStatistics:
             polled=sum([x.polled for x in summary_statistics_list]),
             electors=sum([x.electors for x in summary_statistics_list]),
         )
+
+    def to_dict(self):
+        return dict(
+            valid=self.valid,
+            rejected=self.rejected,
+            polled=self.polled,
+            electors=self.electors,
+        )

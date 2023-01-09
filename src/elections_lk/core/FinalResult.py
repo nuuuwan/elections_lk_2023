@@ -37,3 +37,11 @@ class FinalResult(Result):
             result.party_to_votes,
             party_to_seats,
         )
+
+    def to_dict(self):
+        return dict(
+            entity_id=self.entity_id,
+            summary_statistics=self.summary_statistics.to_dict(),
+            party_to_votes=self.party_to_votes.to_dict(),
+            party_to_seats=self.party_to_seats.to_dict(),
+        )

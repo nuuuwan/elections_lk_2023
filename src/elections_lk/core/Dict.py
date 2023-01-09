@@ -69,3 +69,6 @@ class Dict:
                     d2[k] = 0
                 d2[k] += v
         return Dict(d2)
+
+    def to_dict(self):
+        return self.d
