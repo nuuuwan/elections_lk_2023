@@ -4,7 +4,7 @@ import humanize
 from gig import ents
 from gig.ent_types import ENTITY_TYPE
 
-DIR_DATA = 'data/local_authority/2018'
+from elections_lk.scrape.local_authority.year2018 import _common
 
 WGET_OPTIONS = ' '.join(['--no-check-certificate', '--no-verbose'])
 
@@ -20,8 +20,8 @@ def download(url, local_file):
 
 
 def init():
-    if not os.path.exists(DIR_DATA):
-        os.makedirs(DIR_DATA)
+    if not os.path.exists(_common.DIR_DATA):
+        os.makedirs(_common.DIR_DATA)
 
 
 def download_pdf_for_district(district_id, district_name):
@@ -32,7 +32,7 @@ def download_pdf_for_district(district_id, district_name):
         f'nu-of-mem-elected/{district_name}_Si.pdf',
     )
 
-    pdf_file_name = os.path.join(DIR_DATA, f'{district_id}.pdf')
+    pdf_file_name = _common.get_district_pdf_file(district_id)
     download(url, pdf_file_name)
     return pdf_file_name
 

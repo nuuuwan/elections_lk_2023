@@ -1,0 +1,41 @@
+{
+  "year": 2018,
+  "lg_results": [
+    {
+      "entity_id": "LG-11001",
+      "summary_statistics": {
+        "valid": 284980,
+        "rejected": 7023,
+        "polled": 292003,
+        "electors": 394044
+      },
+      "party_to_votes": {
+        "United National Party": 131353,
+        "Sri Lanka Podujana Peramuna": 60087,
+        "United People s Freedom Alliance": 31421,
+        "United Progressive Alliance": 27168,
+        "People s Liberation Front": 14234,
+        "Independent Group 2": 4833,
+        "United Peace Alliance": 4700,
+        "Sri Lanka National Force": 3251,
+        "Ceylon Worker s Congress (P.Wing)": 2853,
+        "National Front for Good Governance": 2771,
+        "United National Freedom Front": 1380,
+        "Independent Group 1": 929
+      },
+      "party_to_seats": {
+        "United National Party": 60,
+        "Sri Lanka Podujana Peramuna": 23,
+        "United People s Freedom Alliance": 12,
+        "United Progressive Alliance": 10,
+        "People s Liberation Front": 6,
+        "Independent Group 2": 2,
+        "United Peace Alliance": 2,
+        "Sri Lanka National Force": 1,
+        "Ceylon Worker s Congress (P.Wing)": 1,
+        "National Front for Good Governance": 1,
+        "United National Freedom Front": 1
+      }
+    }
+  ]
+}
