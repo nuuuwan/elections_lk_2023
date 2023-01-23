@@ -14,22 +14,22 @@ class TestElectionPresidential(TestCase):
         pd_results = TEST_ELECTION.pd_results
         self.assertEqual(len(pd_results), 182)
         first_result = pd_results[0]
-        self.assertEqual(first_result.entity_id, "EC-01A")
-        self.assertEqual(first_result.summary_statistics.valid, 72_643)
+        self.assertEqual(first_result.region_id, "EC-01A")
+        self.assertEqual(first_result.summary_statistics.valid, 72643)
         self.assertEqual(first_result.party_to_votes['SLPP'], 16_986)
 
     def test_ed_results(self):
         ed_results = TEST_ELECTION.ed_results
         self.assertEqual(len(ed_results), 22)
         first_result = ed_results[0]
-        self.assertEqual(first_result.entity_id, "EC-01")
-        self.assertEqual(first_result.summary_statistics.valid, 1_368_177)
+        self.assertEqual(first_result.region_id, "EC-01")
+        self.assertEqual(first_result.summary_statistics.valid, 1368177)
         self.assertEqual(first_result.party_to_votes['SLPP'], 727_713)
 
     def test_country_final_results(self):
         country_final_result = TEST_ELECTION.country_final_result
 
-        self.assertEqual(country_final_result.entity_id, "LK")
+        self.assertEqual(country_final_result.region_id, "LK")
         self.assertEqual(
             country_final_result.summary_statistics.valid, 13_252_499
         )
@@ -42,7 +42,7 @@ class TestElectionPresidential(TestCase):
     def test_2019_election(self):
         election = ElectionPresidential.load(2019)
         country_final_result = election.country_final_result
-        self.assertEqual(country_final_result.entity_id, "LK")
+        self.assertEqual(country_final_result.region_id, "LK")
         print(country_final_result.summary_statistics)
         self.assertEqual(
             country_final_result.summary_statistics,

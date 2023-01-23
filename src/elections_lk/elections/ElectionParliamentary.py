@@ -1,7 +1,7 @@
-from dataclasses import dataclass
 from functools import cached_property
 
-from elections_lk.core import Dict, FinalResult, Result, Seats
+from elections_lk.base import Dict
+from elections_lk.core import FinalResult, Result, Seats
 from elections_lk.elections.Election import Election
 from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import \
     YEAR_TO_REGION_TO_SEATS
@@ -18,7 +18,7 @@ def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
     party_to_seats = Dict(
         Seats.get_party_to_seats(
             party_to_votes=ed_result.party_to_votes.d,
-            total_seats=YEAR_TO_REGION_TO_SEATS[year][ed_result.entity_id],
+            total_seats=YEAR_TO_REGION_TO_SEATS[year][ed_result.region_id],
             p_limit=P_LIMIT_ED,
             bonus=BONUS_ED,
         )
@@ -26,11 +26,7 @@ def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
     return FinalResult.fromResult(ed_result, party_to_seats)
 
 
-@dataclass
 class ElectionParliamentary(Election):
-    '''Parliamentary election.'''
-
-    pd_results: list[Result]
 
     election_type = 'parliamentary'
     years = [1989, 1994, 2000, 2001, 2004, 2010, 2015, 2020]
@@ -39,7 +35,7 @@ class ElectionParliamentary(Election):
     def ed_final_results(self) -> list[FinalResult]:
         '''Get final results for each electoral district.'''
         ed_results = Result.mapAndConcat(
-            self.pd_results, lambda entity_id: entity_id[:5]
+            self.pd_results, lambda region_id: region_id[:5]
         )
 
         return list(

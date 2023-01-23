@@ -1,4 +1,4 @@
-from elections_lk.core.Dict import Dict
+from elections_lk.base import Dict
 
 
 class PartyToSeats(Dict):

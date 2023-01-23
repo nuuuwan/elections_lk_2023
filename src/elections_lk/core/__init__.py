@@ -1,5 +1,3 @@
-from elections_lk.core.Dict import Dict
-from elections_lk.core.EntityID import EntityID
 from elections_lk.core.FinalResult import FinalResult
 from elections_lk.core.PartyToSeats import PartyToSeats
 from elections_lk.core.PartyToVotes import PartyToVotes

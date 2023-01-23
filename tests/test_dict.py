@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from elections_lk.core import Dict
+from elections_lk.base import Dict
 
 
 class TestDict(TestCase):
