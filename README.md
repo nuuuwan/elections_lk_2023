@@ -12,15 +12,7 @@ See also [https://pypi.org/project/elections-lk-nuuuwan/](https://pypi.org/proje
 
 ## Release History
 
-### 1.0.5
+### 2.0.0 (CURRENT RELEASE)
 
-* No changes to functionality. Updated tweepy version.
+* Made some significant changes. Will break most code written in 1.x.x. 
 
-### 1.0.1
-
-* Added *party_color*
-* Added various getter helpers for *presidential*
-
-### 1.0.0
-
-* Added getters for presidential election data
