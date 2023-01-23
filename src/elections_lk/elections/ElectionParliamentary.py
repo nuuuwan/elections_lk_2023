@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from elections_lk.base import Dict
+from elections_lk.base import ValueDict
 from elections_lk.core import FinalResult, Result, Seats
 from elections_lk.elections.Election import Election
 from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import \
@@ -15,7 +15,7 @@ BONUS_NATIONAL_LIST = 0
 
 
 def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
-    party_to_seats = Dict(
+    party_to_seats = ValueDict(
         Seats.get_party_to_seats(
             party_to_votes=ed_result.party_to_votes.d,
             total_seats=YEAR_TO_REGION_TO_SEATS[year][ed_result.region_id],
@@ -49,7 +49,7 @@ class ElectionParliamentary(Election):
     def national_list_final_result(self) -> FinalResult:
         '''Get final results for national list.'''
         country_result = Result.concat('LK', self.pd_results)
-        party_to_seats = Dict(
+        party_to_seats = ValueDict(
             Seats.get_party_to_seats(
                 party_to_votes=country_result.party_to_votes.d,
                 total_seats=SEATS_NATIONAL_LIST,
@@ -65,7 +65,7 @@ class ElectionParliamentary(Election):
         country_result = Result.concat('LK', self.pd_results)
         return FinalResult.fromResult(
             country_result,
-            Dict.concat(
+            ValueDict.concat(
                 [
                     final_result.party_to_seats
                     for final_result in self.ed_final_results

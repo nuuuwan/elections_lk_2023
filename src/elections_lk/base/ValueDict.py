@@ -1,7 +1,7 @@
-from utils import Dict as DictParent
+from utils import Dict
 
 
-class Dict(DictParent):
+class ValueDict(Dict):
     OTHERS = 'Others'
 
     def __len__(self):
@@ -39,4 +39,4 @@ class Dict(DictParent):
         for _dict in dict_list:
             for k, v in _dict.items():
                 d[k] = d.get(k, 0) + v
-        return Dict(d)
+        return ValueDict(d)

@@ -1,1 +1,1 @@
-from elections_lk.base.Dict import Dict
+from elections_lk.base.ValueDict import ValueDict

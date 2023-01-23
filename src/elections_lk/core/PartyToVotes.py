@@ -1,5 +1,5 @@
-from elections_lk.base import Dict
+from elections_lk.base import ValueDict
 
 
-class PartyToVotes(Dict):
+class PartyToVotes(ValueDict):
     pass
