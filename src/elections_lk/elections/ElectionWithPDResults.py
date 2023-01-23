@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from gig import Ent, EntType, GIGTable
+from gig import Ent, EntType
 
 from elections_lk.core import PartyToVotes, Result, SummaryStatistics
 from elections_lk.elections import Election
@@ -16,16 +16,14 @@ class ElectionWithPDResults(Election):
 
     @classmethod
     def load(cls, year: int):
-        '''Load election data from remote data source.'''
-        gig_table = GIGTable(
-            f'government-elections-{cls.get_election_type()}',
-            'regions-ec',
-            str(year),
-        )
+        gig_table = cls.get_gig_table(year)
+
         pd_list = Ent.load_list_for_type(EntType.PD)
         ed_list = Ent.load_list_for_type(EntType.ED)
 
-        other_id_list = [ed.id + 'P' for ed in ed_list] + ['EC-11D']
+        other_id_list = [ed.id + 'P' for ed in ed_list] + [
+            'EC-11D'
+        ]  # TODO: Must include all displaced votes.
 
         other_pd_list = []
         for other_id in other_id_list:
