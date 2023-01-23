@@ -2,7 +2,7 @@ from functools import cached_property
 
 from elections_lk.base import ValueDict
 from elections_lk.core import FinalResult, Result, Seats
-from elections_lk.elections.Election import Election
+from elections_lk.elections.ElectionWithPDResults import ElectionWithPDResults
 from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import \
     YEAR_TO_REGION_TO_SEATS
 
@@ -26,10 +26,10 @@ def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
     return FinalResult.fromResult(ed_result, party_to_seats)
 
 
-class ElectionParliamentary(Election):
-
-    election_type = 'parliamentary'
-    years = [1989, 1994, 2000, 2001, 2004, 2010, 2015, 2020]
+class ElectionParliamentary(ElectionWithPDResults):
+    @classmethod
+    def get_years(cls):
+        return [1989, 1994, 2000, 2001, 2004, 2010, 2015, 2020]
 
     @cached_property
     def ed_final_results(self) -> list[FinalResult]:

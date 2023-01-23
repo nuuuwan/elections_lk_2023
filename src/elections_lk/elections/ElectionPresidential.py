@@ -1,12 +1,13 @@
 from functools import cached_property
 
 from elections_lk.core import FinalResult, Result
-from elections_lk.elections.Election import Election
+from elections_lk.elections.ElectionWithPDResults import ElectionWithPDResults
 
 
-class ElectionPresidential(Election):
-    election_type = 'presidential'
-    years = [1982, 1988, 1994, 1999, 2005, 2010, 2015, 2019]
+class ElectionPresidential(ElectionWithPDResults):
+    @classmethod
+    def get_years(cls):
+        return [1982, 1988, 1994, 1999, 2005, 2010, 2015, 2019]
 
     @cached_property
     def ed_results(self) -> list[Result]:
