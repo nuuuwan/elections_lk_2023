@@ -11,6 +11,18 @@ class TestValueDict(TestCase):
         self.assertEqual(s['c'], 3)
         self.assertEqual(len(s), 3)
 
+    def test_len(self):
+        s = ValueDict({'a': 1, 'b': 2, 'c': 3})
+        self.assertEqual(len(s), 3)
+
+    def test_total(self):
+        s = ValueDict({'a': 1, 'b': 2, 'c': 3})
+        self.assertEqual(s.total, 6)
+
+    def test_keys_sorted(self):
+        s = ValueDict({'a': 1, 'b': 2, 'c': 3})
+        self.assertEqual(s.keys_sorted(), ['c', 'b', 'a'])
+
     def test_items_sorted(self):
         s = ValueDict({'a': 1, 'b': 2, 'c': 3})
         self.assertEqual(s.items_sorted(), [('c', 3), ('b', 2), ('a', 1)])
@@ -21,10 +33,6 @@ class TestValueDict(TestCase):
             s.items_othered(),
             [('c', 3), ('b', 2), ('a', 1), (ValueDict.OTHERS, 0)],
         )
-
-    def test_keys_sorted(self):
-        s = ValueDict({'a': 1, 'b': 2, 'c': 3})
-        self.assertEqual(s.keys_sorted(), ['c', 'b', 'a'])
 
     def test_concat(self):
         s1 = ValueDict({'a': 1, 'b': 2, 'c': 3})
