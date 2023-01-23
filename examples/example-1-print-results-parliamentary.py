@@ -4,15 +4,15 @@ MIN_P_VOTES = 0.01
 
 
 def humanize(x):
-    # if x > 1_000_000:
-    #     return f'{x / 1_000_000:.2f}M'
-    # if x > 100_000:
-    #     return f'{x / 1_000:.0f}K'
-    # if x > 10_000:
-    #     return f'{x / 1_000:.1f}K'
-    # if x > 1_000:
-    #     return f'{x / 1_000:.2f}K'
-    return f'{x:,}'
+    if x > 1_000_000:
+        return f'{x / 1_000_000:.2f}M'
+    if x > 100_000:
+        return f'{x / 1_000:.0f}K'
+    if x > 10_000:
+        return f'{x / 1_000:.1f}K'
+    if x > 1_000:
+        return f'{x / 1_000:.2f}K'
+    return f'{x:.0f}'
 
 
 def main():

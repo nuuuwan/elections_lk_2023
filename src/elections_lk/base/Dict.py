@@ -2,7 +2,6 @@ from utils import Dict as DictParent
 
 
 class Dict(DictParent):
-    P_LIMIT_OTHER = 0.01
     OTHERS = 'Others'
 
     def __len__(self):
@@ -22,12 +21,12 @@ class Dict(DictParent):
     def items_sorted(self):
         return sorted(self.items(), key=lambda x: x[1], reverse=True)
 
-    def items_othered(self):
+    def items_othered(self, max_p_other=0.001):
         p_other = 0
         items = []
         for item in self.items_sorted():
             p = item[1] / self.total
-            if p < self.P_LIMIT_OTHER:
+            if p < max_p_other:
                 p_other += p
             else:
                 items.append(item)
