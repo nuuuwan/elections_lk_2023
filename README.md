@@ -12,6 +12,10 @@ See also [https://pypi.org/project/elections-lk-nuuuwan/](https://pypi.org/proje
 
 ## Release History
 
+### 2.0.1
+* tests: test_value_dict added test_len and test_total
+* refac: Dict -> ValueDict (to avoid confusing this with utils.Dict)
+
 ### 2.0.0 (CURRENT RELEASE)
 
 * Made some significant changes. Will break most code written in 1.x.x. 
