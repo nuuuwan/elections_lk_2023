@@ -14,8 +14,8 @@ class ElectionWithPDResults(Election):
 
     @classmethod
     def get_ent_list(cls):
-        pd_list = Ent.load_list_for_type(EntType.PD)
-        ed_list = Ent.load_list_for_type(EntType.ED)
+        pd_list = Ent.list_from_type(EntType.PD)
+        ed_list = Ent.list_from_type(EntType.ED)
 
         other_id_list = [ed.id + 'P' for ed in ed_list] + [
             'EC-11D'

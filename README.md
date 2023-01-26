@@ -17,5 +17,5 @@ See also [https://pypi.org/project/elections-lk-nuuuwan/](https://pypi.org/proje
 
 ### 2.0.0 (CURRENT RELEASE)
 
-* Made some significant changes. Will break most code written in 1.x.x. 
+* Made some significant changes. Will break most code written in 1.x.x. #BREAKING 
 
