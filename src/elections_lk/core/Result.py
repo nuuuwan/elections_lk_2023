@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from functools import cached_property
 
 from elections_lk.core.PartyToVotes import PartyToVotes
 from elections_lk.core.SummaryStatistics import SummaryStatistics
@@ -9,6 +10,10 @@ class Result:
     region_id: str
     summary_statistics: SummaryStatistics
     party_to_votes: PartyToVotes
+
+    @cached_property
+    def total_votes(self) -> int:
+        return self.party_to_votes.total
 
     @classmethod
     def concat(cls, concat_region_id: str, result_list: list):

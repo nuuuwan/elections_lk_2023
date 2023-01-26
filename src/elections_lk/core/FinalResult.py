@@ -11,7 +11,7 @@ class FinalResult(Result):
 
     @cached_property
     def total_seats(self) -> int:
-        return sum(self.party_to_seats.values())
+        return self.party_to_seats.total
 
     @staticmethod
     def fromResult(result: Result, party_to_seats: PartyToSeats):
