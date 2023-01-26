@@ -12,13 +12,19 @@ if __name__ == '__main__':
     id_filter = sys.argv[1]
 
     _, ax = plt.subplots(figsize=(16, 9))
+
     for result in election.lg_final_results:
         ent = Ent.from_id(result.region_id)
         if id_filter not in ent.id:
             continue
 
         best_party, best_seats = result.party_to_seats.items_sorted()[0]
-        ent.geo().plot(ax=ax, color=Party(best_party).color)
+        if best_seats > result.total_seats / 2:
+            color = Party(best_party).color
+        else:
+            color = '#888'
+
+        ent.geo().plot(ax=ax, color=color)
 
         plt.annotate(
             ent.acronym,
@@ -28,6 +34,7 @@ if __name__ == '__main__':
             verticalalignment='center',
         )
 
+    plt.axis('off')
     plt.suptitle('2018 Sri Lankan local elections')
     plt.title('Party with Most Votes')
 
