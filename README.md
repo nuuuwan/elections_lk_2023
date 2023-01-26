@@ -12,11 +12,11 @@ See also [https://pypi.org/project/elections-lk-nuuuwan/](https://pypi.org/proje
 
 ## Release History
 
-### 2.0.1
+### 2.1.0 (CURRENT RELEASE)
 * Added ElectionLocalAuthority 
 * tests & refactoring 
 
-### 2.0.0 (CURRENT RELEASE)
+### 2.0.0 
 
 * Made some significant changes. Will break most code written in 1.x.x. #BREAKING 
 
