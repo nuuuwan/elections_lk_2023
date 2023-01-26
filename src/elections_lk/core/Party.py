@@ -4,9 +4,9 @@ PARTY_TO_COLOR = {
     'CWC': '#f80',
     'ELMSP': '#f00',
     'EPDP': '#f00',
-    'IG': '#000',
-    'IG2': '#000',
-    'IG3': '#000',    
+    'IG': '#eee',
+    'IG2': '#eee',
+    'IG3': '#eee',    
     'ITAK': '#ff0',
     'JVP': '#f00',
     'MNA': '#080',
@@ -19,7 +19,7 @@ PARTY_TO_COLOR = {
     'UPFA': '#00f',
 }
 
-DEFAULT_PARTY_COLOR = '#888'
+DEFAULT_PARTY_COLOR = '#444'
 
 class Party:
     def __init__(self, party: str):
