@@ -12,6 +12,9 @@ See also [https://pypi.org/project/elections-lk-nuuuwan/](https://pypi.org/proje
 
 ## Release History
 
+### 2.1.1
+* fix: BUG in items_othered (returns proportion, instead of count)
+
 ### 2.1.0 (CURRENT RELEASE)
 * Added ElectionLocalAuthority 
 * tests & refactoring 
