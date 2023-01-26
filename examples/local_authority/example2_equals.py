@@ -15,7 +15,14 @@ def get_gnd_fp_idx(get_parent_id):
 
     return idx
 
+def render(id):
+    ent = Ent.from_id(id)
+    name = ent.name
+    return f'{name} ({id})'
     
+def render_iter(ids):
+    return ', '.join([render(id) for id in ids])
+
 
 if __name__ == '__main__':
     lg_idx = get_gnd_fp_idx(lambda gnd_ent: gnd_ent.lg_id)
@@ -25,64 +32,65 @@ if __name__ == '__main__':
     print(len(lg_idx), len(pd_idx), len(dsd_idx))
 
     idx_a , idx_b = lg_idx, pd_idx
+
+    FILTER_A = 'LG-13'
+    FILTER_B = 'EC-03'
     
+    overlap_idx = {}
     info_idx = {'equal': [], 'subset': [], 'superset': [], 'other': []}
     for id_a, fp_a in idx_a.items():
-        if 'LG-13' not in id_a:
+        if FILTER_A not in id_a:
             continue
         
-        equals_set = set()
-        subsets_set = set()
-        supersets_set = set()
-        rel_type = 'other'
         for id_b, fp_b in idx_b.items():
-            if 'EC-03' not in id_b:
+            if FILTER_B not in id_b:
                 continue
+
+            if set(fp_a).intersection(set(fp_b)):
+                if id_a not in overlap_idx:
+                    overlap_idx[id_a] = set()
+                overlap_idx[id_a].add(id_b)
+
+                if id_b not in overlap_idx:
+                    overlap_idx[id_b] = set()
+                overlap_idx[id_b].add(id_a)
+
+
+    def print_overlaps(idx_a, filter_id, print_equal=True):
+        print('-' * 32)   
+        for id_a in idx_a:
+            if filter_id not in id_a:
+                continue
+            overlaps_id_a = overlap_idx.get(id_a, set())            
+            if len(overlaps_id_a) == 1:
+                id_b = list(overlaps_id_a)[0]
+                overlaps_id_b = overlap_idx.get(id_b, set())
+
+                if len(overlaps_id_b) == 1:
+                    print(render(id_a), '=', render(id_b))
+                else:
+                    print(render(id_a), '<', render(id_b))
+
+        print('-' * 8)    
+        for id_a in idx_a:
+            if filter_id not in id_a:
+                continue
+            overlaps_id_a = overlap_idx.get(id_a, set())
+            if len(overlaps_id_a) > 1:
+                is_superset = all([
+                    len(overlap_idx.get(id_b, set())) == 1 for id_b in overlaps_id_a
+                ])
+                if is_superset:
+                    print(render(id_a), '=', render_iter(overlaps_id_a))
+                else:
+                    print(render(id_a), '<>', render_iter(overlaps_id_a))
+
+    print_overlaps(idx_a, FILTER_A)
+    print_overlaps(idx_b, FILTER_B, False)
             
-            if fp_a == fp_b:
-                equals_set.add(id_b)
-                rel_type = 'equal'
-            elif set(fp_a).issubset(set(fp_b)):
-                subsets_set.add(id_b)
-                rel_type = 'subset'
-            elif set(fp_b).issubset(set(fp_a)):
-                supersets_set.add(id_b)
-                rel_type = 'superset'
-            
-
-        info_idx[rel_type].append(
-            dict(id_a=id_a, equals_set=equals_set, subsets_set=subsets_set, supersets_set=supersets_set)
-        )
-
-    def render(id):
-        ent = Ent.from_id(id)
-        name = ent.name
-        return f'{name} ({id})'
-
-    def render_id_set(id_set):
-        return ', '.join([render(id) for id in id_set])
-
     
-    for rel_type, info_list in info_idx.items():
-        print(f'{rel_type} ({len(info_list)})')
-        for info in info_list:
-            id_a = info['id_a']
-            equals_set = info['equals_set']
-            subsets_set = info['subsets_set']
-            supersets_set = info['supersets_set']
-
-            label_a = render(id_a)
-
-            if rel_type == 'equal':
-                print('\t', label_a, '=', render(list(equals_set)[0]))
-            elif rel_type == 'subset':
-                print('\t', label_a, '<', render(list(subsets_set)[0]))
-            elif rel_type == 'superset':
-                print('\t', label_a, '>', render_id_set(list(supersets_set)))
-            elif rel_type == 'other':
-                print('\t', label_a, '<>')
-            else:
-                raise ValueError('Unknonw rel_type: ' + rel_type)
+        
+    
 
         
         
