@@ -1,4 +1,4 @@
-from gig import Ent, EntType
+from gig import Ent, EntType, GIGTable
 
 from elections_lk.elections import Election
 
@@ -8,6 +8,13 @@ def correct_int(x):
 
 
 class ElectionWithPDResults(Election):
+    @classmethod
+    def get_gig_table(cls, year: int):
+        measurement = f'government-elections-{cls.get_election_type()}'
+        region_str = 'regions-ec'
+        time_str = str(year)
+        return GIGTable(measurement, region_str, time_str)
+
     @property
     def pd_results(self):
         return self.results

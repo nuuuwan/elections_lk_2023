@@ -28,6 +28,10 @@ def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
 
 class ElectionParliamentary(ElectionWithPDResults):
     @classmethod
+    def get_election_type(cls):
+        return 'parliamentary'
+
+    @classmethod
     def get_years(cls):
         return [1989, 1994, 2000, 2001, 2004, 2010, 2015, 2020]
 

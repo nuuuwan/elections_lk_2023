@@ -6,6 +6,10 @@ from elections_lk.elections.ElectionWithPDResults import ElectionWithPDResults
 
 class ElectionPresidential(ElectionWithPDResults):
     @classmethod
+    def get_election_type(cls):
+        return 'presidential'
+
+    @classmethod
     def get_years(cls):
         return [1982, 1988, 1994, 1999, 2005, 2010, 2015, 2019]
 

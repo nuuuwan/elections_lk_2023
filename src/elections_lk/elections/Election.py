@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 
-from gig import GIGTable
 from utils import Log
 
 from elections_lk.core import PartyToVotes, Result, SummaryStatistics
@@ -18,17 +17,6 @@ class Election:
     results: list
 
     @classmethod
-    def get_election_type(cls):
-        return cls.__name__.replace('Election', '').lower()
-
-    @classmethod
-    def get_gig_table(cls, year: int):
-        measurement = f'government-elections-{cls.get_election_type()}'
-        region_str = 'regions-ec'
-        time_str = str(year)
-        return GIGTable(measurement, region_str, time_str)
-
-    @classmethod
     def load(cls, year):
         gig_table = cls.get_gig_table(year)
         ent_list = cls.get_ent_list()
@@ -38,6 +26,10 @@ class Election:
             try:
                 result_raw = ent.gig(gig_table)
             except BaseException:
+                log.warning(
+                    f'Could not find result for {ent.id}'
+                    + f' in {gig_table.table_id}'
+                )
                 continue
 
             party_to_votes = {}
