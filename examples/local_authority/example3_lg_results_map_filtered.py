@@ -5,19 +5,7 @@ from gig import Ent
 
 from elections_lk.elections import ElectionLocalAuthority
 
-PARTY_TO_COLOR = {
-    'AITC': '#ff0',
-    'CWC': '#f80',
-    'IG': '#fff',
-    'IG2': '#fff',
-    'ITAK': '#ff0',
-    'JVP': '#f00',
-    'SLFP': '#008',
-    'SLPP': '#800',
-    'UNP': '#0c0',
-    'UPFA': '#00f',
-}
-
+from elections_lk.core import Party
 
 if __name__ == '__main__':
     election = ElectionLocalAuthority.load(2018)
@@ -30,18 +18,7 @@ if __name__ == '__main__':
             continue
 
         best_party, best_seats = result.party_to_seats.items_sorted()[0]
-
-        if best_seats < 0.5 * result.total_seats:
-            color = '#ccc'
-        else: 
-            if best_party in PARTY_TO_COLOR:
-                color = PARTY_TO_COLOR[best_party]
-            else:
-                print(f"'{best_party}': '',")
-                color = '#fff'
-
-        geo = ent.geo()
-        geo.plot(ax=ax, color=color)
+        ent.geo().plot(ax=ax, color=Party(best_party).color)
 
         plt.annotate(
             ent.acronym,
@@ -50,6 +27,9 @@ if __name__ == '__main__':
             horizontalalignment='center',
             verticalalignment='center',
         )
+
+    plt.suptitle('2018 Sri Lankan local elections')
+    plt.title('Party with Most Votes')
 
     png_file_name = __file__[:-3] + '.' + id_filter + '.png'
     plt.savefig(png_file_name)
