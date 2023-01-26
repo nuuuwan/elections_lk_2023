@@ -27,7 +27,7 @@ class ValueDict(Dict):
         items = []
         for item in self.items_sorted():
             v = item[1]
-            p = v/ self.total
+            p = v / self.total
             if p < max_p_other:
                 p_other += p
                 n_other += v

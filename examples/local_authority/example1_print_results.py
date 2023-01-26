@@ -1,4 +1,3 @@
-
 from elections_lk.elections import ElectionLocalAuthority
 
 if __name__ == '__main__':
@@ -9,5 +8,10 @@ if __name__ == '__main__':
 
     print(election.country_final_result)
 
-    for party, seats in election.country_final_result.party_to_seats.items_othered(max_p_other=0.02):
+    for (
+        party,
+        seats,
+    ) in election.country_final_result.party_to_seats.items_othered(
+        max_p_other=0.02
+    ):
         print(party, seats)
