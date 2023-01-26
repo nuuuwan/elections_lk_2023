@@ -6,7 +6,7 @@ PARTY_TO_COLOR = {
     'EPDP': '#f00',
     'IG': '#eee',
     'IG2': '#eee',
-    'IG3': '#eee',    
+    'IG3': '#eee',
     'ITAK': '#ff0',
     'JVP': '#f00',
     'MNA': '#080',
@@ -19,13 +19,13 @@ PARTY_TO_COLOR = {
     'UPFA': '#00f',
 }
 
-DEFAULT_PARTY_COLOR = '#444'
 
 class Party:
+    DEFAULT_COLOR = '#444'
+
     def __init__(self, party: str):
         self.party = party
 
     @property
     def color(self):
-        return PARTY_TO_COLOR.get(self.party, DEFAULT_PARTY_COLOR)
-        
+        return PARTY_TO_COLOR.get(self.party, Party.DEFAULT_COLOR)

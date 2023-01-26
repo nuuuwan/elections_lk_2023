@@ -1,9 +1,8 @@
 import matplotlib.pyplot as plt
 from gig import Ent
 
-from elections_lk.elections import ElectionLocalAuthority
 from elections_lk.core import Party
-
+from elections_lk.elections import ElectionLocalAuthority
 
 if __name__ == '__main__':
     election = ElectionLocalAuthority.load(2018)
