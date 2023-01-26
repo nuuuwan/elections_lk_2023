@@ -13,6 +13,7 @@ See also [https://pypi.org/project/elections-lk-nuuuwan/](https://pypi.org/proje
 ## Release History
 
 ### 2.0.1
+* Added ElectionLocalAuthority 
 * tests & refactoring 
 
 ### 2.0.0 (CURRENT RELEASE)

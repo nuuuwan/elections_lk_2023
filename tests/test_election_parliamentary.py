@@ -8,6 +8,19 @@ TEST_ELECTION = ElectionParliamentary.load(TEST_YEAR)
 
 
 class TestElectionParliamentary(TestCase):
+    def test_election_type(self):
+        election = TEST_ELECTION
+        self.assertEqual(election.get_election_type(), 'parliamentary')
+
+    def test_get_gig_table(self):
+        election = TEST_ELECTION
+        gig_table = election.get_gig_table(TEST_YEAR)
+        self.assertEqual(
+            gig_table.measurement, 'government-elections-parliamentary'
+        )
+        self.assertEqual(gig_table.ent_type_group, 'regions-ec')
+        self.assertEqual(gig_table.time_group, '2020')
+
     def test_load(self):
         self.assertEqual(TEST_ELECTION.year, TEST_YEAR)
         pd_results = TEST_ELECTION.pd_results

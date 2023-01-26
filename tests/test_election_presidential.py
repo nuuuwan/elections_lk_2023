@@ -8,6 +8,19 @@ TEST_ELECTION = ElectionPresidential.load(TEST_YEAR)
 
 
 class TestElectionPresidential(TestCase):
+    def test_election_type(self):
+        election = TEST_ELECTION
+        self.assertEqual(election.get_election_type(), 'presidential')
+
+    def test_get_gig_table(self):
+        election = TEST_ELECTION
+        gig_table = election.get_gig_table(TEST_YEAR)
+        self.assertEqual(
+            gig_table.measurement, 'government-elections-presidential'
+        )
+        self.assertEqual(gig_table.ent_type_group, 'regions-ec')
+        self.assertEqual(gig_table.time_group, str(TEST_YEAR))
+
     def test_load(self):
         self.assertEqual(TEST_ELECTION.year, TEST_YEAR)
 

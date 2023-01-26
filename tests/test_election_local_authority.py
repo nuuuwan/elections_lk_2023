@@ -7,6 +7,20 @@ TEST_ELECTION = ElectionLocalAuthority.load(TEST_YEAR)
 
 
 class TestElectionLocalAuthority(TestCase):
+    def test_election_type(self):
+        election = TEST_ELECTION
+        self.assertEqual(election.get_election_type(), 'local-authority')
+
+    def test_get_gig_table(self):
+        election = TEST_ELECTION
+        gig_table = election.get_gig_table(TEST_YEAR)
+        self.assertEqual(
+            gig_table.measurement,
+            'government-elections-local-authority-votes',
+        )
+        self.assertEqual(gig_table.ent_type_group, 'regions-lg')
+        self.assertEqual(gig_table.time_group, str(TEST_YEAR))
+
     def test_lg_results(self):
         self.assertEqual(TEST_ELECTION.year, TEST_YEAR)
         lg_results = TEST_ELECTION.lg_results
