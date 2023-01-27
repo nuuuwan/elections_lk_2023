@@ -1,62 +1,62 @@
 
 # Sri Lanka (LK)
 
-* **Colombo District (LK-11) = Colombo ED (EC-01)**
-* **Gampaha District (LK-12) = Gampaha ED (EC-02)**
-* **Kalutara District (LK-13) = Kalutara ED (EC-03)**
-* **Kandy District (LK-21) = Kandy ED (EC-04)**
-* **Matale District (LK-22) = Matale ED (EC-05)**
-* **Nuwara Eliya District (LK-23) = Nuwara-Eliya ED (EC-06)**
-* **Galle District (LK-31) = Galle ED (EC-07)**
-* **Matara District (LK-32) = Matara ED (EC-08)**
-* **Hambantota District (LK-33) = Hambantota ED (EC-09)**
-* **Batticaloa District (LK-51) = Batticaloa ED (EC-12)**
-* **Ampara District (LK-52) = Digamadulla ED (EC-13)**
-* **Trincomalee District (LK-53) = Trincomalee ED (EC-14)**
-* **Kurunegala District (LK-61) = Kurunegala ED (EC-15)**
-* **Puttalam District (LK-62) = Puttalam ED (EC-16)**
-* **Anuradhapura District (LK-71) = Anuradhapura ED (EC-17)**
-* **Polonnaruwa District (LK-72) = Polonnaruwa ED (EC-18)**
-* **Badulla District (LK-81) = Badulla ED (EC-19)**
-* **Moneragala District (LK-82) = Moneragala ED (EC-20)**
-* **Ratnapura District (LK-91) = Ratnapura ED (EC-21)**
-* **Kegalle District (LK-92) = Kegalle ED (EC-22)**
-* **{Kilinochchi District (LK-45), Jaffna District (LK-41)} = Jaffna ED (EC-10)**
+* Colombo District (LK-11) = Colombo ED (EC-01)
+* Gampaha District (LK-12) = Gampaha ED (EC-02)
+* Kalutara District (LK-13) = Kalutara ED (EC-03)
+* Kandy District (LK-21) = Kandy ED (EC-04)
+* Matale District (LK-22) = Matale ED (EC-05)
+* Nuwara Eliya District (LK-23) = Nuwara-Eliya ED (EC-06)
+* Galle District (LK-31) = Galle ED (EC-07)
+* Matara District (LK-32) = Matara ED (EC-08)
+* Hambantota District (LK-33) = Hambantota ED (EC-09)
+* Batticaloa District (LK-51) = Batticaloa ED (EC-12)
+* Ampara District (LK-52) = Digamadulla ED (EC-13)
+* Trincomalee District (LK-53) = Trincomalee ED (EC-14)
+* Kurunegala District (LK-61) = Kurunegala ED (EC-15)
+* Puttalam District (LK-62) = Puttalam ED (EC-16)
+* Anuradhapura District (LK-71) = Anuradhapura ED (EC-17)
+* Polonnaruwa District (LK-72) = Polonnaruwa ED (EC-18)
+* Badulla District (LK-81) = Badulla ED (EC-19)
+* Moneragala District (LK-82) = Moneragala ED (EC-20)
+* Ratnapura District (LK-91) = Ratnapura ED (EC-21)
+* Kegalle District (LK-92) = Kegalle ED (EC-22)
+* **{Jaffna District (LK-41), Kilinochchi District (LK-45)} = Jaffna ED (EC-10)**
 * **{Vavuniya District (LK-43), Mannar District (LK-42), Mullaitivu District (LK-44)} = Vanni ED (EC-11)**
 
 # Colombo District (LK-11)
 
-* **Colombo MC (LG-11001) = {Colombo West PD (EC-01E), Borella PD (EC-01C), Colombo East PD (EC-01D), Colombo Central PD (EC-01B), Colombo North PD (EC-01A)}**
-* **Kaduwela MC (LG-11004) = Kaduwela PD (EC-01J)**
-* **Homagama PS (LG-11005) = Homagama PD (EC-01L)**
-* **Maharagama UC (LG-11008) = Maharagama PD (EC-01M)**
-* **Sri Jayawardenepura Kotte MC (LG-11009) = Kotte PD (EC-01I)**
+* **Colombo MC (LG-11001) = {Colombo Central PD (EC-01B), Borella PD (EC-01C), Colombo East PD (EC-01D), Colombo North PD (EC-01A), Colombo West PD (EC-01E)}**
+* Kaduwela MC (LG-11004) = Kaduwela PD (EC-01J)
+* Homagama PS (LG-11005) = Homagama PD (EC-01L)
+* Maharagama UC (LG-11008) = Maharagama PD (EC-01M)
+* Sri Jayawardenepura Kotte MC (LG-11009) = Kotte PD (EC-01I)
 * **Dehiwala Mt.Lavinia MC (LG-11010) = {Dehiwala PD (EC-01F), Ratmalana PD (EC-01G)}**
-* **Moratuwa MC (LG-11011) = Moratuwa PD (EC-01O)**
+* Moratuwa MC (LG-11011) = Moratuwa PD (EC-01O)
 * **{Kolonnawa UC (LG-11002), Kotikawatta PS (LG-11003)} = Kolonnawa PD (EC-01H)**
 * **{Seethawakapura UC (LG-11007), Seethawaka PS (LG-11006)} = Avissawella PD (EC-01K)**
-* **{Boralesgamuwa UC (LG-11012), Kesbewa UC (LG-11013)} = Kesbewa PD (EC-01N)**
+* **{Kesbewa UC (LG-11013), Boralesgamuwa UC (LG-11012)} = Kesbewa PD (EC-01N)**
 
 # Gampaha District (LK-12)
 
-* **Negombo MC (LG-12001) = Negombo PD (EC-02B)**
-* **Divulapitiya PS (LG-12004) = Divulapitiya PD (EC-02D)**
-* **Mirigama PS (LG-12005) = Mirigama PD (EC-02E)**
-* **Attanagalla PS (LG-12014) = Attanagalla PD (EC-02G)**
-* **Dompe PS (LG-12015) = Dompe PD (EC-02K)**
-* **Mahara PS (LG-12016) = Mahara PD (EC-02J)**
-* **Biyagama PS (LG-12019) = Biyagama PD (EC-02L)**
-* **{Katana PS (LG-12002), Katunayaka-Seeduwa UC (LG-12003)} = Katana PD (EC-02C)**
+* Negombo MC (LG-12001) = Negombo PD (EC-02B)
+* Divulapitiya PS (LG-12004) = Divulapitiya PD (EC-02D)
+* Mirigama PS (LG-12005) = Mirigama PD (EC-02E)
+* Attanagalla PS (LG-12014) = Attanagalla PD (EC-02G)
+* Dompe PS (LG-12015) = Dompe PD (EC-02K)
+* Mahara PS (LG-12016) = Mahara PD (EC-02J)
+* Biyagama PS (LG-12019) = Biyagama PD (EC-02L)
+* **{Katunayaka-Seeduwa UC (LG-12003), Katana PS (LG-12002)} = Katana PD (EC-02C)**
 * **{Minuwangoda UC (LG-12007), Minuwangoda PS (LG-12006)} = Minuwangoda PD (EC-02F)**
 * **{Wattala PS (LG-12008), Wattala-Mabola UC (LG-12009)} = Wattala PD (EC-02A)**
 * **{Ja-Ela PS (LG-12010), Ja-Ela UC (LG-12011)} = Ja Ela PD (EC-02I)**
-* **{Gampaha PS (LG-12012), Gampaha MC (LG-12013)} = Gampaha PD (EC-02H)**
-* **{Peliyagoda UC (LG-12018), Kelaniya PS (LG-12017)} = Kelaniya PD (EC-02M)**
+* **{Gampaha MC (LG-12013), Gampaha PS (LG-12012)} = Gampaha PD (EC-02H)**
+* **{Kelaniya PS (LG-12017), Peliyagoda UC (LG-12018)} = Kelaniya PD (EC-02M)**
 
 # Kalutara District (LK-13)
 
 * **{Horana UC (LG-13005), Horana PS (LG-13004)} = Horana PD (EC-03C)**
-* **{Kalutara UC (LG-13010), Kalutara PS (LG-13009)} = Kalutara PD (EC-03F)**
+* **{Kalutara PS (LG-13009), Kalutara UC (LG-13010)} = Kalutara PD (EC-03F)**
 * **{Beruwala UC (LG-13012), Beruwala PS (LG-13011)} = Beruwala PD (EC-03G)**
 * **{Matugama PS (LG-13014), Dodangoda PS (LG-13013)} = Mathugama PD (EC-03E)**
 
@@ -82,14 +82,14 @@
 
 # Kandy District (LK-21)
 
-* **Thumpane PS (LG-21001) = Galagedara PD (EC-04A)**
-* **Medadumbara PS (LG-21010) = Teldeniya PD (EC-04E)**
-* **Kundasale PS (LG-21011) = Kundasale PD (EC-04F)**
-* **Udunuwara PS (LG-21016) = Udunuwara PD (EC-04K)**
-* **Pathahewaheta PS (LG-21018) = Hewaheta PD (EC-04G)**
-* **{Harispattuwa PS (LG-21013), Pujapitiya PS (LG-21002), Akurana PS (LG-21003)} = Harispattuwa PD (EC-04B)**
+* Thumpane PS (LG-21001) = Galagedara PD (EC-04A)
+* Medadumbara PS (LG-21010) = Teldeniya PD (EC-04E)
+* Kundasale PS (LG-21011) = Kundasale PD (EC-04F)
+* Udunuwara PS (LG-21016) = Udunuwara PD (EC-04K)
+* Pathahewaheta PS (LG-21018) = Hewaheta PD (EC-04G)
+* **{Harispattuwa PS (LG-21013), Akurana PS (LG-21003), Pujapitiya PS (LG-21002)} = Harispattuwa PD (EC-04B)**
 * **{Udadumbara PS (LG-21008), Minipe PS (LG-21009)} = Ududumbara PD (EC-04D)**
-* **{Kadugannawa UC (LG-21015), Yatinuwara PS (LG-21014)} = Yatinuwara PD (EC-04J)**
+* **{Yatinuwara PS (LG-21014), Kadugannawa UC (LG-21015)} = Yatinuwara PD (EC-04J)**
 
 * *Pathadumbara PS (LG-21004) ∩ Pathadumbara PD (EC-04C)*
 
@@ -117,8 +117,8 @@
 
 # Matale District (LK-22)
 
-* **{Galewela PS (LG-22001), Pallepola PS (LG-22005), Dambulla MC (LG-22003), Dambulla PS (LG-22002)} = Dambulla PD (EC-05A)**
-* **{Ambanganga Korale PS (LG-22009), Laggala-Pallegama PS (LG-22010), Naula PS (LG-22004), Wilgamuwa PS (LG-22011)} = Laggala PD (EC-05B)**
+* **{Galewela PS (LG-22001), Dambulla PS (LG-22002), Dambulla MC (LG-22003), Pallepola PS (LG-22005)} = Dambulla PD (EC-05A)**
+* **{Ambanganga Korale PS (LG-22009), Naula PS (LG-22004), Laggala-Pallegama PS (LG-22010), Wilgamuwa PS (LG-22011)} = Laggala PD (EC-05B)**
 
 * *Yatawatta PS (LG-22006) ∩ Matale PD (EC-05C)*
 
@@ -133,15 +133,15 @@
 
 # Nuwara Eliya District (LK-23)
 
-* **Kothmale PS (LG-23001) = Kothmale PD (EC-06B)**
-* **Hanguranketha PS (LG-23002) = Hanguranketha PD (EC-06C)**
-* **Walapone PS (LG-23003) = Walapane PD (EC-06D)**
-* **{Ambagamuwa PS (LG-23009), Kotagala PS (LG-23004), Norwood PS (LG-23012), Nuwara Eliya PS (LG-23006), Nuwara Eliya MC (LG-23008), Agarapatana PS (LG-23005), Maskeliya PS (LG-23010), Thalawakele-Lindula UC (LG-23007), Hatton - Dickoya UC (LG-23011)} = Nuwara Eliya Maskeliya PD (EC-06A)**
+* Kothmale PS (LG-23001) = Kothmale PD (EC-06B)
+* Hanguranketha PS (LG-23002) = Hanguranketha PD (EC-06C)
+* Walapone PS (LG-23003) = Walapane PD (EC-06D)
+* **{Maskeliya PS (LG-23010), Norwood PS (LG-23012), Thalawakele-Lindula UC (LG-23007), Nuwara Eliya MC (LG-23008), Ambagamuwa PS (LG-23009), Kotagala PS (LG-23004), Nuwara Eliya PS (LG-23006), Agarapatana PS (LG-23005), Hatton - Dickoya UC (LG-23011)} = Nuwara Eliya Maskeliya PD (EC-06A)**
 
 # Galle District (LK-31)
 
-* **Balapitiya PS (LG-31002) = Balapitiya PD (EC-07A)**
-* **{Imaduwa PS (LG-31019), Habaraduwa PS (LG-31020)} = Habaraduwa PD (EC-07J)**
+* Balapitiya PS (LG-31002) = Balapitiya PD (EC-07A)
+* **{Habaraduwa PS (LG-31020), Imaduwa PS (LG-31019)} = Habaraduwa PD (EC-07J)**
 
 * *Bentota PS (LG-31001) ∩ Bentara Elpitiya PD (EC-07D)*
 
@@ -185,10 +185,10 @@
 
 # Matara District (LK-32)
 
-* **{Malimbada PS (LG-32008), Athuraliya PS (LG-32005), Akuressa PS (LG-32006)} = Akuressa PD (EC-08C)**
+* **{Akuressa PS (LG-32006), Malimbada PS (LG-32008), Athuraliya PS (LG-32005)} = Akuressa PD (EC-08C)**
 * **{Weligama PS (LG-32007), Weligama UC (LG-32013)} = Weligama PD (EC-08G)**
 * **{Matara MC (LG-32015), Matara PS (LG-32014)} = Matara PD (EC-08F)**
-* **{Devinuwara PS (LG-32016), Dickwella PS (LG-32017)} = Devinuwara PD (EC-08E)**
+* **{Dickwella PS (LG-32017), Devinuwara PS (LG-32016)} = Devinuwara PD (EC-08E)**
 
 * *Pitabeddara PS (LG-32001) ∩ Deniyaya PD (EC-08A)*
 
@@ -281,23 +281,23 @@
 
 # Mannar District (LK-42)
 
-* **{Mannar PS (LG-42001), Nanattan PS (LG-42004), Musali PS (LG-42005), Mannar UC (LG-42002), Manthai West PS (LG-42003)} = Mannar PD (EC-11A)**
+* **{Mannar PS (LG-42001), Mannar UC (LG-42002), Musali PS (LG-42005), Nanattan PS (LG-42004), Manthai West PS (LG-42003)} = Mannar PD (EC-11A)**
 
 # Vavuniya District (LK-43)
 
-* **{Vavuniya South (Sinhala) PS (LG-43002), Vavuniya North PS (LG-43001), Vavuniya South (Tamil) PS (LG-43003), Vavuniya UC (LG-43004), Vengalacheddikulam PS (LG-43005)} = Vavuniya PD (EC-11B)**
+* **{Vengalacheddikulam PS (LG-43005), Vavuniya South (Tamil) PS (LG-43003), Vavuniya North PS (LG-43001), Vavuniya UC (LG-43004), Vavuniya South (Sinhala) PS (LG-43002)} = Vavuniya PD (EC-11B)**
 
 # Mullaitivu District (LK-44)
 
-* **{Puthukudiyiruppu PS (LG-44003), Maritimepattu PS (LG-44004), Thunukkai PS (LG-44001), Manthai East PS (LG-44002)} = Mullaitivu PD (EC-11C)**
+* **{Manthai East PS (LG-44002), Puthukudiyiruppu PS (LG-44003), Maritimepattu PS (LG-44004), Thunukkai PS (LG-44001)} = Mullaitivu PD (EC-11C)**
 
 # Kilinochchi District (LK-45)
 
-* **{Karachchi PS (LG-45002), Pachchilaipalli PS (LG-45001), Poonakary PS (LG-45003)} = Kilinochchi PD (EC-10K)**
+* **{Poonakary PS (LG-45003), Pachchilaipalli PS (LG-45001), Karachchi PS (LG-45002)} = Kilinochchi PD (EC-10K)**
 
 # Batticaloa District (LK-51)
 
-* **{Manmunai South-West PS (LG-51010), Manmunai South & Eruvil pattu PS (LG-51012), Poratheevu Pattu PS (LG-51011)} = Paddiruppu PD (EC-12C)**
+* **{Manmunai South & Eruvil pattu PS (LG-51012), Poratheevu Pattu PS (LG-51011), Manmunai South-West PS (LG-51010)} = Paddiruppu PD (EC-12C)**
 
 * *Koralai Pattu North PS (LG-51001) ∩ Kalkudah PD (EC-12A)*
 
@@ -320,7 +320,7 @@
 
 # Ampara District (LK-52)
 
-* **Kalmunai MC (LG-52009) = Kalmunai PD (EC-13C)**
+* Kalmunai MC (LG-52009) = Kalmunai PD (EC-13C)
 
 * *Dehiattakandiya PS (LG-52001) ∩ Ampara PD (EC-13A)*
 
@@ -397,14 +397,14 @@
 
 # Kurunegala District (LK-61)
 
-* **Ibbagamuwa PS (LG-61006) = Hiriyala PD (EC-15D)**
-* **Wariyapola PS (LG-61007) = Wariyapola PD (EC-15E)**
-* **Paduwasnuwara PS (LG-61010) = Panduwasnuwara PD (EC-15F)**
-* **Rideegama PS (LG-61014) = Dodangaslanda PD (EC-15N)**
-* **Polgahawela PS (LG-61015) = Polgahawela PD (EC-15K)**
-* **Pannala PS (LG-61019) = Katugampola PD (EC-15H)**
-* **{Nikaweratiya PS (LG-61004), Kobeigane PS (LG-61008)} = Nikaweratiya PD (EC-15B)**
-* **{Udubaddawa PS (LG-61018), Bingiriya PS (LG-61009)} = Bingiriya PD (EC-15G)**
+* Ibbagamuwa PS (LG-61006) = Hiriyala PD (EC-15D)
+* Wariyapola PS (LG-61007) = Wariyapola PD (EC-15E)
+* Paduwasnuwara PS (LG-61010) = Panduwasnuwara PD (EC-15F)
+* Rideegama PS (LG-61014) = Dodangaslanda PD (EC-15N)
+* Polgahawela PS (LG-61015) = Polgahawela PD (EC-15K)
+* Pannala PS (LG-61019) = Katugampola PD (EC-15H)
+* **{Kobeigane PS (LG-61008), Nikaweratiya PS (LG-61004)} = Nikaweratiya PD (EC-15B)**
+* **{Bingiriya PS (LG-61009), Udubaddawa PS (LG-61018)} = Bingiriya PD (EC-15G)**
 * **{Kuliyapitiya PS (LG-61016), Kuliyapitiya UC (LG-61017)} = Kuliyapitiya PD (EC-15I)**
 * **{Alawwa PS (LG-61021), Narammala PS (LG-61020)} = Dambadeniya PD (EC-15J)**
 
@@ -426,8 +426,8 @@
 
 # Puttalam District (LK-62)
 
-* **Nattandiya PS (LG-62011) = Nattandiya PD (EC-16D)**
-* **Wennappuwa PS (LG-62012) = Wennappuwa PD (EC-16E)**
+* Nattandiya PS (LG-62011) = Nattandiya PD (EC-16D)
+* Wennappuwa PS (LG-62012) = Wennappuwa PD (EC-16E)
 
 * *Kalpitiya PS (LG-62001) ∩ Puttalam PD (EC-16A)*
 
@@ -511,17 +511,17 @@
 
 * **{Elahera PS (LG-72008), Hingurakgoda PS (LG-72001)} = Minneriya PD (EC-18A)**
 * **{Lankapura PS (LG-72003), Medirigiriya PS (LG-72002)} = Medirigiriya PD (EC-18B)**
-* **{Dimbulagala PS (LG-72005), Polonnaruwa MC (LG-72007), Polonnaruwa PS (LG-72006), Welikanda PS (LG-72004)} = Polonnaruwa PD (EC-18C)**
+* **{Polonnaruwa PS (LG-72006), Welikanda PS (LG-72004), Dimbulagala PS (LG-72005), Polonnaruwa MC (LG-72007)} = Polonnaruwa PD (EC-18C)**
 
 # Badulla District (LK-81)
 
-* **Hali-Ela PS (LG-81010) = Hali Ela PD (EC-19E)**
-* **Uva Paranagama PS (LG-81011) = Uva Paranagama PD (EC-19F)**
-* **{Mahiyanganaya PS (LG-81001), Rideemaliyadda PS (LG-81002)} = Mahiyanganaya PD (EC-19A)**
-* **{Soranathota PS (LG-81005), Kandaketiya PS (LG-81004), Meegahakivula PS (LG-81003)} = Viyaluwa PD (EC-19B)**
+* Hali-Ela PS (LG-81010) = Hali Ela PD (EC-19E)
+* Uva Paranagama PS (LG-81011) = Uva Paranagama PD (EC-19F)
+* **{Rideemaliyadda PS (LG-81002), Mahiyanganaya PS (LG-81001)} = Mahiyanganaya PD (EC-19A)**
+* **{Kandaketiya PS (LG-81004), Meegahakivula PS (LG-81003), Soranathota PS (LG-81005)} = Viyaluwa PD (EC-19B)**
 * **{Lunugala PS (LG-81007), Passara PS (LG-81006)} = Passara PD (EC-19C)**
-* **{Badulla PS (LG-81009), Badulla MC (LG-81008)} = Badulla PD (EC-19D)**
-* **{Bandarawela MC (LG-81014), Ella PS (LG-81015), Bandarawela PS (LG-81013)} = Bandarawela PD (EC-19H)**
+* **{Badulla MC (LG-81008), Badulla PS (LG-81009)} = Badulla PD (EC-19D)**
+* **{Ella PS (LG-81015), Bandarawela MC (LG-81014), Bandarawela PS (LG-81013)} = Bandarawela PD (EC-19H)**
 
 * *Welimada PS (LG-81012) ∩ Welimada PD (EC-19G)*
 
@@ -534,14 +534,14 @@
 
 # Moneragala District (LK-82)
 
-* **{Bibile PS (LG-82001), Medagama PS (LG-82003), Madulla PS (LG-82002)} = Bibile PD (EC-20A)**
-* **{Badalkumbura PS (LG-82006), Moneragala PS (LG-82005), Siyambalanduwa PS (LG-82004)} = Monaragala PD (EC-20B)**
-* **{Buttala PS (LG-82008), Katharagama PS (LG-82009), Wellawaya PS (LG-82007), Thanamalvila PS (LG-82010)} = Wellawaya PD (EC-20C)**
+* **{Madulla PS (LG-82002), Bibile PS (LG-82001), Medagama PS (LG-82003)} = Bibile PD (EC-20A)**
+* **{Badalkumbura PS (LG-82006), Siyambalanduwa PS (LG-82004), Moneragala PS (LG-82005)} = Monaragala PD (EC-20B)**
+* **{Wellawaya PS (LG-82007), Thanamalvila PS (LG-82010), Katharagama PS (LG-82009), Buttala PS (LG-82008)} = Wellawaya PD (EC-20C)**
 
 # Ratnapura District (LK-91)
 
-* **{Balangoda UC (LG-91006), Imbulpe PS (LG-91005), Balangoda PS (LG-91007)} = Balangoda PD (EC-21D)**
-* **{Weligepola PS (LG-91008), Godakawela PS (LG-91014)} = Rakwana PD (EC-21E)**
+* **{Imbulpe PS (LG-91005), Balangoda PS (LG-91007), Balangoda UC (LG-91006)} = Balangoda PD (EC-21D)**
+* **{Godakawela PS (LG-91014), Weligepola PS (LG-91008)} = Rakwana PD (EC-21E)**
 * **{Embilipitiya UC (LG-91016), Kolonna PS (LG-91017), Embilipitiya PS (LG-91015)} = Kolonna PD (EC-21H)**
 
 * *Eheliyagoda PS (LG-91001) ∩ Eheliyagoda PD (EC-21A)*
@@ -569,8 +569,8 @@
 
 # Kegalle District (LK-92)
 
-* **Rambukkana PS (LG-92001) = Rambukkana PD (EC-22D)**
-* **Warakapola PS (LG-92007) = Dedigama PD (EC-22A)**
+* Rambukkana PS (LG-92001) = Rambukkana PD (EC-22D)
+* Warakapola PS (LG-92007) = Dedigama PD (EC-22A)
 
 * *Mawanella PS (LG-92002) ∩ Mawanella PD (EC-22E)*
 
