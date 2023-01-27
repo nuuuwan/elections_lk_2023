@@ -58,7 +58,10 @@ def run_for_filter(parent_filter_id, get_parent_id_a, get_parent_id_b):
     ]    
     lines.append('')  
     for sa, sb in result['equal']:
-        lines.append(f'* {render_set(sa)} = {render_set(sb)}')
+        if len(sa) > 1 or len(sb) > 0:
+            lines.append(f'* **{render_set(sa)} = {render_set(sb)}**')
+        else:
+            lines.append(f'* {render_set(sa)} = {render_set(sb)}')
 
     prev_a = None
     for a,b in result['other']:
