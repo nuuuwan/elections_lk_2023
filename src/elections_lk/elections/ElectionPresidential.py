@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from elections_lk.core import FinalResult, Result
+from elections_lk.core import FinalResult, PartyToSeats, Result
 from elections_lk.elections.ElectionWithPDResults import ElectionWithPDResults
 
 
@@ -27,5 +27,5 @@ class ElectionPresidential(ElectionWithPDResults):
         winning_party = country_result.party_to_votes.keys_sorted()[0]
         return FinalResult.fromResult(
             country_result,
-            party_to_seats={winning_party: 1},
+            party_to_seats=PartyToSeats({winning_party: 1}),
         )

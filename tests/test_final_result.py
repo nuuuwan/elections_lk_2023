@@ -1,6 +1,7 @@
 from unittest import TestCase
 
-from elections_lk.core import FinalResult, SummaryStatistics
+from elections_lk.core import (FinalResult, PartyToSeats, PartyToVotes,
+                               SummaryStatistics)
 
 TEST_RESULT = FinalResult(
     region_id='EC-01A',
@@ -10,12 +11,16 @@ TEST_RESULT = FinalResult(
         polled=1000,
         electors=1250,
     ),
-    party_to_votes=dict(
-        UNP=500,
-        SLFP=400,
+    party_to_votes=PartyToVotes(
+        dict(
+            UNP=500,
+            SLFP=400,
+        )
     ),
-    party_to_seats=dict(
-        UNP=1,
+    party_to_seats=PartyToSeats(
+        dict(
+            UNP=1,
+        )
     ),
 )
 
@@ -27,12 +32,16 @@ TEST_RESULT2 = FinalResult(
         polled=410,
         electors=451,
     ),
-    party_to_votes=dict(
-        UNP=100,
-        SLFP=300,
+    party_to_votes=PartyToVotes(
+        dict(
+            UNP=100,
+            SLFP=300,
+        )
     ),
-    party_to_seats=dict(
-        SLFP=1,
+    party_to_seats=PartyToSeats(
+        dict(
+            SLFP=1,
+        )
     ),
 )
 
@@ -43,8 +52,10 @@ class TestResult(TestCase):
         self.assertEqual(result.total_seats, 1)
         self.assertEqual(
             result.party_to_seats,
-            dict(
-                UNP=1,
+            PartyToSeats(
+                dict(
+                    UNP=1,
+                )
             ),
         )
 
@@ -53,8 +64,10 @@ class TestResult(TestCase):
         self.assertEqual(result.total_seats, 2)
         self.assertEqual(
             result.party_to_seats,
-            dict(
-                UNP=1,
-                SLFP=1,
+            PartyToSeats(
+                dict(
+                    UNP=1,
+                    SLFP=1,
+                )
             ),
         )
