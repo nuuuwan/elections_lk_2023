@@ -24,8 +24,7 @@ class SetCompare:
         overlaps = self.overlaps
         return all([overlaps[id_b] == {id_a} for id_b in overlaps[id_a]])
 
-    @property
-    def results(self):
+    def do(self):
         overlaps = self.overlaps
 
         # equal
@@ -58,58 +57,3 @@ class SetCompare:
                     other.append((id_a, id_b))
 
         return dict(equal=equal, other=other)
-
-
-if __name__ == '__main__':
-    idx_a = {
-        'a1': {1, 2, 3},
-        'a2': {5, 6},
-        'a3': {7},
-        'a4': {8, 9},
-        'a5': {10, 11, 12},
-        'a6': {13, 14, 15},
-    }
-
-    idx_b = {
-        'b1': {1, 2, 3},
-        'b2': {5},
-        'b3': {6},
-        'b4': {7, 8, 9},
-        'b5': {10, 11, 13},
-        'b6': {12, 14, 15},
-    }
-
-    sc = SetCompare(idx_a, idx_b)
-
-    expected_overlaps = {
-        'a1': {'b1'},
-        'a2': {'b2', 'b3'},
-        'a3': {'b4'},
-        'a4': {'b4'},
-        'a5': {'b5', 'b6'},
-        'a6': {'b5', 'b6'},
-        'b1': {'a1'},
-        'b2': {'a2'},
-        'b3': {'a2'},
-        'b4': {'a3', 'a4'},
-        'b5': {'a5', 'a6'},
-        'b6': {'a5', 'a6'},
-    }
-    assert sc.overlaps == expected_overlaps
-
-    expected_results = dict(
-        equal=[
-            ({'a1'}, {'b1'}),
-            ({'a2'}, {'b2', 'b3'}),
-            ({'a3', 'a4'}, {'b4'}),
-        ],
-        other=[
-            ('a5', 'b5'),
-            ('a5', 'b6'),
-            ('a6', 'b5'),
-            ('a6', 'b6'),
-        ],
-    )
-
-    actual_results = sc.results
-    assert actual_results == expected_results, actual_results

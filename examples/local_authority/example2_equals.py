@@ -1,87 +1,90 @@
 from gig import Ent, EntType
-from utils import TSVFile
+import json
+from elections_lk.base import SetCompare
+from utils import File
 
-DISTRICT_ID = 'LK-13'
 
-
-def get_gnd_fp_idx(get_parent_id):
+def get_gnd_fp_idx(get_parent_id, filter_parent_id):
     gnd_ents = Ent.list_from_type(EntType.GND)
     idx = {}
 
     filtered_gnd_ents = [
-        gnd_ent for gnd_ent in gnd_ents if gnd_ent.district_id in DISTRICT_ID
+        gnd_ent for gnd_ent in gnd_ents if (filter_parent_id in gnd_ent.gnd_id)
     ]
 
     for gnd_ent in filtered_gnd_ents:
         parent_id = get_parent_id(gnd_ent)
         if parent_id:
             if parent_id not in idx:
-                idx[parent_id] = []
-            idx[parent_id].append(gnd_ent.id)
+                idx[parent_id] = set()
+            idx[parent_id].add(gnd_ent.id)
 
     return idx
 
 
 def render(id):
     ent = Ent.from_id(id)
+    ent_type = EntType.from_id(id)
+    suffix = ''
+    if ent_type == EntType.PD:
+        suffix = ' PD'
+    elif ent_type == EntType.DISTRICT:
+        suffix = ' District'
+    elif ent_type == EntType.ED:
+        suffix = ' ED'
+    elif ent_type == EntType.DSD:
+        suffix = ' DSD'
+
     name = ent.name
-    return f'{name} ({id})'
+    return f'{name}{suffix} ({id})'
 
 
-def render_iter(ids):
-    return ', '.join([render(id) for id in ids])
+def render_set(id_set):
+    if len(id_set) == 1:
+        return render(list(id_set)[0])
+    inner = ', '.join([render(id) for id in id_set])
+    return f'{{{inner}}}'
 
+def run_for_filter(parent_filter_id, get_parent_id_a, get_parent_id_b):
+    idx_a = get_gnd_fp_idx(get_parent_id_a, parent_filter_id)
+    idx_b = get_gnd_fp_idx(get_parent_id_b, parent_filter_id)
 
-def build_a_to_b(idx_a, idx_b):
-    overlap_idx = {}
-    for id_a, fp_a in idx_a.items():
-        for id_b, fp_b in idx_b.items():
-            if set(fp_a).intersection(set(fp_b)):
-                if id_a not in overlap_idx:
-                    overlap_idx[id_a] = []
-                overlap_idx[id_a].append(id_b)
-    return overlap_idx
+    compare = SetCompare(idx_a, idx_b)
+    result = compare.do()
 
+    lines = [
+        '',
+        '# ' +  (render(parent_filter_id)),
+    ]    
+    lines.append('')  
+    for sa, sb in result['equal']:
+        lines.append(f'* {render_set(sa)} = {render_set(sb)}')
 
-def build_grid(a_to_b, b_to_a, flip):
-    d_list = []
-    for id_a in sorted(a_to_b, key=lambda k: len(a_to_b[k]), reverse=flip):
-        b_list = a_to_b[id_a]
-        n_a = len(b_list)
-
-        for i, id_b in enumerate(sorted(b_list)):
-            a_list = b_to_a[id_b]
-            n_b = len(a_list)
-            if n_b == 1:
-                if n_a == 1 and not flip:
-                    continue
-
-                a = render(id_a) if (i == 0) else ""
-                b = render(id_b)
-                if flip:
-                    t = '1 to 1' if n_a == 1 else '1 to n'
-                    d_list.append(dict(t=t, a=a, b=b))
-                else:
-                    d_list.append(dict(t='n to 1', b=a, a=b))
-
-            elif not flip and n_a > 1:
-                d_list.append(
-                    dict(t='n to m', b=render(id_a), a=render(id_b))
-                )
-
-    return d_list
-
+    prev_a = None
+    for a,b in result['other']:
+        if a != prev_a:
+            lines.append('')       
+        lines.append(f'* *{render(a)} ∩ {render(b)}*')
+        prev_a = a
+    
+    return lines
 
 if __name__ == '__main__':
-    lg_idx = get_gnd_fp_idx(lambda gnd_ent: gnd_ent.lg_id)
-    pd_idx = get_gnd_fp_idx(lambda gnd_ent: gnd_ent.pd_id)
-
-    lg_to_pd = build_a_to_b(lg_idx, pd_idx)
-    pd_to_lg = build_a_to_b(pd_idx, lg_idx)
-
-    n = len(lg_idx) + len(pd_idx)
-    d_list = build_grid(lg_to_pd, pd_to_lg, True) + build_grid(
-        pd_to_lg, lg_to_pd, False
+    lines = run_for_filter(
+        'LK',
+        lambda gnd_ent: gnd_ent.district_id,
+        lambda gnd_ent: gnd_ent.ed_id
     )
-    d_list = sorted(d_list, key=lambda k: k['t'])
-    TSVFile('temp.tsv').write(d_list)
+    
+
+    district_ids = Ent.ids_from_type(EntType.DISTRICT)
+    for parent_filter_id in district_ids:
+        lines += run_for_filter(
+            parent_filter_id,
+            lambda gnd_ent: gnd_ent.lg_id,
+            lambda gnd_ent: gnd_ent.pd_id
+        )
+
+    File('examples/local_authority/example2_equals.md').write('\n'.join(lines))
+
+    
