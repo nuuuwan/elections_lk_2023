@@ -1,5 +1,4 @@
 from gig import Ent, EntType
-import json
 from elections_lk.base import SetCompare
 from utils import File
 
@@ -9,7 +8,9 @@ def get_gnd_fp_idx(get_parent_id, filter_parent_id):
     idx = {}
 
     filtered_gnd_ents = [
-        gnd_ent for gnd_ent in gnd_ents if (filter_parent_id in gnd_ent.gnd_id)
+        gnd_ent
+        for gnd_ent in gnd_ents
+        if (filter_parent_id in gnd_ent.gnd_id)
     ]
 
     for gnd_ent in filtered_gnd_ents:
@@ -45,6 +46,7 @@ def render_set(id_set):
     inner = ', '.join([render(id) for id in id_set])
     return f'{{{inner}}}'
 
+
 def run_for_filter(parent_filter_id, get_parent_id_a, get_parent_id_b):
     idx_a = get_gnd_fp_idx(get_parent_id_a, parent_filter_id)
     idx_b = get_gnd_fp_idx(get_parent_id_b, parent_filter_id)
@@ -54,9 +56,9 @@ def run_for_filter(parent_filter_id, get_parent_id_a, get_parent_id_b):
 
     lines = [
         '',
-        '# ' +  (render(parent_filter_id)),
-    ]    
-    lines.append('')  
+        '# ' + (render(parent_filter_id)),
+    ]
+    lines.append('')
     for sa, sb in result['equal']:
         if len(sa) > 1 or len(sb) > 1:
             lines.append(f'* **{render_set(sa)} = {render_set(sb)}**')
@@ -64,30 +66,30 @@ def run_for_filter(parent_filter_id, get_parent_id_a, get_parent_id_b):
             lines.append(f'* {render_set(sa)} = {render_set(sb)}')
 
     prev_a = None
-    for a,b in result['other']:
+    for a, b in result['other']:
         if a != prev_a:
-            lines.append('')       
+            lines.append('')
         lines.append(f'* *{render(a)} ∩ {render(b)}*')
         prev_a = a
-    
+
     return lines
+
 
 if __name__ == '__main__':
     lines = run_for_filter(
         'LK',
         lambda gnd_ent: gnd_ent.district_id,
-        lambda gnd_ent: gnd_ent.ed_id
+        lambda gnd_ent: gnd_ent.ed_id,
     )
-    
 
     district_ids = Ent.ids_from_type(EntType.DISTRICT)
     for parent_filter_id in district_ids:
         lines += run_for_filter(
             parent_filter_id,
             lambda gnd_ent: gnd_ent.lg_id,
-            lambda gnd_ent: gnd_ent.pd_id
+            lambda gnd_ent: gnd_ent.pd_id,
         )
 
-    File('examples/local_authority/example2_equals.md').write('\n'.join(lines))
-
-    
+    File('examples/local_authority/example2_equals.md').write(
+        '\n'.join(lines)
+    )
