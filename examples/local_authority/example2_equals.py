@@ -1,6 +1,7 @@
 from gig import Ent, EntType
-from elections_lk.base import SetCompare
 from utils import File
+
+from elections_lk.base import SetCompare
 
 
 def get_gnd_fp_idx(get_parent_id, filter_parent_id):
@@ -47,36 +48,46 @@ def render_set(id_set):
     return f'{{{inner}}}'
 
 
-def run_for_filter(parent_filter_id, get_parent_id_a, get_parent_id_b):
+def render_equal(equal):
+    lines = []
+    lines.append('')
+    for sa, sb in equal:
+        if len(sa) > 1 or len(sb) > 1:
+            lines.append(f'* **{render_set(sa)} = {render_set(sb)}**')
+        else:
+            lines.append(f'* {render_set(sa)} = {render_set(sb)}')
+    return lines
+
+
+def render_other(other):
+    prev_a = None
+    for a, b in other:
+        if a != prev_a:
+            lines.append('')
+        lines.append(f'* *{render(a)} ∩ {render(b)}*')
+        prev_a = a
+    return lines
+
+
+def render_for_filter(parent_filter_id, get_parent_id_a, get_parent_id_b):
     idx_a = get_gnd_fp_idx(get_parent_id_a, parent_filter_id)
     idx_b = get_gnd_fp_idx(get_parent_id_b, parent_filter_id)
 
     compare = SetCompare(idx_a, idx_b)
     result = compare.do()
 
-    lines = [
-        '',
-        '# ' + (render(parent_filter_id)),
-    ]
-    lines.append('')
-    for sa, sb in result['equal']:
-        if len(sa) > 1 or len(sb) > 1:
-            lines.append(f'* **{render_set(sa)} = {render_set(sb)}**')
-        else:
-            lines.append(f'* {render_set(sa)} = {render_set(sb)}')
-
-    prev_a = None
-    for a, b in result['other']:
-        if a != prev_a:
-            lines.append('')
-        lines.append(f'* *{render(a)} ∩ {render(b)}*')
-        prev_a = a
-
-    return lines
+    return (
+        [
+            '',
+            '# ' + (render(parent_filter_id)),
+        ]
+        + render_equal(result['equal'])
+        + render_other(result['other'])
+    )
 
 
 if __name__ == '__main__':
-    lines = run_for_filter(
+    lines = render_for_filter(
         'LK',
         lambda gnd_ent: gnd_ent.district_id,
         lambda gnd_ent: gnd_ent.ed_id,
@@ -84,7 +95,7 @@ if __name__ == '__main__':
 
     district_ids = Ent.ids_from_type(EntType.DISTRICT)
     for parent_filter_id in district_ids:
-        lines += run_for_filter(
+        lines += render_for_filter(
             parent_filter_id,
             lambda gnd_ent: gnd_ent.lg_id,
             lambda gnd_ent: gnd_ent.pd_id,

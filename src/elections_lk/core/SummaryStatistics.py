@@ -8,6 +8,8 @@ class SummaryStatistics:
     polled: int
     electors: int
 
+    FIELDS = ['valid', 'rejected', 'polled', 'electors']
+
     @property
     def p_rejected(self):
         return self.rejected / self.polled
