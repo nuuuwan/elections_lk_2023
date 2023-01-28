@@ -59,8 +59,8 @@ class SetCompare:
         overlaps = self.overlaps
         equal_ids = self.equal_ids
         other = []
-        for id_a in set(self.idx_a.keys()).difference(equal_ids):
-            for id_b in set(self.idx_b.keys()).difference(equal_ids):
+        for id_a in sorted(set(self.idx_a.keys()).difference(equal_ids)):
+            for id_b in sorted(set(self.idx_b.keys()).difference(equal_ids)):
                 if id_a in overlaps[id_b]:
                     other.append((id_a, id_b))
         return other
