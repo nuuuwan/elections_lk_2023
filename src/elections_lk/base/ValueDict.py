@@ -36,10 +36,10 @@ class ValueDict(Dict):
         items.append((self.OTHERS, n_other))
         return items
 
-    @staticmethod
-    def concat(dict_list):
+    @classmethod
+    def concat(cls, dict_list):
         d = {}
         for _dict in dict_list:
             for k, v in _dict.items():
                 d[k] = d.get(k, 0) + v
-        return ValueDict(d)
+        return cls(d)

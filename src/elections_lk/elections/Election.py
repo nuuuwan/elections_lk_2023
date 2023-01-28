@@ -34,8 +34,7 @@ class Election:
         )
 
     @classmethod
-    def load_result(cls, year, ent):
-        gig_table = cls.get_gig_table(year)
+    def load_result(cls, gig_table, ent):
         try:
             result_raw = ent.gig(gig_table)
         except BaseException:
@@ -54,10 +53,10 @@ class Election:
     @classmethod
     def load(cls, year):
         ent_list = cls.get_ent_list()
-
+        gig_table = cls.get_gig_table(year)
         results = []
         for ent in ent_list:
-            result = cls.load_result(year, ent)
+            result = cls.load_result(gig_table, ent)
             if result:
                 results.append(result)
         return cls(year=year, results=results)

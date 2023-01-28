@@ -53,7 +53,7 @@ class TestElectionPresidential(TestCase):
         self.assertEqual(country_final_result.party_to_seats['SLPP'], 1)
 
     def test_2019_election(self):
-        election = ElectionPresidential.load(2019)
+        election = TEST_ELECTION
         country_final_result = election.country_final_result
         self.assertEqual(country_final_result.region_id, "LK")
         print(country_final_result.summary_statistics)

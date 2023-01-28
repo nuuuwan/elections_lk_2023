@@ -7,7 +7,7 @@ DIST_NAME = 'elections_lk'
 with open('README.md', 'r') as fh:
     long_description = fh.read()
 
-VERSION = "2.1.0"
+VERSION = "2.1.2"
 
 setuptools.setup(
     name='%s-nuuuwan' % DIST_NAME,

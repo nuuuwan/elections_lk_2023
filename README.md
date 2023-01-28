@@ -10,7 +10,11 @@ pip install elections_lk-nuuuwan
 
 See also [https://pypi.org/project/elections-lk-nuuuwan/](https://pypi.org/project/elections-lk-nuuuwan/).
 
+
 ## Release History
+
+### 2.1.2 
+* refactoring
 
 ### 2.1.1
 * fix: BUG in items_othered (returns proportion, instead of count)

@@ -1,7 +1,6 @@
 from functools import cached_property
 
-from elections_lk.base import ValueDict
-from elections_lk.core import FinalResult, Result
+from elections_lk.core import FinalResult, PartyToSeats, Result
 from elections_lk.elections.ElectionWithPDResults import ElectionWithPDResults
 from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import \
     YEAR_TO_REGION_TO_SEATS
@@ -51,7 +50,7 @@ class ElectionParliamentary(ElectionWithPDResults):
     def national_list_final_result(self) -> FinalResult:
         '''Get final results for national list.'''
         country_result = Result.concat('LK', self.pd_results)
-        party_to_seats = country_result.get_party_to_seats(
+        party_to_seats = country_result.party_to_votes.get_party_to_seats(
             total_seats=SEATS_NATIONAL_LIST,
             p_limit=P_LIMIT_NATIONAL_LIST,
             bonus=BONUS_NATIONAL_LIST,
@@ -65,7 +64,7 @@ class ElectionParliamentary(ElectionWithPDResults):
         country_result = Result.concat('LK', self.pd_results)
         return FinalResult.fromResult(
             country_result,
-            ValueDict.concat(
+            PartyToSeats.concat(
                 [
                     final_result.party_to_seats
                     for final_result in self.ed_final_results
