@@ -1,11 +1,13 @@
 from functools import cached_property
 
 from gig import Ent, GIGTable
+from utils import TSVFile
 
-from elections_lk import ElectionPresidential, ElectionParliamentary
+from elections_lk import (ElectionLocalAuthority, ElectionParliamentary,
+                          ElectionPresidential)
 
 GIG_TABLE_ETH = GIGTable('population-ethnicity', 'regions', '2012')
-# GIG_TABLE_REL =  GIGTable('population-religion', 'regions', '2012')
+GIG_TABLE_REL = GIGTable('population-religion', 'regions', '2012')
 
 
 class EthnicVoting:
@@ -18,15 +20,16 @@ class EthnicVoting:
 
     @cached_property
     def n(self):
-        return len(self.election.pd_results)
+        return len(self.election.results)
 
     @staticmethod
-    def get_group_to_p_from_pd_id(id):
+    def get_group_to_p_from_region_id(id):
         if id[-1] in ['P', 'D']:
             id = id[:5]  # if postal vote, revert to electoral district
 
         ent = Ent.from_id(id)
         d_eth = ent.gig(GIG_TABLE_ETH)
+        ent.gig(GIG_TABLE_REL)
 
         return {
             'sinhala': d_eth.dict_p['sinhalese'],
@@ -37,13 +40,13 @@ class EthnicVoting:
     @cached_property
     def group_to_party_to_votes(self):
         group_to_party_to_votes = {}
-        for pd_result in self.election.pd_results:
-            group_to_p = self.get_group_to_p_from_pd_id(pd_result.region_id)
+        for result in self.election.results:
+            group_to_p = self.get_group_to_p_from_region_id(result.region_id)
             for group, p in group_to_p.items():
                 if group not in group_to_party_to_votes:
                     group_to_party_to_votes[group] = {}
 
-                for party, votes in pd_result.party_to_votes.items():
+                for party, votes in result.party_to_votes.items():
                     group_to_party_to_votes[group][party] = (
                         group_to_party_to_votes[group].get(party, 0)
                         + p * votes
@@ -61,29 +64,29 @@ class EthnicVoting:
             group_to_effect[group] = effect
         return group_to_effect
 
-    def get_group_effect_from_pd_result(self, pd_result):
-        pd_id = pd_result.region_id
-        group_to_p = self.get_group_to_p_from_pd_id(pd_id)
+    def get_group_effect_from_result(self, result):
+        region_id = result.region_id
+        group_to_p = self.get_group_to_p_from_region_id(region_id)
         group_effect = 0
         for group, effect in self.group_to_effect.items():
             group_effect += group_to_p.get(group, 0) * effect
         return group_effect
 
-    def get_final_effect_from_pd_result(self, pd_result):
-        return pd_result.get_party_pvotes(self.party)
+    def get_final_effect_from_result(self, result):
+        return result.get_party_pvotes(self.party)
 
     @cached_property
     def total_variance(self):
         country_effect = self.country_effect
         weighted_total_div_sum2 = 0
         weight_sum = 0
-        for pd_result in example.election.pd_results:
-            for party, votes in pd_result.party_to_votes.items():
-                pvotes = votes / pd_result.total_votes
+        for result in example.election.results:
+            for party, votes in result.party_to_votes.items():
+                pvotes = votes / result.total_votes
 
                 total_div = pvotes - country_effect[party]
 
-                weight = pd_result.total_votes * pvotes
+                weight = result.total_votes * pvotes
                 weighted_total_div_sum2 += (total_div**2) * weight
                 weight_sum += weight
 
@@ -96,21 +99,21 @@ class EthnicVoting:
 
         weighted_total_div_sum2 = 0
         weight_sum = 0
-        for pd_result in example.election.pd_results:
-            group_to_p = self.get_group_to_p_from_pd_id(pd_result.region_id)
+        for result in example.election.results:
+            group_to_p = self.get_group_to_p_from_region_id(result.region_id)
             party_to_predicted_votes = {}
             for group, p in group_to_p.items():
                 for party, p_party in group_to_effect[group].items():
-                    if party not in party_to_predicted_votes:
-                        party_to_predicted_votes[party] = 0
-
-                    party_to_predicted_votes[party] += pd_result.total_votes * p_party * p
+                    party_to_predicted_votes[party] = (
+                        party_to_predicted_votes.get(party, 0)
+                        + result.total_votes * p_party * p
+                    )
 
             for party, predicted_votes in party_to_predicted_votes.items():
-                pvotes = predicted_votes / pd_result.total_votes
+                pvotes = predicted_votes / result.total_votes
                 group_div = pvotes - country_effect[party]
 
-                weight = pd_result.total_votes * pvotes           
+                weight = result.total_votes * pvotes
                 weighted_total_div_sum2 += (group_div**2) * weight
                 weight_sum += weight
 
@@ -122,16 +125,32 @@ class EthnicVoting:
 
 
 def format_p(p):
+    return p
     return f'{p:.1%}'
 
 
 if __name__ == '__main__':
-    for year in ElectionPresidential.get_years():
-        election = ElectionPresidential.load(year)
-        example = EthnicVoting(election)
-        print(year, format_p(example.p_group_effect))
-
-    for year in ElectionParliamentary.get_years():
-        election = ElectionParliamentary.load(year)
-        example = EthnicVoting(election)
-        print(year, format_p(example.p_group_effect))
+    d_list = []
+    for cls_election in [
+        ElectionPresidential,
+        ElectionParliamentary,
+        ElectionLocalAuthority,
+    ]:
+        election_type = cls_election.get_election_type()
+        for year in cls_election.get_years():
+            print(election_type, year)
+            election = cls_election.load(year)
+            example = EthnicVoting(election)
+            winning_party = (
+                election.country_final_result.party_to_votes.winning_party
+            )
+            d_list.append(
+                dict(
+                    election_type=election_type,
+                    winning_party=winning_party,
+                    year=year,
+                    p_group_effect=example.p_group_effect,
+                )
+            )
+    tsv_path = __file__[:-3] + '.tsv'
+    TSVFile(tsv_path).write(d_list)
