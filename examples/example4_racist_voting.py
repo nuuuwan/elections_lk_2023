@@ -1,8 +1,8 @@
-from elections_lk import PresidentialElection
+from elections_lk import ElectionPresidential
 
 
 def main():
-    PresidentialElection(2019)
+    election = ElectionPresidential.load(2019)
 
 
 if __name__ == '__main__':
