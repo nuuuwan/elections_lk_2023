@@ -16,7 +16,7 @@ class Result:
         return self.party_to_votes.total
 
     def get_party_votes(self, party):
-        return self.party_to_votes[party]
+        return self.party_to_votes.dict.get(party, 0)
 
     def get_party_pvotes(self, party):
         return self.get_party_votes(party) / self.total_votes

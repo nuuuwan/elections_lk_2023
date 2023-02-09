@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from functools import cached_property
 
 from utils import Log
 
@@ -15,6 +16,13 @@ def correct_int(x):
 class Election:
     year: int
     results: list
+
+    @cached_property
+    def all_parties(self):
+        all_parties = set()
+        for result in self.results:
+            all_parties.update(result.party_to_votes.keys())
+        return sorted(all_parties)
 
     @classmethod
     def extract_party_to_votes(cls, result_raw):
