@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from elections_lk.elections import Election
+from elections_lk import Election
 
 TEST_ELECTION = Election(2020, [])
 

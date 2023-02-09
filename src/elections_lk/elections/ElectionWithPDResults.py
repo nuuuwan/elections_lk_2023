@@ -1,6 +1,6 @@
 from gig import Ent, EntType, GIGTable
 
-from elections_lk.elections import Election
+from elections_lk import Election
 
 
 def correct_int(x):

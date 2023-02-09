@@ -1,4 +1,4 @@
-from elections_lk.elections import ElectionLocalAuthority
+from elections_lk import ElectionLocalAuthority
 
 if __name__ == '__main__':
     election = ElectionLocalAuthority.load(2018)

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from elections_lk.elections import ElectionLocalAuthority
+from elections_lk import ElectionLocalAuthority
 
 TEST_YEAR = 2018
 TEST_ELECTION = ElectionLocalAuthority.load(TEST_YEAR)
