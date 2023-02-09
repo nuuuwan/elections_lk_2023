@@ -14,7 +14,8 @@ See also [https://pypi.org/project/elections-lk-nuuuwan/](https://pypi.org/proje
 ## Release History
 
 ### 2.1.3
-* example4_racist_voting.py
+* example4_racist_voting
+* example5_party_continuity
 * refactoring
 
 ### 2.1.2 (CURRENT RELEASE)
