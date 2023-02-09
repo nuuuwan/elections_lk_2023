@@ -3,8 +3,11 @@ from functools import cached_property
 from gig import Ent, GIGTable
 from utils import TSVFile
 
-from elections_lk import (ElectionLocalAuthority, ElectionParliamentary,
-                          ElectionPresidential)
+from elections_lk import (
+    ElectionLocalAuthority,
+    ElectionParliamentary,
+    ElectionPresidential,
+)
 
 GIG_TABLE_ETH = GIGTable('population-ethnicity', 'regions', '2012')
 GIG_TABLE_REL = GIGTable('population-religion', 'regions', '2012')
@@ -83,6 +86,8 @@ class EthnicVoting:
         for result in example.election.results:
             for party, votes in result.party_to_votes.items():
                 pvotes = votes / result.total_votes
+                if result.region_id in ['EC-01A', 'EC-01J'] and party == 'SLPP':
+                    print(pvotes)
 
                 total_div = pvotes - country_effect[party]
 
@@ -117,6 +122,9 @@ class EthnicVoting:
                 weighted_total_div_sum2 += (group_div**2) * weight
                 weight_sum += weight
 
+                if result.region_id in ['EC-01A', 'EC-01J'] and party == 'SLPP':
+                    print(pvotes)
+
         return weighted_total_div_sum2 / weight_sum
 
     @cached_property
@@ -137,7 +145,7 @@ if __name__ == '__main__':
         ElectionLocalAuthority,
     ]:
         election_type = cls_election.get_election_type()
-        for year in cls_election.get_years():
+        for year in cls_election.get_years()[-1:]:
             print(election_type, year)
             election = cls_election.load(year)
             example = EthnicVoting(election)
@@ -152,5 +160,8 @@ if __name__ == '__main__':
                     p_group_effect=example.p_group_effect,
                 )
             )
-    tsv_path = __file__[:-3] + '.tsv'
-    TSVFile(tsv_path).write(d_list)
+            break
+        break
+    if False:
+        tsv_path = __file__[:-3] + '.tsv'
+        TSVFile(tsv_path).write(d_list)
