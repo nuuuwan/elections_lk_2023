@@ -24,7 +24,6 @@ class FinalResult(Result):
 
     @classmethod
     def concat(cls, concat_region_id: str, result_list: list):
-
         result = Result.concat(concat_region_id, result_list)
         party_to_seats = PartyToSeats.concat(
             [r.party_to_seats for r in result_list]
