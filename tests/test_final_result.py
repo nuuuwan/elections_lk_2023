@@ -1,7 +1,11 @@
 from unittest import TestCase
 
-from elections_lk.core import (FinalResult, PartyToSeats, PartyToVotes,
-                               SummaryStatistics)
+from elections_lk import (
+    FinalResult,
+    PartyToSeats,
+    PartyToVotes,
+    SummaryStatistics,
+)
 
 TEST_RESULT = FinalResult(
     region_id='EC-01A',

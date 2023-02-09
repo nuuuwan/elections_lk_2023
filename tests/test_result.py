@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from elections_lk.core import Result, SummaryStatistics
+from elections_lk import Result, SummaryStatistics
 
 TEST_RESULT = Result(
     region_id='EC-01A',

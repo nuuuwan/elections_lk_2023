@@ -3,7 +3,9 @@ from functools import cached_property
 
 from utils import Log
 
-from elections_lk.core import PartyToVotes, Result, SummaryStatistics
+from elections_lk.core.PartyToVotes import PartyToVotes
+from elections_lk.core.Result import Result
+from elections_lk.core.SummaryStatistics import SummaryStatistics
 
 log = Log('Election')
 
@@ -16,6 +18,10 @@ def correct_int(x):
 class Election:
     year: int
     results: list
+
+    @property
+    def title(self):
+        return f'{self.year} {self.get_election_type().title()} Election'
 
     @cached_property
     def all_parties(self):

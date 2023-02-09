@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from gig import Ent
 
 from elections_lk import ElectionLocalAuthority
-from elections_lk.core import Party
+from elections_lk import Party
 
 if __name__ == '__main__':
     election = ElectionLocalAuthority.from_year(2018)

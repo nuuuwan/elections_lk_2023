@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from elections_lk.core import PartyToSeats, PartyToVotes
+from elections_lk import PartyToSeats, PartyToVotes
 
 TEST_PARTY_TO_VOTES = PartyToVotes(
     {
