@@ -19,10 +19,13 @@ class Election:
 
     @cached_property
     def all_parties(self):
-        all_parties = set()
-        for result in self.results:
-            all_parties.update(result.party_to_votes.keys())
-        return sorted(all_parties)
+        return sorted(self.country_final_result.party_to_votes.keys())
+
+    def get_popular_parties(self, p_limit=0.005):
+        party_to_votes = self.country_final_result.party_to_votes
+        total = party_to_votes.total
+        vote_limit = total * p_limit
+        return [x[0] for x in party_to_votes.items() if x[1] > vote_limit]
 
     @classmethod
     def extract_party_to_votes(cls, result_raw):
@@ -55,7 +58,7 @@ class Election:
         )
 
     @classmethod
-    def load(cls, year):
+    def from_year(cls, year):
         ent_list = cls.get_ent_list()
         gig_table = cls.get_gig_table(year)
         results = []

@@ -4,7 +4,7 @@ from elections_lk import ElectionPresidential
 from elections_lk.core import SummaryStatistics
 
 TEST_YEAR = 2019
-TEST_ELECTION = ElectionPresidential.load(TEST_YEAR)
+TEST_ELECTION = ElectionPresidential.from_year(TEST_YEAR)
 
 
 class TestElectionPresidential(TestCase):

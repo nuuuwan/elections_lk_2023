@@ -1,7 +1,7 @@
 from elections_lk import ElectionLocalAuthority
 
 if __name__ == '__main__':
-    election = ElectionLocalAuthority.load(2018)
+    election = ElectionLocalAuthority.from_year(2018)
     print(election.lg_final_results[0])
 
     print(election.district_final_results[0])

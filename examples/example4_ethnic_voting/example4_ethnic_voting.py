@@ -2,7 +2,7 @@ from functools import cached_property
 
 from gig import Ent, GIGTable
 from sklearn.linear_model import LinearRegression
-from utils import TSVFile, Log
+from utils import Log, TSVFile
 
 from elections_lk import (ElectionLocalAuthority, ElectionParliamentary,
                           ElectionPresidential)
@@ -12,6 +12,7 @@ GIG_TABLE_REL = GIGTable('population-religion', 'regions', '2012')
 
 TEST_ED_ID = 'EC-01'
 log = Log('Ethnic Voting')
+
 
 class EthnicVoting:
     def __init__(self, election):
@@ -127,7 +128,7 @@ class EthnicVoting:
         model = self.get_prediction_model()
         all_parties = self.election.all_parties
 
-        for result in example.election.results:
+        for result in self.election.results:
             self.get_group_to_p_from_region_id(result.region_id)
             x = self.get_x_from_result(result)
             yhat = model.predict([x])[0]
@@ -141,7 +142,6 @@ class EthnicVoting:
                 weight = result.total_votes * pvotes
                 weighted_total_div_sum2 += (group_div**2) * weight
                 weight_sum += weight
-
 
         return weighted_total_div_sum2 / weight_sum
 
@@ -157,7 +157,7 @@ def format_p(p):
 
 def main():
     d_list = []
-    for cls_election in [        
+    for cls_election in [
         ElectionLocalAuthority,
         ElectionParliamentary,
         ElectionPresidential,
@@ -179,18 +179,18 @@ def main():
                 )
             )
 
-    
     tsv_path = __file__[:-3] + '.tsv'
     TSVFile(tsv_path).write(d_list)
     log.info(f'Saved {tsv_path}')
 
+
 def main_model_only():
-    election = ElectionPresidential.load(2019)
+    election = ElectionPresidential.from_year(2019)
     example = EthnicVoting(election)
     party = 'SLPP'
     index_of_party = example.election.all_parties.index(party)
 
-    d_list=  []
+    d_list = []
     model = example.get_prediction_model()
     for result in example.election.results:
         pd_id = result.region_id
@@ -205,17 +205,19 @@ def main_model_only():
         x = example.get_x_from_result(result)
         yhat = model.predict([x])[0]
 
-        p_votes=result.get_party_pvotes(party)
+        p_votes = result.get_party_pvotes(party)
         p_votes_predicted = yhat[index_of_party]
-        error = (p_votes_predicted -p_votes ) 
+        error = p_votes_predicted - p_votes
 
-        d_list.append(dict(
-            pd_id=pd_id,
-            name=name,
-            p_votes=p_votes,
-            p_votes_predicted=p_votes_predicted,
-            error=error,
-        ))
+        d_list.append(
+            dict(
+                pd_id=pd_id,
+                name=name,
+                p_votes=p_votes,
+                p_votes_predicted=p_votes_predicted,
+                error=error,
+            )
+        )
 
     tsv_path = __file__[:-3] + '.model.tsv'
     TSVFile(tsv_path).write(d_list)
@@ -224,4 +226,3 @@ def main_model_only():
 
 if __name__ == '__main__':
     main_model_only()
-

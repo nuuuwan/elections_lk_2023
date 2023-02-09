@@ -8,7 +8,7 @@ from elections_lk import ElectionLocalAuthority
 from elections_lk.core import Party
 
 if __name__ == '__main__':
-    election = ElectionLocalAuthority.load(2018)
+    election = ElectionLocalAuthority.from_year(2018)
     id_filter = sys.argv[1]
 
     _, ax = plt.subplots(figsize=(16, 9))

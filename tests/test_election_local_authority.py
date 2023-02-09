@@ -3,7 +3,7 @@ from unittest import TestCase
 from elections_lk import ElectionLocalAuthority
 
 TEST_YEAR = 2018
-TEST_ELECTION = ElectionLocalAuthority.load(TEST_YEAR)
+TEST_ELECTION = ElectionLocalAuthority.from_year(TEST_YEAR)
 
 
 class TestElectionLocalAuthority(TestCase):
