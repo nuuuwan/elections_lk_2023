@@ -153,7 +153,7 @@ class PartyContinuity:
         source = []
         target = []
         value = []
-        color = []
+        link_color = []
         for party_x in matrix:
             i_x = label_to_ix[party_x]
             for party_y in matrix[party_x]:
@@ -161,23 +161,20 @@ class PartyContinuity:
                 source.append(i_x)
                 target.append(i_y)
                 value.append(matrix[party_x][party_y])
-                color.append('red')
+                link_color.append(Party(party_x).color_alpha(0.1))
 
         fig = go.Figure(
             data=[
                 go.Sankey(
                     node=dict(
-                        pad=15,
-                        thickness=20,
-                        line=dict(color="black", width=0.5),
                         label=label,
-                        color=color,
+                        color=node_color,
                     ),
                     link=dict(
                         source=source,
                         target=target,
                         value=value,
-                        color=color,
+                        color=link_color,
                     ),
                 )
             ]
