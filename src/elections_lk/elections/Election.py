@@ -38,10 +38,6 @@ class Election:
         try:
             result_raw = ent.gig(gig_table)
         except BaseException:
-            log.error(
-                f'Could not find result for {ent.id}'
-                + f' in {gig_table.table_id}'
-            )
             return None
 
         return Result(

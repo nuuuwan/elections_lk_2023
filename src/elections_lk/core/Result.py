@@ -15,6 +15,12 @@ class Result:
     def total_votes(self) -> int:
         return self.party_to_votes.total
 
+    def get_party_votes(self, party):
+        return self.party_to_votes[party]
+
+    def get_party_pvotes(self, party):
+        return self.get_party_votes(party) / self.total_votes
+
     @classmethod
     def concat(cls, concat_region_id: str, result_list: list):
         summary_statistics = SummaryStatistics.concat(

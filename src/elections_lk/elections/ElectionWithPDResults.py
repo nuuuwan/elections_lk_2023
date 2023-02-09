@@ -19,6 +19,12 @@ class ElectionWithPDResults(Election):
     def pd_results(self):
         return self.results
 
+    @property
+    def pd_results_idx(self):
+        return {
+            pd_result.region_id: pd_result for pd_result in self.pd_results
+        }
+
     @classmethod
     def get_ent_list(cls):
         pd_list = Ent.list_from_type(EntType.PD)

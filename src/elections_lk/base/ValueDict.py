@@ -15,6 +15,14 @@ class ValueDict(Dict):
     def d(self):
         return self.x
 
+    @property
+    def dict(self):
+        return self.x
+
+    @property
+    def dict_p(self):
+        return {k: v / self.total for k, v in self.items()}
+
     def keys_sorted(self):
         return [item[0] for item in self.items_sorted()]
 
