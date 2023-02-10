@@ -22,7 +22,7 @@ class SummaryStatistics:
     def p_turnout(self):
         return self.polled / self.electors
 
-    @property 
+    @property
     def not_counted(self):
         return self.electors - self.valid
 
