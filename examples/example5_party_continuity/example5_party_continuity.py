@@ -4,12 +4,14 @@ import plotly.graph_objects as go
 from sklearn.linear_model import LinearRegression
 from utils import Log, TSVFile
 
-from elections_lk import ElectionPresidential, Party
+from elections_lk import ElectionParliamentary, Party,ElectionPresidential
 
 log = Log('PartyContinuity')
 
 P_LIMIT = 0.005
 NOT_VOTED = '(Not Voted)'
+WIDTH = 1200
+HEIGHT = 675
 
 
 class PartyContinuity:
@@ -21,8 +23,11 @@ class PartyContinuity:
     def features(election):
         popular_parties = election.get_popular_parties(P_LIMIT)
         idx = {}
+        i = 0
         for result in election.results:
             id = result.region_id
+            if id in ['EC-11D']:
+                continue
             d = result.party_to_votes.dict
             x = [d.get(party, 0) for party in popular_parties]
             idx[id] = x
@@ -40,13 +45,16 @@ class PartyContinuity:
     def sample_weight(self):
         idx = {}
         for result in self.election_x.results:
-            idx[result.region_id] = result.party_to_votes.total
+            id = result.region_id
+            if id in ['EC-11D']:
+                continue
+            idx[id] = result.party_to_votes.total
         return [idx[id] for id in sorted(idx.keys())]
 
     @property
     def model(self):
         X, Y = self.X, self.Y
-        model = LinearRegression(positive=True, fit_intercept=False)
+        model = LinearRegression(positive=False, fit_intercept=True)
         model.fit(X, Y, sample_weight=self.sample_weight)
         return model
 
@@ -76,10 +84,10 @@ class PartyContinuity:
             for i_y, party_y in enumerate(popular_parties_y):
                 matrix[party_x][party_y] = model.coef_[i_y][i_x] * total
 
-        not_visited_y = {}
+        not_voted_y = {}
         for party_y in popular_parties_y:
-            not_visited_y[party_y] = 0
-        not_visited_y[NOT_VOTED] = 0
+            not_voted_y[party_y] = 0
+        not_voted_y[NOT_VOTED] = 0
 
         for party_x in popular_parties_x:
             total_x = election_x.country_final_result.party_to_votes.dict.get(
@@ -87,17 +95,17 @@ class PartyContinuity:
                 0,
             )
             total_y = sum(matrix[party_x].values())
-            not_visited_x = max(total_x - total_y, 0)
-            matrix[party_x][NOT_VOTED] = not_visited_x
+            not_voted_x = max(total_x - total_y, 0)
+            matrix[party_x][NOT_VOTED] = not_voted_x
 
             if total_y > total_x:
                 r = total_x / total_y
                 for party_y in popular_parties_y:
                     val = matrix[party_x][party_y]
                     matrix[party_x][party_y] = val * r
-                    not_visited_y[party_y] = val * (1 - r)
+                    not_voted_y[party_y] += val * (1 - r)
 
-        matrix[NOT_VOTED] = not_visited_y
+        matrix[NOT_VOTED] = not_voted_y
         return matrix
 
     @property
@@ -157,10 +165,13 @@ class PartyContinuity:
         for party_x in matrix:
             i_x = label_to_ix[party_x]
             for party_y in matrix[party_x]:
+                value_i = matrix[party_x][party_y]
+                if value_i < 10_000:
+                    continue
                 i_y = label_to_iy[party_y]
                 source.append(i_x)
                 target.append(i_y)
-                value.append(matrix[party_x][party_y])
+                value.append(value_i)
                 link_color.append(Party(party_x).color_alpha(0.1))
 
         fig = go.Figure(
@@ -181,14 +192,14 @@ class PartyContinuity:
         )
 
         fig.update_layout(title_text=self.title, font_size=10)
-        fig.write_image(self.image_file_path)
+        fig.write_image(self.image_file_path, width=WIDTH, height=HEIGHT)
         log.info(f'Saved {self.image_file_path}')
         os.system(f'open {self.image_file_path}')
 
 
 if __name__ == '__main__':
     election_x = ElectionPresidential.from_year(2015)
-    election_y = ElectionPresidential.from_year(2019)
+    election_y = ElectionPresidential.from_year(2019)    
     report = PartyContinuity(election_x, election_y)
-    # report.save()
+    report.save()
     report.draw()
