@@ -1,7 +1,7 @@
 from utils import Log
 
 from elections_lk import ElectionParliamentary
-from elections_lk.sankey.SankeyBase import SankeyBase
+from elections_lk.sankey.SankeyModel import SankeyModel
 from elections_lk.sankey.SankeyDraw import SankeyDraw
 from elections_lk.sankey.SankeyReport import SankeyReport
 
@@ -13,7 +13,7 @@ WIDTH = 1200
 HEIGHT = 675
 
 
-class Sankey(SankeyBase, SankeyReport, SankeyDraw):
+class Sankey(SankeyModel, SankeyReport, SankeyDraw):
     pass
 
 

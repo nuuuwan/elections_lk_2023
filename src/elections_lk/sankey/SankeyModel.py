@@ -11,7 +11,7 @@ WIDTH = 1200
 HEIGHT = 675
 
 
-class SankeyBase:
+class SankeyModel:
     def __init__(self, election_x, election_y):
         self.election_x = election_x
         self.election_y = election_y
