@@ -1,7 +1,6 @@
 from unittest import TestCase
 
-from elections_lk import ElectionPresidential
-from elections_lk import SummaryStatistics
+from elections_lk import ElectionPresidential, SummaryStatistics
 
 TEST_YEAR = 2019
 TEST_ELECTION = ElectionPresidential.from_year(TEST_YEAR)

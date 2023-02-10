@@ -4,12 +4,12 @@ import plotly.graph_objects as go
 from sklearn.linear_model import LinearRegression
 from utils import Log, TSVFile
 
-from elections_lk import ElectionParliamentary, Party,ElectionPresidential
+from elections_lk import ElectionPresidential, Party
 
 log = Log('PartyContinuity')
 
 P_LIMIT = 0.005
-NOT_VOTED = '(Not Voted)'
+NOT_COUNTED = '(Didn\'t Vote or Rejected)'
 WIDTH = 1200
 HEIGHT = 675
 
@@ -19,42 +19,54 @@ class PartyContinuity:
         self.election_x = election_x
         self.election_y = election_y
 
-    @staticmethod
-    def features(election):
+    def feature_idx(self, election):
         popular_parties = election.get_popular_parties(P_LIMIT)
         idx = {}
-        i = 0
         for result in election.results:
+            
             id = result.region_id
             if id in ['EC-11D']:
                 continue
             d = result.party_to_votes.dict
             x = [d.get(party, 0) for party in popular_parties]
             idx[id] = x
-        return [idx[id] for id in sorted(idx.keys())]
+
+            did_not_vote = result.summary_statistics.not_counted
+            x.append(did_not_vote)
+
+        return idx
 
     @property
-    def X(self):
-        return self.features(self.election_x)
+    def X_idx(self):
+        return self.feature_idx(self.election_x)
 
     @property
-    def Y(self):
-        return self.features(self.election_y)
+    def Y_idx(self):
+        return self.feature_idx(self.election_y)
 
     @property
-    def sample_weight(self):
+    def sample_weight_idx(self):
         idx = {}
         for result in self.election_x.results:
             id = result.region_id
             if id in ['EC-11D']:
                 continue
             idx[id] = result.party_to_votes.total
-        return [idx[id] for id in sorted(idx.keys())]
+        return idx
 
     @property
     def model(self):
-        X, Y = self.X, self.Y
-        model = LinearRegression(positive=False, fit_intercept=True)
+        X_idx, Y_idx, sample_weight_idx = self.X_idx, self.Y_idx, self.sample_weight_idx
+
+        common_keys = list(sorted(set(X_idx.keys()) & set(Y_idx.keys())))
+        X = [X_idx[key] for key in common_keys]
+        Y = [Y_idx[key] for key in common_keys]
+        self.sample_weight = [sample_weight_idx[key] for key in common_keys]
+
+        print(common_keys[0], X[0])
+        print(common_keys[0], Y[0])
+
+        model = LinearRegression(positive=True, fit_intercept=False)
         model.fit(X, Y, sample_weight=self.sample_weight)
         return model
 
@@ -75,37 +87,49 @@ class PartyContinuity:
 
         matrix = {}
 
-        for i_x, party_x in enumerate(popular_parties_x):
+        print(election_x.country_final_result.summary_statistics)
+
+        for i_x, party_x in enumerate(popular_parties_x + [NOT_COUNTED]):
             matrix[party_x] = {}
-            total = election_x.country_final_result.party_to_votes.dict.get(
-                party_x,
-                0,
-            )
-            for i_y, party_y in enumerate(popular_parties_y):
+
+            if party_x == NOT_COUNTED:
+                total = election_x.country_final_result.summary_statistics.not_counted
+            else:
+                total = election_x.country_final_result.party_to_votes.dict.get(
+                    party_x,
+                    0,
+                )
+            print(party_x, total)
+
+            for i_y, party_y in enumerate(popular_parties_y + [NOT_COUNTED]):
                 matrix[party_x][party_y] = model.coef_[i_y][i_x] * total
 
-        not_voted_y = {}
-        for party_y in popular_parties_y:
-            not_voted_y[party_y] = 0
-        not_voted_y[NOT_VOTED] = 0
-
-        for party_x in popular_parties_x:
-            total_x = election_x.country_final_result.party_to_votes.dict.get(
+        
+        for i_x, party_x in enumerate(popular_parties_x):
+            expected_total = election_x.country_final_result.party_to_votes.dict.get(
                 party_x,
                 0,
             )
-            total_y = sum(matrix[party_x].values())
-            not_voted_x = max(total_x - total_y, 0)
-            matrix[party_x][NOT_VOTED] = not_voted_x
+            actual_total = sum(matrix[party_x][party_y] for party_y in popular_parties_y)
+            r = actual_total / expected_total
+            print(party_x, actual_total, expected_total, r)
+            if r > 0:
+                for i_y, party_y in enumerate(popular_parties_y):
+                    actual = matrix[party_x][party_y]
+                    matrix[party_x][party_y] = actual / r
+                    excess  = actual * (1- 1/r)
+                    matrix[NOT_COUNTED][party_y] += excess
 
-            if total_y > total_x:
-                r = total_x / total_y
-                for party_y in popular_parties_y:
-                    val = matrix[party_x][party_y]
-                    matrix[party_x][party_y] = val * r
-                    not_voted_y[party_y] += val * (1 - r)
+        for i_y, party_y in enumerate(popular_parties_y):
+            if matrix[NOT_COUNTED][party_y] < 0:
+                rem = -matrix[NOT_COUNTED][party_y]
+                for i_x, party_x in enumerate(popular_parties_x):
+                    matrix[party_x][party_y] = max(0, matrix[party_x][party_y] - rem / len(popular_parties_x))
+                    rem = max(0, rem - matrix[party_x][party_y])
+                    if rem <= 0:
+                        break
+                matrix[NOT_COUNTED][party_y]  = -rem
 
-        matrix[NOT_VOTED] = not_voted_y
         return matrix
 
     @property
@@ -199,7 +223,7 @@ class PartyContinuity:
 
 if __name__ == '__main__':
     election_x = ElectionPresidential.from_year(2015)
-    election_y = ElectionPresidential.from_year(2019)    
+    election_y = ElectionPresidential.from_year(2019)
     report = PartyContinuity(election_x, election_y)
     report.save()
     report.draw()

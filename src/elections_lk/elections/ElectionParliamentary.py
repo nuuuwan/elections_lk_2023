@@ -3,11 +3,9 @@ from functools import cached_property
 from elections_lk.core.FinalResult import FinalResult
 from elections_lk.core.PartyToSeats import PartyToSeats
 from elections_lk.core.Result import Result
-
 from elections_lk.elections.ElectionWithPDResults import ElectionWithPDResults
-from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import (
-    YEAR_TO_REGION_TO_SEATS,
-)
+from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import \
+    YEAR_TO_REGION_TO_SEATS
 
 P_LIMIT_ED = 0.05
 BONUS_ED = 1

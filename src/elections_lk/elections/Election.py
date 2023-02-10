@@ -23,6 +23,10 @@ class Election:
     def title(self):
         return f'{self.year} {self.get_election_type().title()} Election'
 
+    @property 
+    def results_idx(self):
+        return {result.region_id: result for result in self.results}
+
     @cached_property
     def all_parties(self):
         return sorted(self.country_final_result.party_to_votes.keys())

@@ -4,11 +4,8 @@ from gig import Ent, GIGTable
 from sklearn.linear_model import LinearRegression
 from utils import Log, TSVFile
 
-from elections_lk import (
-    ElectionLocalAuthority,
-    ElectionParliamentary,
-    ElectionPresidential,
-)
+from elections_lk import (ElectionLocalAuthority, ElectionParliamentary,
+                          ElectionPresidential)
 
 GIG_TABLE_ETH = GIGTable('population-ethnicity', 'regions', '2012')
 GIG_TABLE_REL = GIGTable('population-religion', 'regions', '2012')

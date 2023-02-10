@@ -3,7 +3,6 @@ from functools import cached_property
 from elections_lk.core.FinalResult import FinalResult
 from elections_lk.core.PartyToSeats import PartyToSeats
 from elections_lk.core.Result import Result
-
 from elections_lk.elections.ElectionWithPDResults import ElectionWithPDResults
 
 

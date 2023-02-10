@@ -4,8 +4,7 @@ import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 from gig import Ent
 
-from elections_lk import ElectionLocalAuthority
-from elections_lk import Party
+from elections_lk import ElectionLocalAuthority, Party
 
 if __name__ == '__main__':
     election = ElectionLocalAuthority.from_year(2018)
