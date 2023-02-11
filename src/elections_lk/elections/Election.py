@@ -4,6 +4,7 @@ from functools import cached_property
 from gig import GIGTable
 from utils import Log
 
+from elections_lk.base.ValueDict import ValueDict
 from elections_lk.core.PartyToVotes import PartyToVotes
 from elections_lk.core.Result import Result
 from elections_lk.core.SummaryStatistics import SummaryStatistics
@@ -30,7 +31,7 @@ class Election:
 
     @property
     def id(self):
-        return f'{self.get_election_type()}{self.year}'
+        return f'{self.get_election_type()[:2]}{self.year}'
 
     @property
     def results_idx(self):
@@ -47,10 +48,10 @@ class Election:
         return [
             x[0]
             for x in sorted(
-                party_to_votes.items(), key=lambda x: [1], reverse=True
+                party_to_votes.items(), key=lambda x: x[1], reverse=False
             )
             if x[1] > vote_limit
-        ]
+        ] + [ValueDict.OTHERS]
 
     @classmethod
     def extract_party_to_votes(cls, result_raw):

@@ -9,7 +9,7 @@ log = Log('SankeyModel')
 
 
 class SankeyModel:
-    P_LIMIT = 0.005
+    P_LIMIT = 0.01
     N_NORMALIZATION_ITERATIONS = 5
     NOT_COUNTED = NOT_COUNTED
 
@@ -88,7 +88,6 @@ class SankeyModel:
         model = cls.get_trained_model(election_x, election_y, election_end)
         popular_parties_x = election_x.get_popular_parties(cls.P_LIMIT)
         popular_parties_y = election_y.get_popular_parties(cls.P_LIMIT)
-        log.debug(f'{popular_parties_x} -> {popular_parties_y}')
 
         othered_dict_x = (
             election_x.country_final_result.party_to_votes.get_othered_dict(

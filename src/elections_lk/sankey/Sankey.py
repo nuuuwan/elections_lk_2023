@@ -34,8 +34,7 @@ if __name__ == '__main__':
         # ElectionPresidential.from_year(2005),
         # 2010s
         ElectionPresidential.from_year(2010),
-        ElectionParliamentary.from_year(2010),        
-        
+        ElectionParliamentary.from_year(2010),
         # ElectionPresidential.from_year(2015),
         # ElectionParliamentary.from_year(2015),
         # ElectionLocalAuthority.from_year(2018),
@@ -44,6 +43,6 @@ if __name__ == '__main__':
         # ElectionParliamentary.from_year(2020),
     ]
 
-    s = Sankey([election_x, election_y])
+    s = Sankey([election_x, election_y], '2010 Sri Lankan Parliamentary and Presidential Elections')
     s.save()
     s.draw()

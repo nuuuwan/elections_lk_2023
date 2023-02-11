@@ -25,4 +25,4 @@ class SankeyBase:
 
     @property
     def id(self):
-        return '.'.join([election.id for election in self.election_list])
+        return ''.join([election.id for election in self.election_list])

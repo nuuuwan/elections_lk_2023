@@ -3,7 +3,7 @@ from functools import cached_property
 from utils import Log
 
 # ElectionParliamentary, ElectionPresidential, ElectionLocalAuthority
-from elections_lk import ElectionParliamentary, ElectionPresidential, ElectionLocalAuthority
+from elections_lk import ElectionParliamentary, ElectionPresidential
 from elections_lk.sankey.Sankey import Sankey
 from elections_lk.sankey.SankeyBase import SankeyBase
 from elections_lk.sankey.SankeyDraw import SankeyDraw
@@ -97,7 +97,54 @@ if __name__ == '__main__':
                 ElectionParliamentary.from_year(2020),
             ],
             'Rajapaksa II',
-        ],              
+        ],
+        [
+            [
+                ElectionPresidential.from_year(1982),
+                ElectionPresidential.from_year(2019),
+            ],
+            'What happened to the UNP?',
+        ],
+        [
+            [
+                ElectionPresidential.from_year(2005),
+                ElectionPresidential.from_year(2015),
+            ],
+            '#PresPoll2005 vs #PresPoll2015',
+        ],
+        [
+            [
+                ElectionPresidential.from_year(1999),
+                ElectionPresidential.from_year(2019),
+            ],
+            '#PresPoll1999 vs #PresPoll2019',
+        ],
+        # [
+        #     [
+        #         # 1980s
+        #     ElectionPresidential.from_year(1982),
+        #     ElectionPresidential.from_year(1988),
+        #     ElectionParliamentary.from_year(1989),
+        #     # 1990s
+        #     ElectionParliamentary.from_year(1994),
+        #     ElectionPresidential.from_year(1994),
+        #     ElectionPresidential.from_year(1999),
+        #     # 2000s
+        #     ElectionParliamentary.from_year(2000),
+        #     ElectionParliamentary.from_year(2001),
+        #     ElectionParliamentary.from_year(2004),
+        #     ElectionPresidential.from_year(2005),
+        #     # 2010s
+        #     ElectionPresidential.from_year(2010),
+        #     ElectionParliamentary.from_year(2010),
+        #     ElectionPresidential.from_year(2015),
+        #     ElectionParliamentary.from_year(2015),
+        #     ElectionPresidential.from_year(2019),
+        #     # 2020s
+        #     ElectionParliamentary.from_year(2020),
+        #     ],
+        #     'Presidential and Parliamentary Elections since 1982',
+        # ],        
     ]:
         MultiStepSankey(
             election_list,

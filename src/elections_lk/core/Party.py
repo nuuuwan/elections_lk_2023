@@ -1,38 +1,8 @@
-from elections_lk.base.ValueDict import ValueDict
+from utils import Log
 
-NOT_COUNTED = '(None)'
+from elections_lk.core.PARTY_TO_COLOR import PARTY_TO_COLOR, NOT_COUNTED
 
-COLOR_TO_PARTY_LIST = {
-    '#000088': ['SLFP', 'PA', 'UPFA'],
-    '#004400': ['ACMC', 'MNA', 'NC', 'SLMC'],
-    '#008800': ['NDF', 'UNP'],
-    '#44cc00': ['SJB'],
-    '#880000': ['SLPP', 'OPPP'],
-    '#880088': ['SLMP'],
-    '#e0e0e0': ['IG', 'IG2', 'IG3'],
-    '#ff0000': [
-        'ELMSP',
-        'EPDP',
-        'JVP',
-        'TULF',
-        'NMPP',
-        'MEP',
-        'USA',
-        'SLPF',
-        'DNA',
-        'JJB',
-        'TMVP',
-    ],
-    '#ff8800': ['CWC', 'SU', 'JHU'],
-    '#ffff00': ['AITC', 'ITAK'],
-    '#c0c0c0': [NOT_COUNTED],
-    '#808080': [ValueDict.OTHERS],
-}
-
-PARTY_TO_COLOR = {}
-for color, party_list in COLOR_TO_PARTY_LIST.items():
-    for party in party_list:
-        PARTY_TO_COLOR[party] = color
+log = Log('Party')
 
 
 class Party:
@@ -43,7 +13,10 @@ class Party:
 
     @property
     def color(self):
-        return PARTY_TO_COLOR.get(self.party.strip(), Party.DEFAULT_COLOR)
+        if self.party not in PARTY_TO_COLOR:
+            log.error(f'Party {self.party} not found in PARTY_TO_COLOR')
+            return Party.DEFAULT_COLOR
+        return PARTY_TO_COLOR[self.party]
 
     def color_alpha(self, alpha):
         color = self.color

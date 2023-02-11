@@ -2,7 +2,7 @@ from utils import Dict
 
 
 class ValueDict(Dict):
-    OTHERS = 'Others'
+    OTHERS = 'others'
 
     def __len__(self):
         return len(self.keys())
