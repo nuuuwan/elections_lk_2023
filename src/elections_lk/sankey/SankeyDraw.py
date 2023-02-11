@@ -43,33 +43,25 @@ class SankeyDraw:
         return label
 
     @cached_property
-    def label_to_iz(self):
-        label_to_ix = {}
-        label_to_iy = {}
+    def label_to_i(self):
+        label_to_i = {}
         i = 0
-        for matrix in self.matrices:
+        for i_matrix, matrix in enumerate(self.matrices):
             for party_x in matrix:
-                label_to_ix[party_x] = i
+                label_to_i[party_x + '_' + str(i_matrix)] = i
                 i += 1
+
         for party_y in list(matrix.values())[0].keys():
-            label_to_iy[party_y] = i
+            label_to_i[party_y + '_' + str(i_matrix + 1)] = i
             i += 1
-        return label_to_ix, label_to_iy
-
-    @cached_property
-    def label_to_ix(self):
-        return self.label_to_iz[0]
-
-    @cached_property
-    def label_to_iy(self):
-        return self.label_to_iz[1]
+        return label_to_i
 
     @cached_property
     def source(self):
         source = []
-        for matrix in self.matrices:
+        for i_matrix, matrix in enumerate(self.matrices):
             for party_x in matrix:
-                i_x = self.label_to_ix[party_x]
+                i_x = self.label_to_i[party_x + '_' + str(i_matrix)]
                 for party_y in matrix[party_x]:
                     if matrix[party_x][party_y] > self.VOTE_LIMIT:
                         source.append(i_x)
@@ -78,11 +70,13 @@ class SankeyDraw:
     @cached_property
     def target(self):
         target = []
-        for matrix in self.matrices:
+        for i_matrix, matrix in enumerate(self.matrices):
             for party_x in matrix:
                 for party_y in matrix[party_x]:
                     if matrix[party_x][party_y] > self.VOTE_LIMIT:
-                        i_y = self.label_to_iy[party_y]
+                        i_y = self.label_to_i[
+                            party_y + '_' + str(i_matrix + 1)
+                        ]
                         target.append(i_y)
         return target
 

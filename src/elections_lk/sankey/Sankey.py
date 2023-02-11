@@ -43,6 +43,6 @@ if __name__ == '__main__':
         ElectionParliamentary.from_year(2020),
     ]
 
-    s = Sankey(election_x, election_y)
+    s = Sankey([election_x, election_y])
     s.save()
     s.draw()

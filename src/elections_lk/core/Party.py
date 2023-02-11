@@ -5,7 +5,6 @@ COLOR_TO_PARTY_LIST = {
     '#44cc00': ['SJB'],
     '#880000': ['SLPP', 'OPPP'],
     '#880088': ['SLMP'],
-    '#c0c0c0': ['(Not Voted)'],
     '#e0e0e0': ['IG', 'IG2', 'IG3'],
     '#ff0000': [
         'ELMSP',
