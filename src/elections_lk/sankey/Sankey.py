@@ -33,14 +33,15 @@ if __name__ == '__main__':
         # ElectionParliamentary.from_year(2004),
         # ElectionPresidential.from_year(2005),
         # 2010s
-        # ElectionPresidential.from_year(2010),
-        # ElectionParliamentary.from_year(2010),
+        ElectionPresidential.from_year(2010),
+        ElectionParliamentary.from_year(2010),        
+        
         # ElectionPresidential.from_year(2015),
         # ElectionParliamentary.from_year(2015),
         # ElectionLocalAuthority.from_year(2018),
-        ElectionPresidential.from_year(2019),
+        # ElectionPresidential.from_year(2019),
         # 2020s
-        ElectionParliamentary.from_year(2020),
+        # ElectionParliamentary.from_year(2020),
     ]
 
     s = Sankey([election_x, election_y])

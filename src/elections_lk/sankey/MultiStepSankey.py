@@ -57,27 +57,22 @@ if __name__ == '__main__':
                 ElectionPresidential.from_year(1988),
                 ElectionParliamentary.from_year(1989),
                 ElectionParliamentary.from_year(1994),
-                ElectionPresidential.from_year(1994),
             ],
             'Jayawardena/Premadasa',
         ],
         [
             [
-                ElectionPresidential.from_year(1988),
                 ElectionParliamentary.from_year(1989),
                 ElectionParliamentary.from_year(1994),
                 ElectionPresidential.from_year(1994),
                 ElectionPresidential.from_year(1999),
                 ElectionParliamentary.from_year(2000),
                 ElectionParliamentary.from_year(2001),
-                ElectionParliamentary.from_year(2004),
             ],
             'Bandaranaike III',
         ],
         [
             [
-                ElectionParliamentary.from_year(2000),
-                ElectionParliamentary.from_year(2001),
                 ElectionParliamentary.from_year(2004),
                 ElectionPresidential.from_year(2005),
                 ElectionPresidential.from_year(2010),
@@ -102,7 +97,7 @@ if __name__ == '__main__':
                 ElectionParliamentary.from_year(2020),
             ],
             'Rajapaksa II',
-        ],        
+        ],              
     ]:
         MultiStepSankey(
             election_list,

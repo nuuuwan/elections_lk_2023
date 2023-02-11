@@ -28,6 +28,9 @@ class SankeyModel:
 
             result_end = results_idx[id]
             total = result_end.summary_statistics.electors
+            if total < 10:
+                continue
+
             d = result.party_to_votes.get_othered_dict(popular_parties)
             p_not_counted = (total - result.summary_statistics.valid) / total
 
