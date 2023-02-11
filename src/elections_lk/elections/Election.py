@@ -72,6 +72,9 @@ class Election:
 
     @classmethod
     def from_year(cls, year):
+        if year not in cls.get_years():
+            raise ValueError(f'Invalid year: {year}')
+
         ent_list = cls.get_ent_list()
         gig_table = cls.get_gig_table(year)
         results = []

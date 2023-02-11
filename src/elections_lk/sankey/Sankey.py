@@ -21,8 +21,14 @@ class Sankey(SankeyModel, SankeyOptimizer, SankeyReport, SankeyDraw):
 
 if __name__ == '__main__':
     election_x, election_y = [
-        ElectionPresidential.from_year(1994),        
-        ElectionPresidential.from_year(1999), 
+        # ElectionPresidential.from_year(1982),        
+        ElectionPresidential.from_year(1988),        
+        ElectionPresidential.from_year(1994),  
+        # ElectionPresidential.from_year(1999),  
+        # ElectionPresidential.from_year(2015),        
+        # ElectionParliamentary.from_year(2015), 
+        # ElectionPresidential.from_year(2019),         
+        # ElectionParliamentary.from_year(2020), 
     ]
 
     s = Sankey(election_x, election_y)

@@ -7,6 +7,7 @@ from elections_lk.core.SummaryStatistics import SummaryStatistics
 
 @dataclass
 class Result:
+    OTHER_PVOTES_LIMIT = 0.001
     region_id: str
     summary_statistics: SummaryStatistics
     party_to_votes: PartyToVotes
