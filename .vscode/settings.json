@@ -1,11 +1,16 @@
 {
     "cSpell.words": [
+        "coef",
         "dimx",
         "dimy",
+        "Normailzing",
         "othered",
+        "pmatrix",
         "pvotes",
         "Sankey",
         "scipy",
+        "sklearn",
+        "unnormalized",
         "vsum",
         "xhat",
         "yhat"
