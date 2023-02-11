@@ -3,7 +3,7 @@ from functools import cached_property
 from utils import Log
 
 # ElectionParliamentary, ElectionPresidential
-from elections_lk import ElectionPresidential
+from elections_lk import ElectionParliamentary, ElectionPresidential
 from elections_lk.sankey.SankeyDraw import SankeyDraw
 from elections_lk.sankey.SankeyModel import SankeyModel
 from elections_lk.sankey.SankeyModelNormalize import SankeyModelNormalize
@@ -32,17 +32,17 @@ if __name__ == '__main__':
         # 2000s
         # ElectionParliamentary.from_year(2000),
         # ElectionParliamentary.from_year(2001),
-        # ElectionPresidential.from_year(2004),
-        # ElectionParliamentary.from_year(2005),
+        # ElectionParliamentary.from_year(2004),
+        # ElectionPresidential.from_year(2005),
         # 2010s
         # ElectionPresidential.from_year(2010),
         # ElectionParliamentary.from_year(2010),
-        ElectionPresidential.from_year(2015),
+        # ElectionPresidential.from_year(2015),
         # ElectionParliamentary.from_year(2015),
         # ElectionLocalAuthority.from_year(2018),
         ElectionPresidential.from_year(2019),
         # 2020s
-        # ElectionParliamentary.from_year(2020),
+        ElectionParliamentary.from_year(2020),
     ]
 
     s = Sankey(election_x, election_y)
