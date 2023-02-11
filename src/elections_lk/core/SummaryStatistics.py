@@ -22,10 +22,6 @@ class SummaryStatistics:
     def p_turnout(self):
         return self.polled / self.electors
 
-    @property
-    def not_counted(self):
-        return self.electors - self.valid
-
     @staticmethod
     def concat(
         summary_statistics_list: list,

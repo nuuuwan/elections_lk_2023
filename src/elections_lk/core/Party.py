@@ -1,3 +1,7 @@
+from elections_lk.base.ValueDict import ValueDict
+
+NOT_COUNTED = '(None)'
+
 COLOR_TO_PARTY_LIST = {
     '#000088': ['SLFP', 'PA', 'UPFA'],
     '#004400': ['ACMC', 'MNA', 'NC', 'SLMC'],
@@ -21,6 +25,8 @@ COLOR_TO_PARTY_LIST = {
     ],
     '#ff8800': ['CWC', 'SU', 'JHU'],
     '#ffff00': ['AITC', 'ITAK'],
+    '#c0c0c0': [NOT_COUNTED],
+    '#808080': [ValueDict.OTHERS],
 }
 
 PARTY_TO_COLOR = {}
@@ -30,7 +36,7 @@ for color, party_list in COLOR_TO_PARTY_LIST.items():
 
 
 class Party:
-    DEFAULT_COLOR = '#c0c0c0'
+    DEFAULT_COLOR = '#404040'
 
     def __init__(self, party: str):
         self.party = party

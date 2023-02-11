@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from functools import cached_property
 
+from gig import GIGTable
 from utils import Log
 
-from elections_lk.base.ValueDict import ValueDict
 from elections_lk.core.PartyToVotes import PartyToVotes
 from elections_lk.core.Result import Result
 from elections_lk.core.SummaryStatistics import SummaryStatistics
@@ -22,7 +22,11 @@ class Election:
 
     @property
     def title(self):
-        return f'{self.year} {self.get_election_type().title()} Election'
+        return f'{self.year} {self.get_election_type().title()}'
+
+    @property
+    def short_title(self):
+        return f'{self.year} {self.get_election_type().title()[:5]}.'
 
     @property
     def id(self):
@@ -40,8 +44,12 @@ class Election:
         party_to_votes = self.country_final_result.party_to_votes
         total = party_to_votes.total
         vote_limit = total * p_limit
-        return [x[0] for x in party_to_votes.items() if x[1] > vote_limit] + [
-            ValueDict.OTHERS
+        return [
+            x[0]
+            for x in sorted(
+                party_to_votes.items(), key=lambda x: [1], reverse=True
+            )
+            if x[1] > vote_limit
         ]
 
     @classmethod
@@ -68,10 +76,27 @@ class Election:
         except BaseException:
             return None
 
+        party_to_votes = cls.extract_party_to_votes(result_raw)
+
+        # HACK Fix for 2000 Parliamentary Election missing Summary Statistics
+        if (
+            gig_table.measurement == 'government-elections-parliamentary'
+            and gig_table.time_group == '2000'
+        ):
+            gig_table2 = GIGTable(
+                gig_table.measurement, gig_table.ent_type_group, '2001'
+            )
+            result_raw2 = ent.gig(gig_table2)
+            summary_statistics = cls.extract_summary_statistics(result_raw2)
+            valid = party_to_votes.total
+            summary_statistics.valid = valid
+        else:
+            summary_statistics = cls.extract_summary_statistics(result_raw)
+
         return Result(
             region_id=ent.id,
-            summary_statistics=cls.extract_summary_statistics(result_raw),
-            party_to_votes=cls.extract_party_to_votes(result_raw),
+            summary_statistics=summary_statistics,
+            party_to_votes=party_to_votes,
         )
 
     @classmethod

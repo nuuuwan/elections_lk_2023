@@ -3,13 +3,15 @@ from functools import cached_property
 from sklearn.linear_model import LinearRegression
 from utils import Log
 
+from elections_lk.core.Party import NOT_COUNTED
+
 log = Log('SankeyModel')
 
 
 class SankeyModel:
     P_LIMIT = 0.005
     N_NORMALIZATION_ITERATIONS = 5
-    NOT_COUNTED = '(Didn\'t Vote or Rejected)'
+    NOT_COUNTED = NOT_COUNTED
 
     @classmethod
     def get_feature_idx(cls, election, election_end):
@@ -47,10 +49,10 @@ class SankeyModel:
         return idx
 
     @classmethod
-    def get_training_data(cls, election_x, election_y):
-        X_idx = cls.get_feature_idx(election_x, election_y)
-        Y_idx = cls.get_feature_idx(election_y, election_y)
-        sample_weight_idx = cls.get_sample_weight_idx(election_y)
+    def get_training_data(cls, election_x, election_y, election_end):
+        X_idx = cls.get_feature_idx(election_x, election_end)
+        Y_idx = cls.get_feature_idx(election_y, election_end)
+        sample_weight_idx = cls.get_sample_weight_idx(election_end)
 
         common_keys = list(sorted(set(X_idx.keys()) & set(Y_idx.keys())))
         X = [X_idx[key] for key in common_keys]
@@ -60,8 +62,10 @@ class SankeyModel:
         return X, Y, sample_weight
 
     @classmethod
-    def get_trained_model(cls, election_x, election_y):
-        X, Y, sample_weight = cls.get_training_data(election_x, election_y)
+    def get_trained_model(cls, election_x, election_y, election_end):
+        X, Y, sample_weight = cls.get_training_data(
+            election_x, election_y, election_end
+        )
         n = len(X)
         assert n == len(Y)
         nX = len(X[0])
@@ -77,8 +81,8 @@ class SankeyModel:
         return model
 
     @classmethod
-    def get_matrix(cls, election_x, election_y):
-        model = cls.get_trained_model(election_x, election_y)
+    def get_matrix(cls, election_x, election_y, election_end):
+        model = cls.get_trained_model(election_x, election_y, election_end)
         popular_parties_x = election_x.get_popular_parties(cls.P_LIMIT)
         popular_parties_y = election_y.get_popular_parties(cls.P_LIMIT)
         log.debug(f'{popular_parties_x} -> {popular_parties_y}')
@@ -89,7 +93,7 @@ class SankeyModel:
             )
         )
 
-        total = election_y.country_final_result.summary_statistics.electors
+        total = election_end.country_final_result.summary_statistics.electors
 
         matrix = {}
         for i_x, party_x in enumerate(popular_parties_x + [cls.NOT_COUNTED]):
@@ -114,8 +118,12 @@ class SankeyModel:
 
     @cached_property
     def pmatrix_model_unnormalized(self):
-        matrix_x_to_y = self.get_matrix(self.election_x, self.election_y)
-        matrix_y_to_x = self.get_matrix(self.election_y, self.election_x)
+        matrix_x_to_y = self.get_matrix(
+            self.election_x, self.election_y, self.election_end
+        )
+        matrix_y_to_x = self.get_matrix(
+            self.election_y, self.election_x, self.election_end
+        )
 
         PXY = 0.5
         PYX = 1 - PXY

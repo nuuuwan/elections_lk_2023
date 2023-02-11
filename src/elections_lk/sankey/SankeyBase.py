@@ -1,8 +1,9 @@
 class SankeyBase:
-    LABEL_ARROW = '⮕'
+    LABEL_ARROW = ' ⮕ '
 
-    def __init__(self, election_list):
+    def __init__(self, election_list, title='Sankey'):
         self.election_list = election_list
+        self.title = title
 
     @property
     def election_x(self):
@@ -13,9 +14,13 @@ class SankeyBase:
         return self.election_list[1]
 
     @property
-    def title(self):
+    def election_end(self):
+        return self.election_list[-1]
+
+    @property
+    def title_long(self):
         return self.LABEL_ARROW.join(
-            [election.title for election in self.election_list]
+            [election.short_title for election in self.election_list]
         )
 
     @property

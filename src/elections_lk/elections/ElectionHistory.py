@@ -20,8 +20,8 @@ class ElectionHistory:
             # 2000s
             ElectionParliamentary.from_year(2000),
             ElectionParliamentary.from_year(2001),
-            ElectionPresidential.from_year(2004),
-            ElectionParliamentary.from_year(2005),
+            ElectionParliamentary.from_year(2004),
+            ElectionPresidential.from_year(2005),
             # 2010s
             ElectionPresidential.from_year(2010),
             ElectionParliamentary.from_year(2010),
