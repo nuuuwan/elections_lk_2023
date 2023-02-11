@@ -1,9 +1,8 @@
-from functools import cached_property
-
 from utils import Log
 
 # ElectionParliamentary, ElectionPresidential
 from elections_lk import ElectionParliamentary, ElectionPresidential
+from elections_lk.sankey.SankeyBase import SankeyBase
 from elections_lk.sankey.SankeyDraw import SankeyDraw
 from elections_lk.sankey.SankeyModel import SankeyModel
 from elections_lk.sankey.SankeyModelNormalize import SankeyModelNormalize
@@ -12,11 +11,10 @@ from elections_lk.sankey.SankeyReport import SankeyReport
 log = Log('PartyContinuity')
 
 
-class Sankey(SankeyModel, SankeyModelNormalize, SankeyReport, SankeyDraw):
-    @cached_property
-    def matrix(self):
-        # return self.matrix_optimizer
-        return self.matrix_model
+class Sankey(
+    SankeyBase, SankeyModel, SankeyModelNormalize, SankeyReport, SankeyDraw
+):
+    pass
 
 
 if __name__ == '__main__':

@@ -25,6 +25,10 @@ class Election:
         return f'{self.year} {self.get_election_type().title()} Election'
 
     @property
+    def id(self):
+        return f'{self.get_election_type()}{self.year}'
+
+    @property
     def results_idx(self):
         return {result.region_id: result for result in self.results}
 

@@ -116,7 +116,7 @@ class SankeyModelNormalize:
         return matrix
 
     @cached_property
-    def matrix_model(self):
+    def matrix(self):
         pmatrix = self.pmatrix_model
         matrix = {}
         total = (
@@ -128,3 +128,7 @@ class SankeyModelNormalize:
                 matrix[party_x][party_y] = pmatrix[party_x][party_y] * total
 
         return matrix
+
+    @cached_property
+    def matrices(self):
+        return [self.matrix]

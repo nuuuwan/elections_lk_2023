@@ -11,10 +11,6 @@ class SankeyModel:
     N_NORMALIZATION_ITERATIONS = 5
     NOT_COUNTED = '(Didn\'t Vote or Rejected)'
 
-    def __init__(self, election_x, election_y):
-        self.election_x = election_x
-        self.election_y = election_y
-
     @classmethod
     def get_feature_idx(cls, election, election_end):
         popular_parties = election.get_popular_parties(cls.P_LIMIT)

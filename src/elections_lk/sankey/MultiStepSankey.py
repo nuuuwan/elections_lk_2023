@@ -1,19 +1,13 @@
-from functools import cached_property
-
 from utils import Log
 
 # ElectionParliamentary, ElectionPresidential
-from elections_lk import ElectionParliamentary, ElectionPresidential
-from elections_lk.sankey.SankeyDraw import SankeyDraw
-from elections_lk.sankey.SankeyModel import SankeyModel
-from elections_lk.sankey.SankeyModelNormalize import SankeyModelNormalize
-from elections_lk.sankey.SankeyReport import SankeyReport
+from elections_lk import Election, ElectionParliamentary, ElectionPresidential
 
 log = Log('PartyContinuity')
 
 
 class MultiStepSankey:
-    def __init__(self, election_list: List[Electoin]):
+    def __init__(self, election_list: list[Election]):
         self.election_list = election_list
 
     def draw(self):
