@@ -1,28 +1,30 @@
+from functools import cached_property
+
 from utils import Log
 
-from elections_lk import ElectionParliamentary
-from elections_lk.sankey.SankeyModel import SankeyModel
+# ElectionParliamentary, ElectionPresidential
+from elections_lk import ElectionPresidential, ElectionParliamentary
 from elections_lk.sankey.SankeyDraw import SankeyDraw
+from elections_lk.sankey.SankeyModel import SankeyModel
+from elections_lk.sankey.SankeyOptimizer import SankeyOptimizer
 from elections_lk.sankey.SankeyReport import SankeyReport
 
 log = Log('PartyContinuity')
 
-P_LIMIT = 0.005
-NOT_COUNTED = '(Didn\'t Vote or Rejected)'
-WIDTH = 1200
-HEIGHT = 675
 
-
-class Sankey(SankeyModel, SankeyReport, SankeyDraw):
-    pass
+class Sankey(SankeyModel, SankeyOptimizer, SankeyReport, SankeyDraw):
+    @cached_property
+    def matrix(self):
+        # return self.matrix_optimizer
+        return self.matrix_model
 
 
 if __name__ == '__main__':
     election_x, election_y = [
-        ElectionParliamentary.from_year(2015),
-        ElectionParliamentary.from_year(2020),
+        ElectionPresidential.from_year(1994),        
+        ElectionPresidential.from_year(1999), 
     ]
 
-    report = Sankey(election_x, election_y)
-    report.save()
-    report.draw()
+    s = Sankey(election_x, election_y)
+    s.save()
+    s.draw()

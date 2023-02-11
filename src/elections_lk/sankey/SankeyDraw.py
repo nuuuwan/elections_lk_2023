@@ -14,6 +14,9 @@ HEIGHT = 675
 
 
 class SankeyDraw:
+    WIDTH = 1200
+    HEIGHT = 675
+
     @property
     def image_file_path(self):
         return os.path.join(
@@ -46,23 +49,26 @@ class SankeyDraw:
         return label
 
     @cached_property
-    def label_to_ix(self):
+    def label_to_iz(self):
         matrix = self.matrix
         label_to_ix = {}
+        label_to_iy = {}
         i = 0
         for party_x in matrix:
             label_to_ix[party_x] = i
             i += 1
-        return label_to_ix
+        for party_y in list(matrix.values())[0].keys():
+            label_to_iy[party_y] = i
+            i += 1
+        return label_to_ix, label_to_iy
+
+    @cached_property
+    def label_to_ix(self):
+        return self.label_to_iz[0]
 
     @cached_property
     def label_to_iy(self):
-        matrix = self.matrix
-        label_to_iy = {}
-        i = 10_000
-        for party_y in list(matrix.values())[0].keys():
-            label_to_iy[party_y] = i
-        return label_to_iy
+        return self.label_to_iz[1]
 
     @cached_property
     def source(self):

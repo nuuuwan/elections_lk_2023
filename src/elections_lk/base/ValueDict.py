@@ -44,6 +44,17 @@ class ValueDict(Dict):
         items.append((self.OTHERS, n_other))
         return items
 
+    def get_othered_dict(self, keys):
+        d = {}
+        others = 0
+        for k, v in self.items():
+            if k in keys:
+                d[k] = v
+            else:
+                others += v
+        d[self.OTHERS] = others
+        return d
+
     @classmethod
     def concat(cls, dict_list):
         d = {}

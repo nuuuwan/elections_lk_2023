@@ -3,6 +3,7 @@ from functools import cached_property
 
 from utils import Log
 
+from elections_lk.base.ValueDict import ValueDict
 from elections_lk.core.PartyToVotes import PartyToVotes
 from elections_lk.core.Result import Result
 from elections_lk.core.SummaryStatistics import SummaryStatistics
@@ -35,7 +36,9 @@ class Election:
         party_to_votes = self.country_final_result.party_to_votes
         total = party_to_votes.total
         vote_limit = total * p_limit
-        return [x[0] for x in party_to_votes.items() if x[1] > vote_limit]
+        return [x[0] for x in party_to_votes.items() if x[1] > vote_limit] + [
+            ValueDict.OTHERS
+        ]
 
     @classmethod
     def extract_party_to_votes(cls, result_raw):
