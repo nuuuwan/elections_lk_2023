@@ -1,7 +1,7 @@
 from utils import Log
 
 # ElectionParliamentary, ElectionPresidential
-from elections_lk import ElectionParliamentary, ElectionPresidential
+from elections_lk import ElectionPresidential
 from elections_lk.sankey.SankeyBase import SankeyBase
 from elections_lk.sankey.SankeyDraw import SankeyDraw
 from elections_lk.sankey.SankeyModel import SankeyModel
@@ -43,6 +43,9 @@ if __name__ == '__main__':
         # ElectionParliamentary.from_year(2020),
     ]
 
-    s = Sankey([election_x, election_y], '2005 and 2015 Sri Lankan Presidential Elections')
+    s = Sankey(
+        [election_x, election_y],
+        '2005 and 2015 Sri Lankan Presidential Elections',
+    )
     s.save()
     s.draw()

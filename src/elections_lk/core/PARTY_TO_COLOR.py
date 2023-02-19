@@ -13,7 +13,6 @@ COLOR_TO_PARTY_LIST = {
     '#880088': ['SLMP'],
     '#e0e0e0': ['IG', 'IG2', 'IG3'],
     '#8800ff': ['DUNF'],
-
     '#ff0000': [
         'JVP',
         'NMPP',
@@ -26,14 +25,13 @@ COLOR_TO_PARTY_LIST = {
         'LSSP',
         'CP',
         'NSSP',
-    ],      
+    ],
     '#ff2200': [
         'ELMSP',
         'EPDP',
-        'TMVP',      
-        'EROS',  
+        'TMVP',
+        'EROS',
     ],
-  
     '#ff4400': ['CWC', 'UPF'],
     '#ffcc00': ['SU', 'JHU'],
     '#ffff00': ['AITC', 'ITAK', 'TULF', 'ACTC'],

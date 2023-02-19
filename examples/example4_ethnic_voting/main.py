@@ -1,8 +1,11 @@
 from gig import Ent
 from utils import Log, TSVFile
 
-from elections_lk import (ElectionLocalAuthority, ElectionParliamentary,
-                          ElectionPresidential)
+from elections_lk import (
+    ElectionLocalAuthority,
+    ElectionParliamentary,
+    ElectionPresidential,
+)
 from examples.example4_ethnic_voting.EthnicVoting import EthnicVoting
 
 TEST_ED_ID = 'EC-01'

@@ -88,7 +88,9 @@ class SankeyDrawData:
             for party_x in matrix:
                 for party_y in matrix[party_x]:
                     if matrix[party_x][party_y] > self.VOTE_LIMIT:
-                        link_color.append(Party(party_x).color_alpha(self.ALPHA))
+                        link_color.append(
+                            Party(party_x).color_alpha(self.ALPHA)
+                        )
         return link_color
 
     @cached_property
@@ -105,6 +107,5 @@ class SankeyDrawData:
                     value=self.value,
                     color=self.link_color,
                 ),
-                
             )
         ]

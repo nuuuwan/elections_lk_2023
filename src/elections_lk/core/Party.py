@@ -1,6 +1,6 @@
 from utils import Log
 
-from elections_lk.core.PARTY_TO_COLOR import PARTY_TO_COLOR, NOT_COUNTED
+from elections_lk.core.PARTY_TO_COLOR import PARTY_TO_COLOR
 
 log = Log('Party')
 

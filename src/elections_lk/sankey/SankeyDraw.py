@@ -8,7 +8,7 @@ from elections_lk.sankey.SankeyDrawData import SankeyDrawData
 log = Log('SankeyDraw')
 
 EMPTY_AXIS = {'showgrid': False, 'zeroline': False, 'visible': False}
-        
+
 
 class SankeyDraw(SankeyDrawData):
     VOTE_LIMIT = 10_000
@@ -29,7 +29,12 @@ class SankeyDraw(SankeyDrawData):
             font_size=15,
             xaxis=EMPTY_AXIS,
             yaxis=EMPTY_AXIS,
-             margin=dict(l=self.MARGIN_X, r=self.MARGIN_X, t=self.MARGIN_TOP, b=self.MARGIN_BOTTOM),
+            margin=dict(
+                l=self.MARGIN_X,
+                r=self.MARGIN_X,
+                t=self.MARGIN_TOP,
+                b=self.MARGIN_BOTTOM,
+            ),
             plot_bgcolor='#ffffff',
         )
 
@@ -51,9 +56,7 @@ class SankeyDraw(SankeyDrawData):
                 showarrow=False,
                 align="center",
                 font_size=30,
-                font=dict(
-                color='rgba(0,0,0,0.5)'
-            ),
+                font=dict(color='rgba(0,0,0,0.5)'),
             )
             fig.add_annotation(
                 x=i_election,
@@ -64,9 +67,7 @@ class SankeyDraw(SankeyDrawData):
                 showarrow=False,
                 align="center",
                 font_size=15,
-                font=dict(
-                color='rgba(0,0,0,0.33)'
-            ),
+                font=dict(color='rgba(0,0,0,0.33)'),
             )
 
         fig.add_annotation(
@@ -78,7 +79,7 @@ class SankeyDraw(SankeyDrawData):
             showarrow=False,
             align="center",
             font_size=40,
-        )            
+        )
 
         fig.add_annotation(
             x=0.5,
@@ -89,12 +90,8 @@ class SankeyDraw(SankeyDrawData):
             showarrow=False,
             align="center",
             font_size=15,
-            font=dict(
-                color='rgba(0,0,0,0.2)'
-            ),
+            font=dict(color='rgba(0,0,0,0.2)'),
         )
-
-      
 
     def draw(self):
         fig = go.Figure(data=self.sankey_data)

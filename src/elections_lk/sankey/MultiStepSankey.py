@@ -144,7 +144,7 @@ if __name__ == '__main__':
         #     ElectionParliamentary.from_year(2020),
         #     ],
         #     'Presidential and Parliamentary Elections since 1982',
-        # ],        
+        # ],
     ]:
         MultiStepSankey(
             election_list,
