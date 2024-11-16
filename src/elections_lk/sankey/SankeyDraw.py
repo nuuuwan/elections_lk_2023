@@ -25,7 +25,7 @@ class SankeyDraw(SankeyDrawData):
 
     def update_layout(self, fig):
         fig.update_layout(
-            font_family='Futura',
+            font_family='Bahnschrift',
             font_size=15,
             xaxis=EMPTY_AXIS,
             yaxis=EMPTY_AXIS,
@@ -43,7 +43,7 @@ class SankeyDraw(SankeyDrawData):
             self.image_file_path, width=self.WIDTH, height=self.HEIGHT
         )
         log.info(f'Saved {self.image_file_path}')
-        os.system(f'open {self.image_file_path}')
+        os.startfile(self.image_file_path)
 
     def annotate(self, fig):
         for i_election, election in enumerate(self.election_list):

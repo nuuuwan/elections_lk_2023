@@ -1,12 +1,13 @@
 from utils import Log
 
-from elections_lk.core.PARTY_TO_COLOR import PARTY_TO_COLOR
+from elections_lk.core.PARTY_TO_COLOR import PARTY_TO_COLOR, NOT_COUNTED
 
 log = Log('Party')
 
 
 class Party:
     DEFAULT_COLOR = '#404040'
+    NOT_COUNTED = NOT_COUNTED
 
     def __init__(self, party: str):
         self.party = party

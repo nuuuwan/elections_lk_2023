@@ -13,7 +13,7 @@ class ElectionPresidential(ElectionWithPDResults):
 
     @classmethod
     def get_years(cls):
-        return [1982, 1988, 1994, 1999, 2005, 2010, 2015, 2019]
+        return [1982, 1988, 1994, 1999, 2005, 2010, 2015, 2019, 2024]
 
     @cached_property
     def ed_results(self) -> list[Result]:

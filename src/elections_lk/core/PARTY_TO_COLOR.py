@@ -34,8 +34,9 @@ COLOR_TO_PARTY_LIST = {
     ],
     '#ff4400': ['CWC', 'UPF'],
     '#ffcc00': ['SU', 'JHU'],
-    '#ffff00': ['AITC', 'ITAK', 'TULF', 'ACTC'],
+    '#ffff00': ['AITC', 'ITAK', 'TULF', 'ACTC', 'IND9'],
     '#ffffff': ['ELJP', 'INDI'],
+    '#ff8822': ['IND16'],
 }
 
 PARTY_TO_COLOR = {}
