@@ -27,4 +27,3 @@ class SankeyReport:
     def save(self):
         TSVFile(self.report_file_path).write(self.d_list)
         log.info(f"Saved {self.report_file_path}")
-        os.system(f"open {self.report_file_path}")
