@@ -1,8 +1,6 @@
 # elections_lk (auto generate by build_inits.py)
 # flake8: noqa: F408
 
-from elections_lk._constants import _constants
-from elections_lk._utils import _utils
 from elections_lk.base import SetCompare, ValueDict
 from elections_lk.core import (PARTY_TO_COLOR, FinalResult, Party,
                                PartyToSeats, PartyToVotes, Result,
