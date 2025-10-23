@@ -43,7 +43,6 @@ class SankeyDraw(SankeyDrawData):
             self.image_file_path, width=self.WIDTH, height=self.HEIGHT
         )
         log.info(f"Saved {self.image_file_path}")
-        os.system(f"open {self.image_file_path}")
 
     def annotate(self, fig):
         for i_election, election in enumerate(self.election_list):
