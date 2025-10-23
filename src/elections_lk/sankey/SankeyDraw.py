@@ -12,8 +12,8 @@ EMPTY_AXIS = {"showgrid": False, "zeroline": False, "visible": False}
 
 class SankeyDraw(SankeyDrawData):
     VOTE_LIMIT = 10_000
-    WIDTH = 1600
-    HEIGHT = 900
+    WIDTH = 3200
+    HEIGHT = 1600
     P_MARGIN = 0.1
     MARGIN_X = 0.5 * P_MARGIN * WIDTH
     MARGIN_TOP = 1.5 * P_MARGIN * HEIGHT
