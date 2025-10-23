@@ -25,7 +25,7 @@ class SankeyDraw(SankeyDrawData):
 
     def update_layout(self, fig):
         fig.update_layout(
-            font_family="Bahnschrift",
+            font_family="Ubuntu",
             font_size=15,
             xaxis=EMPTY_AXIS,
             yaxis=EMPTY_AXIS,
