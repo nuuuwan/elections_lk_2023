@@ -5,9 +5,9 @@ from utils import Log
 
 from elections_lk.sankey.SankeyDrawData import SankeyDrawData
 
-log = Log('SankeyDraw')
+log = Log("SankeyDraw")
 
-EMPTY_AXIS = {'showgrid': False, 'zeroline': False, 'visible': False}
+EMPTY_AXIS = {"showgrid": False, "zeroline": False, "visible": False}
 
 
 class SankeyDraw(SankeyDrawData):
@@ -21,11 +21,11 @@ class SankeyDraw(SankeyDrawData):
 
     @property
     def image_file_path(self):
-        return os.path.join('/tmp', f'sankey_{self.id}.png')
+        return os.path.join("/tmp", f"sankey_{self.id}.png")
 
     def update_layout(self, fig):
         fig.update_layout(
-            font_family='Bahnschrift',
+            font_family="Bahnschrift",
             font_size=15,
             xaxis=EMPTY_AXIS,
             yaxis=EMPTY_AXIS,
@@ -35,15 +35,15 @@ class SankeyDraw(SankeyDrawData):
                 t=self.MARGIN_TOP,
                 b=self.MARGIN_BOTTOM,
             ),
-            plot_bgcolor='#ffffff',
+            plot_bgcolor="#ffffff",
         )
 
     def save_image(self, fig):
         fig.write_image(
             self.image_file_path, width=self.WIDTH, height=self.HEIGHT
         )
-        log.info(f'Saved {self.image_file_path}')
-        os.startfile(self.image_file_path)
+        log.info(f"Saved {self.image_file_path}")
+        os.system(f"open {self.image_file_path}")
 
     def annotate(self, fig):
         for i_election, election in enumerate(self.election_list):
@@ -56,7 +56,7 @@ class SankeyDraw(SankeyDrawData):
                 showarrow=False,
                 align="center",
                 font_size=30,
-                font=dict(color='rgba(0,0,0,0.5)'),
+                font=dict(color="rgba(0,0,0,0.5)"),
             )
             fig.add_annotation(
                 x=i_election,
@@ -67,7 +67,7 @@ class SankeyDraw(SankeyDrawData):
                 showarrow=False,
                 align="center",
                 font_size=15,
-                font=dict(color='rgba(0,0,0,0.33)'),
+                font=dict(color="rgba(0,0,0,0.33)"),
             )
 
         fig.add_annotation(
@@ -86,11 +86,11 @@ class SankeyDraw(SankeyDrawData):
             y=-0.18,
             xref="x domain",
             yref="y domain",
-            text='data from elections.gov.lk · model & visualization by @nuuuwan',
+            text="data from elections.gov.lk · model & visualization by @nuuuwan",
             showarrow=False,
             align="center",
             font_size=15,
-            font=dict(color='rgba(0,0,0,0.2)'),
+            font=dict(color="rgba(0,0,0,0.2)"),
         )
 
     def draw(self):
