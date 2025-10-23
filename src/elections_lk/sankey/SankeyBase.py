@@ -1,7 +1,10 @@
-class SankeyBase:
-    LABEL_ARROW = ' ⮕ '
+from utils import Hash
 
-    def __init__(self, election_list, title='Sankey'):
+
+class SankeyBase:
+    LABEL_ARROW = " ⮕ "
+
+    def __init__(self, election_list, title="Sankey"):
         self.election_list = election_list
         self.title = title
 
@@ -25,4 +28,11 @@ class SankeyBase:
 
     @property
     def id(self):
-        return ''.join([election.id for election in self.election_list])
+        first_election_id = self.election_list[0].id
+        last_election_id = self.election_list[-1].id
+
+        all_election_id = "".join(
+            [election.id for election in self.election_list]
+        )
+        h = Hash.md5(all_election_id)[:4]
+        return f"{first_election_id}_{last_election_id}_{h}"

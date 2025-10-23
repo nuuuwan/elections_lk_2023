@@ -59,4 +59,3 @@ if __name__ == "__main__":
             title,
         )
         mss.draw()
-        mss.save()
