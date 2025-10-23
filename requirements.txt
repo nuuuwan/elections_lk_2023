@@ -6,3 +6,4 @@ matplotlib
 geo-nuuuwan
 humanize
 plotly
+kaleido
