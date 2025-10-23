@@ -13,7 +13,9 @@ class SankeyReport:
         for party_x in matrix:
             d = {"party": party_x}
             for party_y, value in matrix[party_x].items():
-                d[party_y] = round(value, 0) if value > 10 else round(value, 3)
+                d[party_y] = (
+                    round(value, 0) if value > 10 else round(value, 3)
+                )
             d_list.append(d)
         return d_list
 
