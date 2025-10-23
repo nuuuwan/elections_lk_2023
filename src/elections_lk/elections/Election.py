@@ -21,9 +21,6 @@ class Election:
     year: int
     results: list
 
-    def get_election_type(self):
-        raise NotImplementedError
-
     @property
     def title(self):
         return f"{self.year} {self.get_election_type().title()}"
