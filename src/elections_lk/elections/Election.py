@@ -9,7 +9,7 @@ from elections_lk.core.PartyToVotes import PartyToVotes
 from elections_lk.core.Result import Result
 from elections_lk.core.SummaryStatistics import SummaryStatistics
 
-log = Log('Election')
+log = Log("Election")
 
 
 def correct_int(x):
@@ -21,17 +21,20 @@ class Election:
     year: int
     results: list
 
+    def get_election_type(self):
+        raise NotImplementedError
+
     @property
     def title(self):
-        return f'{self.year} {self.get_election_type().title()}'
+        return f"{self.year} {self.get_election_type().title()}"
 
     @property
     def short_title(self):
-        return f'{self.year} {self.get_election_type().title()[:5]}.'
+        return f"{self.year} {self.get_election_type().title()[:5]}."
 
     @property
     def id(self):
-        return f'{self.get_election_type()[:2]}{self.year}'
+        return f"{self.get_election_type()[:2]}{self.year}"
 
     @property
     def results_idx(self):
@@ -81,11 +84,11 @@ class Election:
 
         # HACK Fix for 2000 Parliamentary Election missing Summary Statistics
         if (
-            gig_table.measurement == 'government-elections-parliamentary'
-            and gig_table.time_group == '2000'
+            gig_table.measurement == "government-elections-parliamentary"
+            and gig_table.time_group == "2000"
         ):
             gig_table2 = GIGTable(
-                gig_table.measurement, gig_table.ent_type_group, '2001'
+                gig_table.measurement, gig_table.ent_type_group, "2001"
             )
             result_raw2 = ent.gig(gig_table2)
             summary_statistics = cls.extract_summary_statistics(result_raw2)
@@ -103,7 +106,7 @@ class Election:
     @classmethod
     def from_year(cls, year):
         if year not in cls.get_years():
-            raise ValueError(f'Invalid year: {year}')
+            raise ValueError(f"Invalid year: {year}")
 
         ent_list = cls.get_ent_list()
         gig_table = cls.get_gig_table(year)
