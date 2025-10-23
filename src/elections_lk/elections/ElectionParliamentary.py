@@ -29,15 +29,15 @@ def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
 class ElectionParliamentary(ElectionWithPDResults):
     @classmethod
     def get_election_type(cls):
-        return 'parliamentary'
+        return "parliamentary"
 
     @classmethod
     def get_years(cls):
-        return [1989, 1994, 2000, 2001, 2004, 2010, 2015, 2020]
+        return [1989, 1994, 2000, 2001, 2004, 2010, 2015, 2020, 2024]
 
     @cached_property
     def ed_final_results(self) -> list[FinalResult]:
-        '''Get final results for each electoral district.'''
+        """Get final results for each electoral district."""
         ed_results = Result.mapAndConcat(
             self.pd_results, lambda region_id: region_id[:5]
         )
@@ -51,8 +51,8 @@ class ElectionParliamentary(ElectionWithPDResults):
 
     @cached_property
     def national_list_final_result(self) -> FinalResult:
-        '''Get final results for national list.'''
-        country_result = Result.concat('LK', self.pd_results)
+        """Get final results for national list."""
+        country_result = Result.concat("LK", self.pd_results)
         party_to_seats = country_result.party_to_votes.get_party_to_seats(
             total_seats=SEATS_NATIONAL_LIST,
             p_limit=P_LIMIT_NATIONAL_LIST,
@@ -63,8 +63,8 @@ class ElectionParliamentary(ElectionWithPDResults):
 
     @cached_property
     def country_final_result(self) -> FinalResult:
-        '''Get final results for the country.'''
-        country_result = Result.concat('LK', self.pd_results)
+        """Get final results for the country."""
+        country_result = Result.concat("LK", self.pd_results)
         return FinalResult.fromResult(
             country_result,
             PartyToSeats.concat(

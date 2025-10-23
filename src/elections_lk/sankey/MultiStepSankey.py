@@ -54,7 +54,9 @@ if __name__ == "__main__":
             "Presidential and Parliamentary Elections (1982-)",
         ],
     ]:
-        MultiStepSankey(
+        mss = MultiStepSankey(
             election_list,
             title,
-        ).draw()
+        )
+        mss.draw()
+        mss.save()
