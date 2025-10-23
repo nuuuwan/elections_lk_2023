@@ -5,3 +5,4 @@ utils-nuuuwan
 matplotlib
 geo-nuuuwan
 humanize
+plotly
