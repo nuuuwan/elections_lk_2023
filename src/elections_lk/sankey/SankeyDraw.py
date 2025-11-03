@@ -44,30 +44,33 @@ class SankeyDraw(SankeyDrawData):
         )
         log.info(f"Saved {self.image_file_path}")
 
+    def annotate_election(self, fig, i_election, election):
+        fig.add_annotation(
+            x=i_election,
+            y=-0.09,
+            xref="x",
+            yref="paper",
+            text=election.year,
+            showarrow=False,
+            align="center",
+            font_size=30,
+            font=dict(color="rgba(0,0,0,0.5)"),
+        )
+        fig.add_annotation(
+            x=i_election,
+            y=-0.12,
+            xref="x",
+            yref="paper",
+            text=election.get_election_type().title(),
+            showarrow=False,
+            align="center",
+            font_size=15,
+            font=dict(color="rgba(0,0,0,0.33)"),
+        )
+
     def annotate(self, fig):
         for i_election, election in enumerate(self.election_list):
-            fig.add_annotation(
-                x=i_election,
-                y=-0.09,
-                xref="x",
-                yref="paper",
-                text=election.year,
-                showarrow=False,
-                align="center",
-                font_size=30,
-                font=dict(color="rgba(0,0,0,0.5)"),
-            )
-            fig.add_annotation(
-                x=i_election,
-                y=-0.12,
-                xref="x",
-                yref="paper",
-                text=election.get_election_type().title(),
-                showarrow=False,
-                align="center",
-                font_size=15,
-                font=dict(color="rgba(0,0,0,0.33)"),
-            )
+            self.annotate_election(fig, i_election, election)
 
         fig.add_annotation(
             x=0.5,
