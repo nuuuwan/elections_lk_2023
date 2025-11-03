@@ -30,21 +30,6 @@ class ValueDict(Dict):
     def items_sorted(self):
         return sorted(self.items(), key=lambda x: x[1], reverse=True)
 
-    def items_othered(self):
-        p_other = 0
-        n_other = 0
-        items = []
-        for item in self.items_sorted():
-            v = item[1]
-            p = v / self.total
-            if p < self.P_OTHERS:
-                p_other += p
-                n_other += v
-            else:
-                items.append(item)
-        items.append((self.OTHERS, n_other))
-        return items
-
     def get_othered_dict(self, keys):
         d = {}
         others = 0
