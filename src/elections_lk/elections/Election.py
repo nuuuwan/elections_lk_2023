@@ -21,6 +21,12 @@ class Election:
     year: int
     results: list
 
+    def get_election_type(self):
+        raise NotImplementedError
+
+    def country_final_result(self):
+        raise NotImplementedError
+
     @property
     def title(self):
         return f"{self.year} {self.get_election_type().title()}"
@@ -99,6 +105,18 @@ class Election:
             summary_statistics=summary_statistics,
             party_to_votes=party_to_votes,
         )
+
+    @classmethod
+    def get_years(cls):
+        raise NotImplementedError
+
+    @classmethod
+    def get_ent_list(cls):
+        raise NotImplementedError
+
+    @classmethod
+    def get_gig_table(cls, __):
+        raise NotImplementedError
 
     @classmethod
     def from_year(cls, year):
