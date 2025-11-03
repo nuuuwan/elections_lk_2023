@@ -59,6 +59,82 @@ class SankeyReportMixin:
         lines.append("")
         return lines
 
+    SUBSET_CONFIG_LIST = [
+        [
+            "Loyal Voters",
+            lambda party_x, party_y: all(
+                [
+                    party_x != "no vote",
+                    party_y != "no vote",
+                    Party(party_x).color == Party(party_y).color,
+                ]
+            ),
+            lambda title_x, title_y: f"People who voted in both the {title_x} and the {title_y} for the same party, maintaining consistent partisan loyalty.",
+        ],
+        [
+            "Party Switchers",
+            lambda party_x, party_y: all(
+                [
+                    party_x != "no vote",
+                    party_y != "no vote",
+                    Party(party_x).color != Party(party_y).color,
+                ]
+            ),
+            lambda title_x, title_y: f"People who voted in both the {title_x} and the {title_y} but for different parties, showing a change in partisan preference.",
+        ],
+        [
+            "New/Re-engaged Voters",
+            lambda party_x, party_y: party_x == "no vote"
+            and party_y != "no vote",
+            lambda title_x, title_y: f"People who did not vote in the {title_x} but voted in the {title_y}, reflecting renewed engagement or new voters.",
+        ],
+        [
+            "Disengaged Voters",
+            lambda party_x, party_y: party_x != "no vote"
+            and party_y == "no vote",
+            lambda title_x, title_y: f"People who voted in the {title_x} but didn't vote in the {title_y}, indicating withdrawal from participation.",
+        ],
+        [
+            "Non-Voters",
+            lambda party_x, party_y: party_x == "no vote"
+            and party_y == "no vote",
+            lambda title_x, title_y: f"People who voted in neither {title_x} nor {title_y}.",
+        ],
+    ]
+
+    @staticmethod
+    def md_table_row(*values):
+        return "| " + " | ".join([str(v) for v in values]) + " |"
+
+    def get_lines_for_elections(self, election_x, election_y):
+        def md_table_row_for_value(label, value_func):
+            return SankeyReportMixin.md_table_row(
+                label,
+                value_func(election_x),
+                value_func(election_y),
+            )
+
+        lines = [
+            "## Elections Summary",
+            "",
+            self.md_table_row("...", election_x.title, election_y.title),
+            self.md_table_row(":--", "--:", "--:"),
+            md_table_row_for_value(
+                "Total Votes",
+                lambda e: f"{e.country_final_result.total_votes:,}",
+            ),
+            md_table_row_for_value(
+                "Turnout",
+                lambda e: f"{e.country_final_result.summary_statistics.p_turnout:.0%}",  # noqa: E501
+            ),
+            md_table_row_for_value(
+                "Rejected",
+                lambda e: f"{e.country_final_result.summary_statistics.p_rejected:.1%}",  # noqa: E501
+            ),
+            "",
+        ]
+        return lines
+
     def save_md(self):
         transitions = self.sorted_transitions
         title_x = f"**{self.election_x.title} Election**"
@@ -79,84 +155,22 @@ class SankeyReportMixin:
         ]
 
         lines.extend(
-            self.get_lines_for_transition_subset(
-                "All Vote Movements",
-                "",
-                transitions,
-            )
+            self.get_lines_for_elections(self.election_x, self.election_y)
         )
 
-        lines.extend(
-            self.get_lines_for_transition_subset(
-                "Loyal Voters",
-                f"People who voted in both the {title_x} and the {title_y}"
-                + " for the same party,"
-                + " maintaining consistent partisan loyalty.",
-                [
-                    (party_x, party_y, votes)
-                    for party_x, party_y, votes in transitions
-                    if party_x != "no vote"
-                    and party_y != "no vote"
-                    and Party(party_x).color == Party(party_y).color
-                ],
+        for subset_config in self.SUBSET_CONFIG_LIST:
+            title, filter_func, description_func = subset_config
+            transition_subset = [
+                (party_x, party_y, votes)
+                for party_x, party_y, votes in transitions
+                if filter_func(party_x, party_y)
+            ]
+            description = description_func(title_x, title_y)
+            lines.extend(
+                self.get_lines_for_transition_subset(
+                    title, description, transition_subset
+                )
             )
-        )
-
-        lines.extend(
-            self.get_lines_for_transition_subset(
-                "Party Switchers",
-                f"People who voted in both the {title_x} and the {title_y}"
-                + " but for different parties,"
-                + " showing a change in partisan preference.",
-                [
-                    (party_x, party_y, votes)
-                    for party_x, party_y, votes in transitions
-                    if party_x != "no vote"
-                    and party_y != "no vote"
-                    and Party(party_x).color != Party(party_y).color
-                ],
-            )
-        )
-
-        lines.extend(
-            self.get_lines_for_transition_subset(
-                "New/Re-engaged Voters",
-                f"People who did not vote in the {title_x}"
-                + f" but voted in the {title_y}, reflecting"
-                + " renewed engagement or new voters.",
-                [
-                    (party_x, party_y, votes)
-                    for party_x, party_y, votes in transitions
-                    if party_x == "no vote" and party_y != "no vote"
-                ],
-            )
-        )
-
-        lines.extend(
-            self.get_lines_for_transition_subset(
-                "Disengaged Voters",
-                "People who voted in the"
-                + f" {title_x} but didn't vote in the {title_y},"
-                + " indicating withdrawal from participation.",
-                [
-                    (party_x, party_y, votes)
-                    for party_x, party_y, votes in transitions
-                    if party_x != "no vote" and party_y == "no vote"
-                ],
-            )
-        )
-
-        lines.extend(
-            self.get_lines_for_transition_subset(
-                "Non-Voters",
-                f"People who voted in neither {title_x} nor {title_y}.",
-                [
-                    (party_x, party_y, votes)
-                    for party_x, party_y, votes in transitions
-                    if party_x == "no vote" and party_y == "no vote"
-                ],
-            )
-        )
 
         content = "\n".join(lines)
         for before, after in ["no vote", "Non-Voting"], [
