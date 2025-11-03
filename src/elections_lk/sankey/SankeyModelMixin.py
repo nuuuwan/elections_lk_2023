@@ -131,9 +131,9 @@ class SankeyModelMixin:
         PYX = 1 - PXY
 
         matrix = {}
-        for party_x in matrix_x_to_y:
+        for party_x, party_y_vector in matrix_x_to_y.items():
             matrix[party_x] = {}
-            for party_y in matrix_x_to_y[party_x]:
+            for party_y in party_y_vector:
                 matrix[party_x][party_y] = (
                     PXY * matrix_x_to_y[party_x][party_y]
                     + PYX * matrix_y_to_x[party_y][party_x]

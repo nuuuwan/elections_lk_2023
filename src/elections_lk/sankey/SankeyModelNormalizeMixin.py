@@ -87,10 +87,9 @@ class SankeyModelNormalizeMixin:
 
         self.analyze_x(matrix)
         self.analyze_y(matrix)
-        for i in range(self.N_NORMALIZATION_ITERATIONS):
+        for __ in range(self.N_NORMALIZATION_ITERATIONS):
             correction_factor_idx = self.analyze_x(matrix)
             matrix = self.normalize_x(matrix, correction_factor_idx)
-
             correction_factor_idx = self.analyze_y(matrix)
             matrix = self.normalize_y(matrix, correction_factor_idx)
         self.analyze_x(matrix)
