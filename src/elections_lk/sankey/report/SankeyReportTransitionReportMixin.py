@@ -1,7 +1,7 @@
 from utils import File, Log
 
 from elections_lk.base.ValueDict import ValueDict
-from elections_lk.sankey.SankeyReportTransitionReportConfigMixin import (  # noqa: E501
+from elections_lk.sankey.report.SankeyReportTransitionReportConfigMixin import (  # noqa: E501
     SankeyReportTransitionReportConfigMixin,
 )
 
