@@ -1,6 +1,5 @@
-from elections_lk.sankey.report.transitions.AbstractTransition import (
-    AbstractTransition,
-)
+from elections_lk.sankey.report.transitions.AbstractTransition import \
+    AbstractTransition
 
 
 class TransitionReengagedOrFirstTimeVoters(AbstractTransition):

@@ -1,18 +1,13 @@
-from elections_lk.sankey.report.transitions.TransitionDisengagedOrFormerVoters import (
-    TransitionDisengagedOrFormerVoters,
-)  # noqa: E501
-from elections_lk.sankey.report.transitions.TransitionLoyalVoters import (
-    TransitionLoyalVoters,
-)
-from elections_lk.sankey.report.transitions.TransitionNonVoters import (
-    TransitionNonVoters,
-)  # noqa: E501
-from elections_lk.sankey.report.transitions.TransitionPartySwitchers import (
-    TransitionPartySwitchers,
-)
-from elections_lk.sankey.report.transitions.TransitionReengagedOrFirstTimeVoters import (
-    TransitionReengagedOrFirstTimeVoters,
-)  # noqa: E501
+from elections_lk.sankey.report.transitions.TransitionDisengagedOrFormerVoters import \
+    TransitionDisengagedOrFormerVoters  # noqa: E501
+from elections_lk.sankey.report.transitions.TransitionLoyalVoters import \
+    TransitionLoyalVoters
+from elections_lk.sankey.report.transitions.TransitionNonVoters import \
+    TransitionNonVoters  # noqa: E501
+from elections_lk.sankey.report.transitions.TransitionPartySwitchers import \
+    TransitionPartySwitchers
+from elections_lk.sankey.report.transitions.TransitionReengagedOrFirstTimeVoters import \
+    TransitionReengagedOrFirstTimeVoters  # noqa: E501
 
 
 class VoteTransitionFactoryException(Exception):

@@ -1,7 +1,6 @@
 from elections_lk.core.Party import Party
-from elections_lk.sankey.report.transitions.AbstractTransition import (
-    AbstractTransition,
-)
+from elections_lk.sankey.report.transitions.AbstractTransition import \
+    AbstractTransition
 
 
 class TransitionPartySwitchers(AbstractTransition):

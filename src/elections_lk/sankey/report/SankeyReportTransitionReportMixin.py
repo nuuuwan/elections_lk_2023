@@ -1,8 +1,9 @@
 from utils import File, Log
 
 from elections_lk.base import MarkdownUtils
-from elections_lk.sankey.report.transitions.VoteTransitionFactory import \
-    VoteTransitionFactory
+from elections_lk.sankey.report.transitions.VoteTransitionFactory import (
+    VoteTransitionFactory,
+)
 
 log = Log("SankeyReportTransitionReportMixin")
 
@@ -123,7 +124,7 @@ class SankeyReportTransitionReportMixin:
             p_total_votes = total_votes / total_total_votes
             lines.append(
                 MarkdownUtils.md_table_row(
-                    f"`Type {i_subset}` {label}",
+                    f"{i_subset}. {label} {transition.emoji}",
                     f"{total_votes:,}",
                     f"{p_total_votes:.0%}",
                     description,
@@ -150,7 +151,6 @@ class SankeyReportTransitionReportMixin:
         transition_subset_idx = VoteTransitionFactory.split_transitions(
             transitions
         )
-        print(transition_subset_idx)
         for i_subset, (label, transition_subset) in enumerate(
             transition_subset_idx.items(), start=1
         ):
@@ -160,7 +160,7 @@ class SankeyReportTransitionReportMixin:
             )
             lines.extend(
                 self.get_lines_for_transition_subset(
-                    f"`Type {i_subset}` {label}",
+                    f"{i_subset}. {label} {transition.emoji}",
                     description,
                     transition_subset,
                 )
@@ -182,7 +182,7 @@ class SankeyReportTransitionReportMixin:
                 party_y,
                 votes,
             )
-            lines.append(f"- {flow_description}")
+            lines.append(f"- {transition.emoji} {flow_description}")
         lines.append("")
         return lines
 
