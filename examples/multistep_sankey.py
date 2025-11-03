@@ -32,7 +32,7 @@ if __name__ == "__main__":
                 ElectionPresidential.from_year(2024),
                 ElectionParliamentary.from_year(2024),
             ],
-            "Presidential and Parliamentary Elections (1982-)",
+            "Presidential and Parliamentary Elections (1982 - Present)",
         ],
     ]:
         mss = MultiStepSankey(
