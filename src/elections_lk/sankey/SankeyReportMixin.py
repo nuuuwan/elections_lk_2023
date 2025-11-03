@@ -45,20 +45,6 @@ class SankeyReportMixin:
         transitions.sort(key=lambda x: x[2], reverse=True)
         return transitions
 
-    def get_lines_for_transition_subset(
-        self, title, description, transition_subset
-    ):
-        total_votes = sum(votes for _, _, votes in transition_subset)
-        lines = [f"## {title} ({total_votes:,})", ""]
-        if description:
-            lines.extend([description, ""])
-        for party_x, party_y, votes in transition_subset:
-            if votes == 0:
-                continue
-            lines.append(f"- {votes:,} `{party_x}` -> `{party_y}`")
-        lines.append("")
-        return lines
-
     SUBSET_CONFIG_LIST = [
         [
             "Loyal Voters",
@@ -103,13 +89,38 @@ class SankeyReportMixin:
     ]
 
     @staticmethod
+    def get_lines_for_transition_subset(
+        title,
+        description,
+        transition_subset,
+        election_x,
+        election_y,
+    ):
+        total_votes = sum(votes for _, _, votes in transition_subset)
+        lines = [f"## {title} ({total_votes:,})", ""]
+        if description:
+            lines.extend([description, ""])
+        lines.append(
+            SankeyReportMixin.md_table_row(
+                election_x.title, election_y.title, "Votes"
+            )
+        )
+        lines.append(SankeyReportMixin.md_table_row(":--", ":--", "--:"))
+        for party_x, party_y, votes in transition_subset:
+            lines.append(
+                SankeyReportMixin.md_table_row(party_x, party_y, f"{votes:,}")
+            )
+        lines.append("")
+        return lines
+
+    @staticmethod
     def md_table_row(*values):
-        return "| " + " | ".join([str(v) for v in values]) + " |"
+        return "| " + " | ".join([str(v).strip() for v in values]) + " |"
 
     def get_lines_for_elections(self, election_x, election_y):
         def md_table_row_for_value(label, value_func):
             return SankeyReportMixin.md_table_row(
-                label,
+                f"**{label}**",
                 value_func(election_x),
                 value_func(election_y),
             )
@@ -167,8 +178,12 @@ class SankeyReportMixin:
             ]
             description = description_func(title_x, title_y)
             lines.extend(
-                self.get_lines_for_transition_subset(
-                    title, description, transition_subset
+                SankeyReportMixin.get_lines_for_transition_subset(
+                    title,
+                    description,
+                    transition_subset,
+                    self.election_x,
+                    self.election_y,
                 )
             )
 
