@@ -18,7 +18,8 @@ class SankeyDrawDataMixin:
         for matrix in self.matrices:
             for party_x in matrix:
                 node_color.append(Party(party_x).color)
-        for party_y in list(matrix.values())[0].keys():
+        last_matrix = self.matrices[-1]
+        for party_y in list(last_matrix.values())[0].keys():
             node_color.append(Party(party_y).color)
         return node_color
 
@@ -28,7 +29,8 @@ class SankeyDrawDataMixin:
         for matrix in self.matrices:
             for party_x in matrix:
                 label.append(party_x)
-        for party_y in list(matrix.values())[0].keys():
+        last_matrix = self.matrices[-1]
+        for party_y in list(last_matrix.values())[0].keys():
             label.append(party_y)
         return label
 
@@ -40,9 +42,10 @@ class SankeyDrawDataMixin:
             for party_x in matrix:
                 label_to_i[party_x + "_" + str(i_matrix)] = i
                 i += 1
-
-        for party_y in list(matrix.values())[0].keys():
-            label_to_i[party_y + "_" + str(i_matrix + 1)] = i
+        last_matrix = self.matrices[-1]
+        i_last_matrix = len(self.matrices) - 1
+        for party_y in list(last_matrix.values())[0].keys():
+            label_to_i[party_y + "_" + str(i_last_matrix + 1)] = i
             i += 1
         return label_to_i
 
