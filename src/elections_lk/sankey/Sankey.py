@@ -1,6 +1,5 @@
 from utils import Log
 
-from elections_lk import ElectionPresidential
 from elections_lk.sankey.SankeyBase import SankeyBase
 from elections_lk.sankey.SankeyDrawMixin import SankeyDrawMixin
 from elections_lk.sankey.SankeyModelMixin import SankeyModelMixin
