@@ -121,10 +121,10 @@ class SankeyModelMixin:
     @cached_property
     def pmatrix_model_unnormalized(self):
         matrix_x_to_y = self.get_matrix(
-            self.election_x, self.election_y, self.election_end
+            self.election_x, self.election_y, self.election_y
         )
         matrix_y_to_x = self.get_matrix(
-            self.election_y, self.election_x, self.election_end
+            self.election_y, self.election_x, self.election_y
         )
 
         PXY = 0.5

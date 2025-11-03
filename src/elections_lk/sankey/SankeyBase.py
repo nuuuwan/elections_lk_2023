@@ -4,21 +4,14 @@ from utils import Hash
 class SankeyBase:
     LABEL_ARROW = " ⮕ "
 
-    def __init__(self, election_list, title="Sankey"):
-        self.election_list = election_list
+    def __init__(self, election_x, election_y, title):
+        self.election_x = election_x
+        self.election_y = election_y
         self.title = title
 
     @property
-    def election_x(self):
-        return self.election_list[0]
-
-    @property
-    def election_y(self):
-        return self.election_list[1]
-
-    @property
-    def election_end(self):
-        return self.election_list[-1]
+    def election_list(self):
+        return [self.election_x, self.election_y]
 
     @property
     def title_long(self):
@@ -28,11 +21,11 @@ class SankeyBase:
 
     @property
     def id(self):
-        first_election_id = self.election_list[0].id
-        last_election_id = self.election_list[-1].id
+        id_election_x = self.election_x.id
+        id_election_y = self.election_y.id
 
         all_election_id = "".join(
             [election.id for election in self.election_list]
         )
         h = Hash.md5(all_election_id)[:4]
-        return f"{first_election_id}_{last_election_id}_{h}"
+        return f"{id_election_x}_{id_election_y}_{h}"

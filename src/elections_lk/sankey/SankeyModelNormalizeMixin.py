@@ -9,7 +9,7 @@ log = Log("SankeyModel")
 class SankeyModelNormalizeMixin:
     def analyze_x(self, matrix):
         total = (
-            self.election_end.country_final_result.summary_statistics.electors
+            self.election_y.country_final_result.summary_statistics.electors
         )
         final_result_x = self.election_x.country_final_result
         popular_parties_x = self.election_x.get_popular_parties(self.P_LIMIT)
@@ -40,7 +40,7 @@ class SankeyModelNormalizeMixin:
 
     def analyze_y(self, matrix):
         total = (
-            self.election_end.country_final_result.summary_statistics.electors
+            self.election_y.country_final_result.summary_statistics.electors
         )
         final_result_y = self.election_y.country_final_result
         popular_parties_x = self.election_x.get_popular_parties(self.P_LIMIT)
@@ -103,7 +103,7 @@ class SankeyModelNormalizeMixin:
         pmatrix = self.pmatrix_model
         matrix = {}
         total = (
-            self.election_end.country_final_result.summary_statistics.electors
+            self.election_y.country_final_result.summary_statistics.electors
         )
         for party_x in pmatrix:
             matrix[party_x] = {}

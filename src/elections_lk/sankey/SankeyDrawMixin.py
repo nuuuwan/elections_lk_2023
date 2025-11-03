@@ -44,7 +44,11 @@ class SankeyDrawMixin(SankeyDrawDataMixin):
         )
         log.info(f"Saved {self.image_file_path}")
 
-    def annotate_election(self, fig, i_election, election):
+    def __annotate_election_title_in_footer__(self, fig, i_election, election):
+        log.debug(
+            "__annotate_election_title_in_footer__:"
+            + f" {i_election}, {election.title}"
+        )
         fig.add_annotation(
             x=i_election,
             y=-0.09,
@@ -70,7 +74,9 @@ class SankeyDrawMixin(SankeyDrawDataMixin):
 
     def annotate(self, fig):
         for i_election, election in enumerate(self.election_list):
-            self.annotate_election(fig, i_election, election)
+            self.__annotate_election_title_in_footer__(
+                fig, i_election, election
+            )
 
         fig.add_annotation(
             x=0.5,
