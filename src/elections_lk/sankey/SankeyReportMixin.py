@@ -5,7 +5,7 @@ from utils import Log, TSVFile
 log = Log("PartyContinuity")
 
 
-class SankeyReport:
+class SankeyReportMixin:
     @property
     def d_list(self):
         matrix = self.matrix

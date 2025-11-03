@@ -3,10 +3,10 @@ from functools import cached_property
 
 from utils import Log
 
-log = Log('SankeyModel')
+log = Log("SankeyModel")
 
 
-class SankeyModelNormalize:
+class SankeyModelNormalizeMixin:
     def analyze_x(self, matrix):
         total = (
             self.election_end.country_final_result.summary_statistics.electors

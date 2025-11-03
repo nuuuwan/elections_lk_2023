@@ -12,5 +12,5 @@ from elections_lk.elections import (YEAR_TO_REGION_TO_SEATS, Election,
                                     ElectionWithPDResults)
 from elections_lk.sankey import (MultiStepSankey, Sankey, SankeyBase,
                                  SankeyDrawDataMixin, SankeyDrawMixin,
-                                 SankeyModel, SankeyModelNormalize,
-                                 SankeyReport)
+                                 SankeyModelMixin, SankeyModelNormalizeMixin,
+                                 SankeyReportMixin)

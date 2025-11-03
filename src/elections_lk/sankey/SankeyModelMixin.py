@@ -5,10 +5,10 @@ from utils import Log
 
 from elections_lk.core.Party import NOT_COUNTED
 
-log = Log('SankeyModel')
+log = Log("SankeyModel")
 
 
-class SankeyModel:
+class SankeyModelMixin:
     P_LIMIT = 0.01
     N_NORMALIZATION_ITERATIONS = 5
     NOT_COUNTED = NOT_COUNTED
@@ -21,7 +21,7 @@ class SankeyModel:
         results_idx = election_end.results_idx
         for result in election.results:
             id = result.region_id
-            if id in ['EC-11D']:
+            if id in ["EC-11D"]:
                 continue
             if id not in results_idx:
                 continue
@@ -46,7 +46,7 @@ class SankeyModel:
         idx = {}
         for result in election.results:
             id = result.region_id
-            if id in ['EC-11D']:
+            if id in ["EC-11D"]:
                 continue
             idx[id] = result.summary_statistics.electors
         return idx
@@ -78,8 +78,8 @@ class SankeyModel:
         model = LinearRegression(positive=True, fit_intercept=False)
         model.fit(X, Y, sample_weight=sample_weight)
         log.debug(
-            f'LinearRegression fitted ({positive=}, {fit_intercept=},'
-            + f' {n=}, {nX=}, {nY=}).'
+            f"LinearRegression fitted ({positive=}, {fit_intercept=},"
+            + f" {n=}, {nX=}, {nY=})."
         )
         return model
 
