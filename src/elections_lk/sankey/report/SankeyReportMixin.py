@@ -2,12 +2,10 @@ import os
 
 from utils import Log
 
-from elections_lk.sankey.report.SankeyReportMatrixDataMixin import (
-    SankeyReportMatrixDataMixin,
-)
-from elections_lk.sankey.report.SankeyReportTransitionReportMixin import (
-    SankeyReportTransitionReportMixin,
-)
+from elections_lk.sankey.report.SankeyReportMatrixDataMixin import \
+    SankeyReportMatrixDataMixin
+from elections_lk.sankey.report.SankeyReportTransitionReportMixin import \
+    SankeyReportTransitionReportMixin
 
 log = Log("SankeyReportMixin")
 
@@ -21,7 +19,9 @@ class SankeyReportMixin(
         for party_x, party_y_vector in self.matrix.items():
             d = {"party": party_x}
             for party_y, votes in party_y_vector.items():
-                d[party_y] = round(votes, 0) if votes > 10 else round(votes, 3)
+                d[party_y] = (
+                    round(votes, 0) if votes > 10 else round(votes, 3)
+                )
             d_list.append(d)
         return d_list
 

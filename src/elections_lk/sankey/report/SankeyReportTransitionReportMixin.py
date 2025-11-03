@@ -1,9 +1,8 @@
 from utils import File, Log
 
 from elections_lk.base.ValueDict import ValueDict
-from elections_lk.sankey.report.SankeyReportTransitionReportConfigMixin import (  # noqa: E501
-    SankeyReportTransitionReportConfigMixin,
-)
+from elections_lk.sankey.report.SankeyReportTransitionReportConfigMixin import \
+    SankeyReportTransitionReportConfigMixin  # noqa: E501
 
 log = Log("SankeyReportTransitionReportMixin")
 
@@ -42,7 +41,9 @@ class SankeyReportTransitionReportMixin(
             )
         )
         lines.append(
-            SankeyReportTransitionReportMixin.md_table_row(":--", ":--", "--:")
+            SankeyReportTransitionReportMixin.md_table_row(
+                ":--", ":--", "--:"
+            )
         )
         MIN_VOTES = 10_000
         for party_x, party_y, votes in transition_subset:
@@ -125,13 +126,13 @@ class SankeyReportTransitionReportMixin(
         for i_subset, subset_config in enumerate(
             SankeyReportTransitionReportMixin.get_config_list(), start=1
         ):
-            title, filter_func, description_func = subset_config
+            title, is_match, get_description = subset_config
             transition_subset = [
                 (party_x, party_y, votes)
                 for party_x, party_y, votes in transitions
-                if filter_func(party_x, party_y)
+                if is_match(party_x, party_y)
             ]
-            description = description_func(self.election_x, self.election_y)
+            description = get_description(self.election_x, self.election_y)
             total_votes = sum(votes for _, _, votes in transition_subset)
             p_total_votes = total_votes / total_total_votes
             lines.append(
@@ -162,13 +163,13 @@ class SankeyReportTransitionReportMixin(
         for i_subset, subset_config in enumerate(
             SankeyReportTransitionReportMixin.get_config_list(), start=1
         ):
-            title, filter_func, description_func = subset_config
+            title, is_match, get_description = subset_config
             transition_subset = [
                 (party_x, party_y, votes)
                 for party_x, party_y, votes in transitions
-                if filter_func(party_x, party_y)
+                if is_match(party_x, party_y)
             ]
-            description = description_func(self.election_x, self.election_y)
+            description = get_description(self.election_x, self.election_y)
             lines.extend(
                 self.get_lines_for_transition_subset(
                     f"`Type {i_subset}` {title}",

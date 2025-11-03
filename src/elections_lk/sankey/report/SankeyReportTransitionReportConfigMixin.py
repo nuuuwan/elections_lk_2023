@@ -1,71 +1,17 @@
-from elections_lk.core.Party import Party
+from elections_lk.sankey.report.transitions.VoteTransitionFactory import \
+    VoteTransitionFactory
 
 
 class SankeyReportTransitionReportConfigMixin:
     @staticmethod
     def get_config_list():
-        NO_VOTE = "no vote"
-        return [
-            [
-                "Loyal Voters",
-                lambda party_x, party_y: all(
-                    [
-                        party_x != NO_VOTE,
-                        party_y != NO_VOTE,
-                        Party(party_x).color == Party(party_y).color,
-                    ]
-                ),
-                lambda election_x, election_y: (
-                    "People who voted in both elections — "
-                    f"{election_x.title} and {election_y.title} — "
-                    "for the same political alignment,"
-                    + " maintaining consistent partisan loyalty."
-                ),
-            ],
-            [
-                "Party Switchers",
-                lambda party_x, party_y: all(
-                    [
-                        party_x != NO_VOTE,
-                        party_y != NO_VOTE,
-                        Party(party_x).color != Party(party_y).color,
-                    ]
-                ),
-                lambda election_x, election_y: (
-                    "People who voted in both elections — "
-                    f"{election_x.title} and {election_y.title} — "
-                    "but for different political alignments,"
-                    + " indicating a change in partisan preference."
-                ),
-            ],
-            [
-                "Re-engaged or First-Time Voters",
-                lambda party_x, party_y: (party_x == NO_VOTE)
-                and (party_y != NO_VOTE),
-                lambda election_x, election_y: (
-                    f"People who did not vote in the {election_x.title}"
-                    + f" but voted in the {election_y.title},"
-                    + " reflecting renewed engagement"
-                    + " or first-time participation."
-                ),
-            ],
-            [
-                "Disengaged Voters",
-                lambda party_x, party_y: (party_x != NO_VOTE)
-                and (party_y == NO_VOTE),
-                lambda election_x, election_y: (
-                    f"People who voted in the {election_x.title}"
-                    + f" but did not vote in the {election_y.title},"
-                    + " indicating withdrawal from participation."
-                ),
-            ],
-            [
-                "Consistent Non-Voters",
-                lambda party_x, party_y: (party_x == NO_VOTE)
-                and (party_y == NO_VOTE),
-                lambda election_x, election_y: (
-                    "People who did not vote in either election — "
-                    f"{election_x.title} or {election_y.title} ."
-                ),
-            ],
-        ]
+        config_list = []
+        for transition in VoteTransitionFactory.get_transitions():
+            config_list.append(
+                [
+                    transition.label,
+                    transition.is_match,
+                    transition.get_description,
+                ]
+            )
+        return config_list
