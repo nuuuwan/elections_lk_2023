@@ -5,6 +5,7 @@ from utils import Hash
 
 class SankeyBase:
     LABEL_ARROW = " ⮕ "
+    DIR_TMP_SANKEY = os.path.join("/tmp", "sankey")
 
     def __init__(self, election_x, election_y, title):
         self.election_x = election_x
@@ -34,4 +35,5 @@ class SankeyBase:
 
     @property
     def file_base(self):
-        return os.path.join("/tmp", f"sankey_{self.id}")
+        os.makedirs(self.DIR_TMP_SANKEY, exist_ok=True)
+        return os.path.join(self.DIR_TMP_SANKEY, f"sankey_{self.id}")

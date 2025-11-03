@@ -9,7 +9,7 @@ class TransitionReengagedOrFirstTimeVoters(AbstractTransition):
 
     @property
     def emoji(self):
-        return "🚫🗳️"
+        return "🆕"
 
     def is_match(self, party_x, party_y):
         return (party_x == self.NO_VOTE) and (party_y != self.NO_VOTE)
@@ -26,9 +26,9 @@ class TransitionReengagedOrFirstTimeVoters(AbstractTransition):
         self, election_x, election_y, party_x, party_y, votes
     ):
         return (
-            f"{votes:,} people re-engaged"
-            + " or voted for the first time"
-            + f" for {party_y} in {election_y.title},"
+            f"{votes:,} people **re-engaged"
+            + " or voted for the first time**"
+            + f" for **{party_y}** in {election_y.title},"
             + " after not voting or not being eligible"
             + f" to vote in {election_x.title}."
         )

@@ -1,14 +1,15 @@
 from utils import File, Log
 
 from elections_lk.base import MarkdownUtils
-from elections_lk.sankey.report.transitions.VoteTransitionFactory import (
-    VoteTransitionFactory,
-)
+from elections_lk.sankey.report.transitions.VoteTransitionFactory import \
+    VoteTransitionFactory
 
 log = Log("SankeyReportTransitionReportMixin")
 
 
 class SankeyReportTransitionReportMixin:
+    P_EXECUTIVE_SUMMARY_LIMIT = 0.01
+
     @property
     def transition_report_file_path(self):
         return self.file_base + ".transition_report.md"
@@ -169,7 +170,11 @@ class SankeyReportTransitionReportMixin:
 
     def get_lines_for_executive_summary(self, transitions):
         lines = ["## Executive Summary", ""]
-        for party_x, party_y, votes in transitions[:5]:
+        total_votes = sum(votes for _, _, votes in transitions)
+        for party_x, party_y, votes in transitions:
+            p_votes = votes / total_votes
+            if p_votes < self.P_EXECUTIVE_SUMMARY_LIMIT:
+                continue
             transition = (
                 VoteTransitionFactory.get_transition_for_party_transition(
                     party_x, party_y

@@ -9,7 +9,7 @@ class TransitionNonVoters(AbstractTransition):
 
     @property
     def emoji(self):
-        return "🚫"
+        return "🙅🏽"
 
     def is_match(self, party_x, party_y):
         return (party_x == self.NO_VOTE) and (party_y == self.NO_VOTE)
@@ -24,6 +24,7 @@ class TransitionNonVoters(AbstractTransition):
         self, election_x, election_y, party_x, party_y, votes
     ):
         return (
-            f"{votes:,} people did not vote in either of"
+            f"{votes:,} people **did not vote or were not eligible to vote**"
+            + " in either of"
             + f" {election_x.title} or {election_y.title}."
         )

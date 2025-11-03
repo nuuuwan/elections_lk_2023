@@ -5,11 +5,11 @@ from elections_lk.sankey.report.transitions.AbstractTransition import \
 class TransitionDisengagedOrFormerVoters(AbstractTransition):
     @property
     def label(self):
-        return "Disengaged Voters"
+        return "Disengaged or Former Voters"
 
     @property
     def emoji(self):
-        return "🗳️🚫"
+        return "🛑"
 
     def is_match(self, party_x, party_y):
         return (party_x != self.NO_VOTE) and (party_y == self.NO_VOTE)
@@ -18,13 +18,14 @@ class TransitionDisengagedOrFormerVoters(AbstractTransition):
         return (
             f"People who voted in the {election_x.title}"
             + f" but did not vote in the {election_y.title},"
-            + " indicating withdrawal from participation."
+            + " indicating *disengaging from voting or deceasing*."
         )
 
     def get_flow_description(
         self, election_x, election_y, party_x, party_y, votes
     ):
         return (
-            f"{votes:,} people who voted for {party_x} in {election_x.title}"
+            f"{votes:,} people who voted for **{party_x}**"
+            + f" in {election_x.title}"
             + f" did not vote in {election_y.title}."
         )
