@@ -110,7 +110,6 @@ class SankeyModelNormalizeMixin:
             matrix[party_x] = {}
             for party_y in pmatrix[party_x]:
                 matrix[party_x][party_y] = pmatrix[party_x][party_y] * total
-        print(matrix)
         return matrix
 
     @cached_property

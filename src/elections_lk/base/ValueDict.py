@@ -2,7 +2,8 @@ from utils import Dict
 
 
 class ValueDict(Dict):
-    OTHERS = 'others'
+    OTHERS = "others"
+    P_OTHERS = 0.05
 
     def __len__(self):
         return len(self.keys())
@@ -29,14 +30,14 @@ class ValueDict(Dict):
     def items_sorted(self):
         return sorted(self.items(), key=lambda x: x[1], reverse=True)
 
-    def items_othered(self, max_p_other=0.001):
+    def items_othered(self):
         p_other = 0
         n_other = 0
         items = []
         for item in self.items_sorted():
             v = item[1]
             p = v / self.total
-            if p < max_p_other:
+            if p < self.P_OTHERS:
                 p_other += p
                 n_other += v
             else:
