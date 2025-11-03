@@ -88,7 +88,12 @@ class SankeyDraw(SankeyDrawData):
             y=-0.18,
             xref="x domain",
             yref="y domain",
-            text="data from elections.gov.lk · model & visualization by @nuuuwan",
+            text=" · ".join(
+                [
+                    "data from elections.gov.lk",
+                    "model & visualization by @nuuuwan",
+                ]
+            ),
             showarrow=False,
             align="center",
             font_size=15,
