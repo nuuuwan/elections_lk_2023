@@ -7,6 +7,10 @@ class TransitionNonVoters(AbstractTransition):
     def label(self):
         return "Non-Voters"
 
+    @property
+    def emoji(self):
+        return "🚫"
+
     def is_match(self, party_x, party_y):
         return (party_x == self.NO_VOTE) and (party_y == self.NO_VOTE)
 
@@ -14,4 +18,12 @@ class TransitionNonVoters(AbstractTransition):
         return (
             "People who did not vote in either election — "
             f"{election_x.title} or {election_y.title} ."
+        )
+
+    def get_flow_description(
+        self, election_x, election_y, party_x, party_y, votes
+    ):
+        return (
+            f"{votes:,} people did not vote in either of"
+            + f" {election_x.title} or {election_y.title}."
         )

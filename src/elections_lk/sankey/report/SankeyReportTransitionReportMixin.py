@@ -1,9 +1,8 @@
 from utils import File, Log
 
-from elections_lk.base.ValueDict import ValueDict
-from elections_lk.sankey.report.transitions.VoteTransitionFactory import (
-    VoteTransitionFactory,
-)
+from elections_lk.base import MarkdownUtils
+from elections_lk.sankey.report.transitions.VoteTransitionFactory import \
+    VoteTransitionFactory
 
 log = Log("SankeyReportTransitionReportMixin")
 
@@ -34,38 +33,29 @@ class SankeyReportTransitionReportMixin:
         if description:
             lines.extend([description, ""])
         lines.append(
-            SankeyReportTransitionReportMixin.md_table_row(
+            MarkdownUtils.md_table_row(
                 self.election_x.title, self.election_y.title, "Votes"
             )
         )
-        lines.append(
-            SankeyReportTransitionReportMixin.md_table_row(":--", ":--", "--:")
-        )
+        lines.append(MarkdownUtils.md_table_row(":--", ":--", "--:"))
         MIN_VOTES = 10_000
         for party_x, party_y, votes in transition_subset:
             if votes < MIN_VOTES:
                 continue
             lines.append(
-                SankeyReportTransitionReportMixin.md_table_row(
-                    party_x, party_y, f"{votes:,}"
-                )
+                MarkdownUtils.md_table_row(party_x, party_y, f"{votes:,}")
             )
         lines.append(
-            SankeyReportTransitionReportMixin.md_table_row(
+            MarkdownUtils.md_table_row(
                 "**Total Registered Votes**", "", f"**{total_votes:,}**"
             )
         )
         lines.append("")
         return lines
 
-    @staticmethod
-    def md_table_row(*values) -> str:
-        assert isinstance(values, tuple) and len(values) >= 1
-        return "| " + " | ".join([str(v).strip() for v in values]) + " |"
-
     def get_lines_for_elections_summary(self):
         def md_table_row_for_value(label, value_func):
-            return SankeyReportTransitionReportMixin.md_table_row(
+            return MarkdownUtils.md_table_row(
                 f"**{label}**",
                 value_func(
                     self.election_x.country_final_result.summary_statistics
@@ -78,10 +68,10 @@ class SankeyReportTransitionReportMixin:
         lines = [
             "## Elections Summary",
             "",
-            self.md_table_row(
+            MarkdownUtils.md_table_row(
                 "  ", self.election_x.title, self.election_y.title
             ),
-            self.md_table_row(":--", "--:", "--:"),
+            MarkdownUtils.md_table_row(":--", "--:", "--:"),
             md_table_row_for_value(
                 "Registered Voters",
                 lambda ss: f"{ss.electors:,}",  # noqa: E501
@@ -111,12 +101,10 @@ class SankeyReportTransitionReportMixin:
             "",
             "### Summary",
             "",
-            SankeyReportTransitionReportMixin.md_table_row(
+            MarkdownUtils.md_table_row(
                 "Voter Type", "Total Registered Votes", "%", "Description"
             ),
-            SankeyReportTransitionReportMixin.md_table_row(
-                ":--", "--:", "--:", ":--"
-            ),
+            MarkdownUtils.md_table_row(":--", "--:", "--:", ":--"),
         ]
 
         transition_subset_idx = VoteTransitionFactory.split_transitions(
@@ -134,7 +122,7 @@ class SankeyReportTransitionReportMixin:
             total_votes = sum(votes for _, _, votes in transition_subset)
             p_total_votes = total_votes / total_total_votes
             lines.append(
-                SankeyReportTransitionReportMixin.md_table_row(
+                MarkdownUtils.md_table_row(
                     f"`Type {i_subset}` {label}",
                     f"{total_votes:,}",
                     f"{p_total_votes:.0%}",
@@ -143,7 +131,7 @@ class SankeyReportTransitionReportMixin:
             )
 
         lines.append(
-            SankeyReportTransitionReportMixin.md_table_row(
+            MarkdownUtils.md_table_row(
                 "**Final Registered Votes**",
                 f"**{total_total_votes:,}**",
                 "**100%**",
@@ -162,6 +150,7 @@ class SankeyReportTransitionReportMixin:
         transition_subset_idx = VoteTransitionFactory.split_transitions(
             transitions
         )
+        print(transition_subset_idx)
         for i_subset, (label, transition_subset) in enumerate(
             transition_subset_idx.items(), start=1
         ):
@@ -178,6 +167,25 @@ class SankeyReportTransitionReportMixin:
             )
         return lines
 
+    def get_lines_for_executive_summary(self, transitions):
+        lines = ["## Executive Summary", ""]
+        for party_x, party_y, votes in transitions[:5]:
+            transition = (
+                VoteTransitionFactory.get_transition_for_party_transition(
+                    party_x, party_y
+                )
+            )
+            flow_description = transition.get_flow_description(
+                self.election_x,
+                self.election_y,
+                party_x,
+                party_y,
+                votes,
+            )
+            lines.append(f"- {flow_description}")
+        lines.append("")
+        return lines
+
     def get_lines(self):
         transitions = self.sorted_transitions
         image_file_path = self.image_file_path
@@ -190,6 +198,8 @@ class SankeyReportTransitionReportMixin:
             "",
             f"![Image]({image_file_path})",
             "",
+            "## Labels",
+            "",
             "- **no vote**: Individuals who did not vote in that election"
             + " (includes new, former, or disengaged voters).",
             "- **others**:"
@@ -198,7 +208,7 @@ class SankeyReportTransitionReportMixin:
             + " in either election, nationwide.",
             "",
         ]
-
+        lines.extend(self.get_lines_for_executive_summary(transitions))
         lines.extend(self.get_lines_for_elections_summary())
         lines.extend(
             self.get_lines_for_vote_transitions_summary(
@@ -216,9 +226,12 @@ class SankeyReportTransitionReportMixin:
     def save_md(self):
         lines = self.get_lines()
         content = "\n".join(lines)
-        for before, after in ["no vote", "Non-Voting"], [
-            "others",
-            "Small-Parties",
+        for before, after in [
+            ["no vote", "Non-Voting"],
+            [
+                "others",
+                "Small-Parties",
+            ],
         ]:
             content = content.replace(before, after)
         File(self.transition_report_file_path).write(content)
