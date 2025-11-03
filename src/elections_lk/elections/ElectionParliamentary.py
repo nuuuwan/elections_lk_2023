@@ -4,21 +4,22 @@ from elections_lk.core.FinalResult import FinalResult
 from elections_lk.core.PartyToSeats import PartyToSeats
 from elections_lk.core.Result import Result
 from elections_lk.elections.ElectionWithPDResults import ElectionWithPDResults
-from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import \
-    YEAR_TO_REGION_TO_SEATS
+from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import (
+    YEAR_TO_REGION_TO_SEATS,
+)
 
-P_LIMIT_ED = 0.05
+P_OTHER_LIMIT_ED = 0.05
 BONUS_ED = 1
 
 SEATS_NATIONAL_LIST = 29
-P_LIMIT_NATIONAL_LIST = 0.0
+P_OTHER_LIMIT_NATIONAL_LIST = 0.0
 BONUS_NATIONAL_LIST = 0
 
 
 def get_ed_final_results(year: int, ed_result: Result) -> FinalResult:
     party_to_seats = ed_result.party_to_votes.get_party_to_seats(
         total_seats=YEAR_TO_REGION_TO_SEATS[year][ed_result.region_id],
-        p_limit=P_LIMIT_ED,
+        P_OTHER_LIMIT=P_OTHER_LIMIT_ED,
         bonus=BONUS_ED,
     )
 
@@ -54,7 +55,7 @@ class ElectionParliamentary(ElectionWithPDResults):
         country_result = Result.concat("LK", self.pd_results)
         party_to_seats = country_result.party_to_votes.get_party_to_seats(
             total_seats=SEATS_NATIONAL_LIST,
-            p_limit=P_LIMIT_NATIONAL_LIST,
+            P_OTHER_LIMIT=P_OTHER_LIMIT_NATIONAL_LIST,
             bonus=BONUS_NATIONAL_LIST,
         )
 

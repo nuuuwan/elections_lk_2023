@@ -48,10 +48,10 @@ class Election:
     def all_parties(self):
         return sorted(self.country_final_result.party_to_votes.keys())
 
-    def get_popular_parties(self, p_limit=0.005):
+    def get_popular_parties(self, P_OTHER_LIMIT):
         party_to_votes = self.country_final_result.party_to_votes
         total = party_to_votes.total
-        vote_limit = total * p_limit
+        vote_limit = total * P_OTHER_LIMIT
         return [
             x[0]
             for x in sorted(

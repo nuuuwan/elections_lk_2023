@@ -3,7 +3,7 @@ from utils import Log
 from elections_lk.base import ValueDict
 from elections_lk.core.PartyToSeats import PartyToSeats
 
-log = Log('PartyToVotes')
+log = Log("PartyToVotes")
 
 
 class PartyToVotes(ValueDict):
@@ -11,8 +11,8 @@ class PartyToVotes(ValueDict):
     def winning_party(self) -> str:
         return self.items_sorted()[0][0]
 
-    def get_eligible_party_to_seats(self, p_limit):
-        vote_limit = self.total * p_limit
+    def get_eligible_party_to_seats(self, P_OTHER_LIMIT):
+        vote_limit = self.total * P_OTHER_LIMIT
         return PartyToVotes(
             {x[0]: x[1] for x in self.items() if x[1] >= vote_limit}
         )
@@ -45,8 +45,10 @@ class PartyToVotes(ValueDict):
             party_to_rem_seats[party] = 1
         return PartyToSeats(party_to_rem_seats)
 
-    def get_party_to_seats(self, total_seats, p_limit, bonus) -> PartyToSeats:
-        party_to_votes = self.get_eligible_party_to_seats(p_limit)
+    def get_party_to_seats(
+        self, total_seats, P_OTHER_LIMIT, bonus
+    ) -> PartyToSeats:
+        party_to_votes = self.get_eligible_party_to_seats(P_OTHER_LIMIT)
         party_to_int_seats = party_to_votes.get_party_to_int_seats(
             total_seats - bonus
         )

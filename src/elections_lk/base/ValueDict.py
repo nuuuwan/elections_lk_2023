@@ -3,7 +3,6 @@ from utils import Dict
 
 class ValueDict(Dict):
     OTHERS = "others"
-    P_OTHERS = 0.05
 
     def __len__(self):
         return len(self.keys())

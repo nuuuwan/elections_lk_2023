@@ -1,8 +1,9 @@
 from utils import File, Log
 
 from elections_lk.base.ValueDict import ValueDict
-from elections_lk.sankey.report.transitions.VoteTransitionFactory import \
-    VoteTransitionFactory
+from elections_lk.sankey.report.transitions.VoteTransitionFactory import (
+    VoteTransitionFactory,
+)
 
 log = Log("SankeyReportTransitionReportMixin")
 
@@ -38,9 +39,7 @@ class SankeyReportTransitionReportMixin:
             )
         )
         lines.append(
-            SankeyReportTransitionReportMixin.md_table_row(
-                ":--", ":--", "--:"
-            )
+            SankeyReportTransitionReportMixin.md_table_row(":--", ":--", "--:")
         )
         MIN_VOTES = 10_000
         for party_x, party_y, votes in transition_subset:
@@ -195,8 +194,8 @@ class SankeyReportTransitionReportMixin:
             + " (includes new, former, or disengaged voters).",
             "- **others**:"
             + " Political parties receiving"
-            + f" less than {ValueDict.P_OTHERS:.1%} of valid votes"
-            + " in either election.",
+            + f" less than {self.P_OTHER_LIMIT:.1%} of valid votes"
+            + " in either election, nationwide.",
             "",
         ]
 
