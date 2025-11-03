@@ -181,12 +181,15 @@ class SankeyReportTransitionReportMixin:
 
     def get_lines(self):
         transitions = self.sorted_transitions
+        image_file_path = self.image_file_path
         lines = [
             f"# {self.election_x.title} -> {self.election_y.title}",
             "",
             "An analysis of vote transitions between"
             + f" the {self.election_x.title} Election"
             + f" and the {self.election_y.title} Election",
+            "",
+            f"![Image]({image_file_path})",
             "",
             "- **no vote**: Individuals who did not vote in that election"
             + " (includes new, former, or disengaged voters).",

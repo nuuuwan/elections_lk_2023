@@ -2,10 +2,10 @@ from elections_lk.sankey.report.transitions.AbstractTransition import \
     AbstractTransition
 
 
-class TransitionConsistentNonVoters(AbstractTransition):
+class TransitionNonVoters(AbstractTransition):
     @property
     def label(self):
-        return "Consistent Non-Voters"
+        return "Non-Voters"
 
     def is_match(self, party_x, party_y):
         return (party_x == self.NO_VOTE) and (party_y == self.NO_VOTE)
