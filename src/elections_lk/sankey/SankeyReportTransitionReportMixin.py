@@ -1,7 +1,6 @@
 from utils import File, Log
 
 from elections_lk.base.ValueDict import ValueDict
-from elections_lk.core.Party import Party
 
 log = Log("SankeyReportTransitionReportMixin")
 
@@ -21,58 +20,6 @@ class SankeyReportTransitionReportMixin:
                 transitions.append((party_x, party_y, votes_r))
         transitions.sort(key=lambda x: x[2], reverse=True)
         return transitions
-
-    SUBSET_CONFIG_LIST = [
-        [
-            "Loyal Voters",
-            lambda party_x, party_y: all(
-                [
-                    party_x != "no vote",
-                    party_y != "no vote",
-                    Party(party_x).color == Party(party_y).color,
-                ]
-            ),
-            lambda title_x, title_y: f"People who voted in both the {title_x}"
-            + f" and the {title_y} for the same party,"
-            + " maintaining consistent partisan loyalty.",
-        ],
-        [
-            "Party Switchers",
-            lambda party_x, party_y: all(
-                [
-                    party_x != "no vote",
-                    party_y != "no vote",
-                    Party(party_x).color != Party(party_y).color,
-                ]
-            ),
-            lambda title_x, title_y: f"People who voted in both the {title_x}"
-            + f" and the {title_y} but for different parties,"
-            + " showing a change in partisan preference.",
-        ],
-        [
-            "New/Re-engaged Voters",
-            lambda party_x, party_y: party_x == "no vote"
-            and party_y != "no vote",
-            lambda title_x, title_y: f"People who didn't vote in the {title_x}"
-            + f" but voted in the {title_y},"
-            + " reflecting renewed engagement or new voters.",
-        ],
-        [
-            "Disengaged/Former Voters",
-            lambda party_x, party_y: party_x != "no vote"
-            and party_y == "no vote",
-            lambda title_x, title_y: f"People who voted in the {title_x}"
-            + f" but didn't vote in the {title_y},"
-            + " indicating withdrawal from participation.",
-        ],
-        [
-            "Non-Voters",
-            lambda party_x, party_y: party_x == "no vote"
-            and party_y == "no vote",
-            lambda title_x, title_y: "People who voted in"
-            + f" neither {title_x} nor {title_y}.",
-        ],
-    ]
 
     @staticmethod
     def get_lines_for_transition_subset(
@@ -155,13 +102,13 @@ class SankeyReportTransitionReportMixin:
             "### Summary",
             "",
             SankeyReportTransitionReportMixin.md_table_row(
-                "Voter Type", "Total Votes", "Description"
+                "Voter Type", "Total Votes", "%", "Description"
             ),
             SankeyReportTransitionReportMixin.md_table_row(
-                ":--", "--:", ":--"
+                ":--", "--:", "--:", ":--"
             ),
         ]
-
+        total_total_votes = sum(votes for _, _, votes in transitions)
         for i_subset, subset_config in enumerate(
             self.SUBSET_CONFIG_LIST, start=1
         ):
@@ -173,18 +120,21 @@ class SankeyReportTransitionReportMixin:
             ]
             description = description_func(title_x, title_y)
             total_votes = sum(votes for _, _, votes in transition_subset)
+            p_total_votes = total_votes / total_total_votes
             lines.append(
                 SankeyReportTransitionReportMixin.md_table_row(
                     f"`Type {i_subset}` {title}",
                     f"{total_votes:,}",
+                    f"{p_total_votes:.0%}",
                     description,
                 )
             )
-        total_total_votes = sum(votes for _, _, votes in transitions)
+
         lines.append(
             SankeyReportTransitionReportMixin.md_table_row(
                 "**Final Registered Votes**",
                 f"**{total_total_votes:,}**",
+                "**100%**",
                 "",
             )
         )
@@ -226,7 +176,7 @@ class SankeyReportTransitionReportMixin:
         lines = [
             f"# {title_x} -> {title_y}",
             "",
-            "An analysis of vote transisions between"
+            "An analysis of vote transitions between"
             + f" the {title_x}"
             + f" and the {title_y}",
             "",
