@@ -5,10 +5,10 @@ from utils import Log
 
 from elections_lk import Party
 
-log = Log('SankeyDraw')
+log = Log("SankeyDraw")
 
 
-class SankeyDrawData:
+class SankeyDrawDataMixin:
     VOTE_LIMIT = 10_000
     ALPHA = 0.25
 
@@ -38,11 +38,11 @@ class SankeyDrawData:
         i = 0
         for i_matrix, matrix in enumerate(self.matrices):
             for party_x in matrix:
-                label_to_i[party_x + '_' + str(i_matrix)] = i
+                label_to_i[party_x + "_" + str(i_matrix)] = i
                 i += 1
 
         for party_y in list(matrix.values())[0].keys():
-            label_to_i[party_y + '_' + str(i_matrix + 1)] = i
+            label_to_i[party_y + "_" + str(i_matrix + 1)] = i
             i += 1
         return label_to_i
 
@@ -51,7 +51,7 @@ class SankeyDrawData:
         source = []
         for i_matrix, matrix in enumerate(self.matrices):
             for party_x in matrix:
-                i_x = self.label_to_i[party_x + '_' + str(i_matrix)]
+                i_x = self.label_to_i[party_x + "_" + str(i_matrix)]
                 for party_y in matrix[party_x]:
                     if matrix[party_x][party_y] > self.VOTE_LIMIT:
                         source.append(i_x)
@@ -65,7 +65,7 @@ class SankeyDrawData:
                 for party_y in matrix[party_x]:
                     if matrix[party_x][party_y] > self.VOTE_LIMIT:
                         i_y = self.label_to_i[
-                            party_y + '_' + str(i_matrix + 1)
+                            party_y + "_" + str(i_matrix + 1)
                         ]
                         target.append(i_y)
         return target

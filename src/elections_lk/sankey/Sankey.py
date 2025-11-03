@@ -2,7 +2,7 @@ from utils import Log
 
 from elections_lk import ElectionPresidential
 from elections_lk.sankey.SankeyBase import SankeyBase
-from elections_lk.sankey.SankeyDraw import SankeyDraw
+from elections_lk.sankey.SankeyDrawMixin import SankeyDrawMixin
 from elections_lk.sankey.SankeyModel import SankeyModel
 from elections_lk.sankey.SankeyModelNormalize import SankeyModelNormalize
 from elections_lk.sankey.SankeyReport import SankeyReport
@@ -11,7 +11,11 @@ log = Log("PartyContinuity")
 
 
 class Sankey(
-    SankeyBase, SankeyModel, SankeyModelNormalize, SankeyReport, SankeyDraw
+    SankeyBase,
+    SankeyModel,
+    SankeyModelNormalize,
+    SankeyReport,
+    SankeyDrawMixin,
 ):
     pass
 

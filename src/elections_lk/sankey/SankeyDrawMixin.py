@@ -3,14 +3,14 @@ import os
 import plotly.graph_objects as go
 from utils import Log
 
-from elections_lk.sankey.SankeyDrawData import SankeyDrawData
+from elections_lk.sankey.SankeyDrawDataMixin import SankeyDrawDataMixin
 
 log = Log("SankeyDraw")
 
 EMPTY_AXIS = {"showgrid": False, "zeroline": False, "visible": False}
 
 
-class SankeyDraw(SankeyDrawData):
+class SankeyDrawMixin(SankeyDrawDataMixin):
     VOTE_LIMIT = 10_000
     WIDTH = 2400
     HEIGHT = int(WIDTH * 9 / 16)

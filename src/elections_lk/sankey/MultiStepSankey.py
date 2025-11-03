@@ -6,7 +6,7 @@ from utils import Log
 from elections_lk import ElectionParliamentary, ElectionPresidential
 from elections_lk.sankey.Sankey import Sankey
 from elections_lk.sankey.SankeyBase import SankeyBase
-from elections_lk.sankey.SankeyDraw import SankeyDraw
+from elections_lk.sankey.SankeyDrawMixin import SankeyDraw
 
 log = Log("MultiStepSankey")
 
