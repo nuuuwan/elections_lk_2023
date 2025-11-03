@@ -1,16 +1,13 @@
 from utils import File, Log
 
 from elections_lk.base.ValueDict import ValueDict
-from elections_lk.sankey.report.SankeyReportTransitionReportConfigMixin import \
-    SankeyReportTransitionReportConfigMixin  # noqa: E501
+from elections_lk.sankey.report.transitions.VoteTransitionFactory import \
+    VoteTransitionFactory
 
 log = Log("SankeyReportTransitionReportMixin")
 
 
-class SankeyReportTransitionReportMixin(
-    SankeyReportTransitionReportConfigMixin
-):
-
+class SankeyReportTransitionReportMixin:
     @property
     def transition_report_file_path(self):
         return self.file_base + ".transition_report.md"
@@ -56,7 +53,7 @@ class SankeyReportTransitionReportMixin(
             )
         lines.append(
             SankeyReportTransitionReportMixin.md_table_row(
-                "**Total Votes**", "", f"**{total_votes:,}**"
+                "**Total Registered Votes**", "", f"**{total_votes:,}**"
             )
         )
         lines.append("")
@@ -116,28 +113,30 @@ class SankeyReportTransitionReportMixin(
             "### Summary",
             "",
             SankeyReportTransitionReportMixin.md_table_row(
-                "Voter Type", "Total Votes", "%", "Description"
+                "Voter Type", "Total Registered Votes", "%", "Description"
             ),
             SankeyReportTransitionReportMixin.md_table_row(
                 ":--", "--:", "--:", ":--"
             ),
         ]
+
+        transition_subset_idx = VoteTransitionFactory.split_transitions(
+            transitions
+        )
+        transition_idx = VoteTransitionFactory.get_transition_idx()
         total_total_votes = sum(votes for _, _, votes in transitions)
-        for i_subset, subset_config in enumerate(
-            SankeyReportTransitionReportMixin.get_config_list(), start=1
+        for i_subset, (label, transition_subset) in enumerate(
+            transition_subset_idx.items(), start=1
         ):
-            title, is_match, get_description = subset_config
-            transition_subset = [
-                (party_x, party_y, votes)
-                for party_x, party_y, votes in transitions
-                if is_match(party_x, party_y)
-            ]
-            description = get_description(self.election_x, self.election_y)
+            transition = transition_idx[label]
+            description = transition.get_description(
+                self.election_x, self.election_y
+            )
             total_votes = sum(votes for _, _, votes in transition_subset)
             p_total_votes = total_votes / total_total_votes
             lines.append(
                 SankeyReportTransitionReportMixin.md_table_row(
-                    f"`Type {i_subset}` {title}",
+                    f"`Type {i_subset}` {label}",
                     f"{total_votes:,}",
                     f"{p_total_votes:.0%}",
                     description,
@@ -160,19 +159,20 @@ class SankeyReportTransitionReportMixin(
         transitions,
     ):
         lines = []
-        for i_subset, subset_config in enumerate(
-            SankeyReportTransitionReportMixin.get_config_list(), start=1
+        transition_idx = VoteTransitionFactory.get_transition_idx()
+        transition_subset_idx = VoteTransitionFactory.split_transitions(
+            transitions
+        )
+        for i_subset, (label, transition_subset) in enumerate(
+            transition_subset_idx.items(), start=1
         ):
-            title, is_match, get_description = subset_config
-            transition_subset = [
-                (party_x, party_y, votes)
-                for party_x, party_y, votes in transitions
-                if is_match(party_x, party_y)
-            ]
-            description = get_description(self.election_x, self.election_y)
+            transition = transition_idx[label]
+            description = transition.get_description(
+                self.election_x, self.election_y
+            )
             lines.extend(
                 self.get_lines_for_transition_subset(
-                    f"`Type {i_subset}` {title}",
+                    f"`Type {i_subset}` {label}",
                     description,
                     transition_subset,
                 )

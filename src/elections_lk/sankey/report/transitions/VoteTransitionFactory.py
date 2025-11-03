@@ -10,6 +10,10 @@ from elections_lk.sankey.report.transitions.TransitionReengagedOrFirstTimeVoters
     TransitionReengagedOrFirstTimeVoters  # noqa: E501
 
 
+class VoteTransitionFactoryException(Exception):
+    pass
+
+
 class VoteTransitionFactory:
     @staticmethod
     def get_transitions():
@@ -20,3 +24,38 @@ class VoteTransitionFactory:
             TransitionDisengagedOrFormerVoters(),
             TransitionConsistentNonVoters(),
         ]
+
+    @staticmethod
+    def get_transition_idx():
+        transitions = VoteTransitionFactory.get_transitions()
+        return {transition.label: transition for transition in transitions}
+
+    @staticmethod
+    def split_transitions(transitions):
+        idx = {}
+        for label in VoteTransitionFactory.get_transition_idx().keys():
+            idx[label] = []
+
+        for party_x, party_y, votes in transitions:
+            has_match = False
+            for (
+                label,
+                transition,
+            ) in VoteTransitionFactory.get_transition_idx().items():
+                is_match = transition.is_match(party_x, party_y)
+                if is_match:
+                    if has_match:
+                        raise VoteTransitionFactoryException(
+                            "Transition match conflict: "
+                            + str(party_x, party_y, votes)
+                        )
+                    has_match = True
+                    idx[label].append((party_x, party_y, votes))
+
+            if not has_match:
+                raise VoteTransitionFactoryException(
+                    "No transition match found: "
+                    + str(party_x, party_y, votes)
+                )
+
+        return idx
