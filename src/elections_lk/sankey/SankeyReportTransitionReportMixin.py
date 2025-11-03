@@ -1,11 +1,15 @@
 from utils import File, Log
 
 from elections_lk.base.ValueDict import ValueDict
+from elections_lk.sankey.SankeyReportTransitionReportConfigMixin import \
+    SankeyReportTransitionReportConfigMixin  # noqa: E501
 
 log = Log("SankeyReportTransitionReportMixin")
 
 
-class SankeyReportTransitionReportMixin:
+class SankeyReportTransitionReportMixin(
+    SankeyReportTransitionReportConfigMixin
+):
 
     @property
     def transition_report_file_path(self):
@@ -39,9 +43,14 @@ class SankeyReportTransitionReportMixin:
             )
         )
         lines.append(
-            SankeyReportTransitionReportMixin.md_table_row(":--", ":--", "--:")
+            SankeyReportTransitionReportMixin.md_table_row(
+                ":--", ":--", "--:"
+            )
         )
+        MIN_VOTES = 10_000
         for party_x, party_y, votes in transition_subset:
+            if votes < MIN_VOTES:
+                continue
             lines.append(
                 SankeyReportTransitionReportMixin.md_table_row(
                     party_x, party_y, f"{votes:,}"
@@ -64,8 +73,12 @@ class SankeyReportTransitionReportMixin:
         def md_table_row_for_value(label, value_func):
             return SankeyReportTransitionReportMixin.md_table_row(
                 f"**{label}**",
-                value_func(election_x.country_final_result.summary_statistics),
-                value_func(election_y.country_final_result.summary_statistics),
+                value_func(
+                    election_x.country_final_result.summary_statistics
+                ),
+                value_func(
+                    election_y.country_final_result.summary_statistics
+                ),
             )
 
         lines = [
@@ -110,7 +123,7 @@ class SankeyReportTransitionReportMixin:
         ]
         total_total_votes = sum(votes for _, _, votes in transitions)
         for i_subset, subset_config in enumerate(
-            self.SUBSET_CONFIG_LIST, start=1
+            SankeyReportTransitionReportMixin.get_config_list(), start=1
         ):
             title, filter_func, description_func = subset_config
             transition_subset = [
@@ -149,7 +162,7 @@ class SankeyReportTransitionReportMixin:
         title_x = f"From **{election_x.title}**"
         title_y = f"To **{election_y.title}**"
         for i_subset, subset_config in enumerate(
-            SankeyReportTransitionReportMixin.SUBSET_CONFIG_LIST, start=1
+            SankeyReportTransitionReportMixin.get_config_list(), start=1
         ):
             title, filter_func, description_func = subset_config
             transition_subset = [
