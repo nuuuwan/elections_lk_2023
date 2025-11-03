@@ -21,7 +21,7 @@ class SankeyDrawMixin(SankeyDrawDataMixin):
 
     @property
     def image_file_path(self):
-        return os.path.join("/tmp", f"sankey_{self.id}.png")
+        return self.file_base + ".png"
 
     def update_layout(self, fig):
         fig.update_layout(

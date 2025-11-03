@@ -95,6 +95,8 @@ class SankeyModelNormalizeMixin:
         self.analyze_x(matrix)
         self.analyze_y(matrix)
 
+        total = sum([sum(row.values()) for row in matrix.values()])
+        assert total == 1.0, f"Total probability not equal to 1 but {total}"
         return matrix
 
     @cached_property
@@ -108,7 +110,7 @@ class SankeyModelNormalizeMixin:
             matrix[party_x] = {}
             for party_y in pmatrix[party_x]:
                 matrix[party_x][party_y] = pmatrix[party_x][party_y] * total
-
+        print(matrix)
         return matrix
 
     @cached_property

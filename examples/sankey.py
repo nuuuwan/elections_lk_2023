@@ -10,5 +10,6 @@ if __name__ == "__main__":
     ]:
 
         s = Sankey(election_x, election_y, title)
-        s.save()
+        s.save_tsv()
+        s.save_md()
         s.draw()
