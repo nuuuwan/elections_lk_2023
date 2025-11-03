@@ -24,6 +24,7 @@ class Election:
     def get_election_type(self):
         raise NotImplementedError
 
+    @property
     def country_final_result(self):
         raise NotImplementedError
 
