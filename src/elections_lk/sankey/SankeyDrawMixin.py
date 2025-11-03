@@ -1,5 +1,3 @@
-import os
-
 import plotly.graph_objects as go
 from utils import Log
 
@@ -44,7 +42,9 @@ class SankeyDrawMixin(SankeyDrawDataMixin):
         )
         log.info(f"Saved {self.image_file_path}")
 
-    def __annotate_election_title_in_footer__(self, fig, i_election, election):
+    def __annotate_election_title_in_footer__(
+        self, fig, i_election, election
+    ):
         fig.add_annotation(
             x=i_election,
             y=-0.09,
