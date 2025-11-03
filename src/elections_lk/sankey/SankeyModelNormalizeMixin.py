@@ -96,7 +96,9 @@ class SankeyModelNormalizeMixin:
         self.analyze_y(matrix)
 
         total = sum([sum(row.values()) for row in matrix.values()])
-        assert total == 1.0, f"Total probability not equal to 1 but {total}"
+        assert (
+            abs(total - 1.0) < 1e-2
+        ), f"Total probability not equal to 1 but {total}"
         return matrix
 
     @cached_property

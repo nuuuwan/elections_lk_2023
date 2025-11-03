@@ -1,3 +1,5 @@
+import os
+
 from utils import Hash
 
 
@@ -29,3 +31,7 @@ class SankeyBase:
         )
         h = Hash.md5(all_election_id)[:4]
         return f"{id_election_x}_{id_election_y}_{h}"
+
+    @property
+    def file_base(self):
+        return os.path.join("/tmp", f"sankey_{self.id}")
