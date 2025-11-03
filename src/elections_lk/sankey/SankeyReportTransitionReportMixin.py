@@ -1,8 +1,9 @@
 from utils import File, Log
 
 from elections_lk.base.ValueDict import ValueDict
-from elections_lk.sankey.SankeyReportTransitionReportConfigMixin import \
-    SankeyReportTransitionReportConfigMixin  # noqa: E501
+from elections_lk.sankey.SankeyReportTransitionReportConfigMixin import (  # noqa: E501
+    SankeyReportTransitionReportConfigMixin,
+)
 
 log = Log("SankeyReportTransitionReportMixin")
 
@@ -43,9 +44,7 @@ class SankeyReportTransitionReportMixin(
             )
         )
         lines.append(
-            SankeyReportTransitionReportMixin.md_table_row(
-                ":--", ":--", "--:"
-            )
+            SankeyReportTransitionReportMixin.md_table_row(":--", ":--", "--:")
         )
         MIN_VOTES = 10_000
         for party_x, party_y, votes in transition_subset:
@@ -73,12 +72,8 @@ class SankeyReportTransitionReportMixin(
         def md_table_row_for_value(label, value_func):
             return SankeyReportTransitionReportMixin.md_table_row(
                 f"**{label}**",
-                value_func(
-                    election_x.country_final_result.summary_statistics
-                ),
-                value_func(
-                    election_y.country_final_result.summary_statistics
-                ),
+                value_func(election_x.country_final_result.summary_statistics),
+                value_func(election_y.country_final_result.summary_statistics),
             )
 
         lines = [
@@ -184,14 +179,12 @@ class SankeyReportTransitionReportMixin(
 
     def get_lines(self):
         transitions = self.sorted_transitions
-        title_x = f"**{self.election_x.title} Election**"
-        title_y = f"**{self.election_y.title} Election**"
         lines = [
-            f"# {title_x} -> {title_y}",
+            f"# {self.election_x.title} -> {self.election_y.title}",
             "",
             "An analysis of vote transitions between"
-            + f" the {title_x}"
-            + f" and the {title_y}",
+            + f" the {self.election_x.title} Election"
+            + f" and the {self.election_y.title} Election",
             "",
             "- **no vote**: Individuals who did not vote in that election"
             + " (includes new, former, or disengaged voters).",
