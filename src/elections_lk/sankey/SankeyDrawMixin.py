@@ -5,7 +5,7 @@ from utils import Log
 
 from elections_lk.sankey.SankeyDrawDataMixin import SankeyDrawDataMixin
 
-log = Log("SankeyDraw")
+log = Log("SankeyDrawMixin")
 
 EMPTY_AXIS = {"showgrid": False, "zeroline": False, "visible": False}
 
