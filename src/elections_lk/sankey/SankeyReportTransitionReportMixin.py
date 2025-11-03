@@ -26,13 +26,11 @@ class SankeyReportTransitionReportMixin(
         transitions.sort(key=lambda x: x[2], reverse=True)
         return transitions
 
-    @staticmethod
     def get_lines_for_transition_subset(
+        self,
         title,
         description,
         transition_subset,
-        election_x,
-        election_y,
     ):
         total_votes = sum(votes for _, _, votes in transition_subset)
         lines = [f"### {title}", ""]
@@ -40,7 +38,7 @@ class SankeyReportTransitionReportMixin(
             lines.extend([description, ""])
         lines.append(
             SankeyReportTransitionReportMixin.md_table_row(
-                election_x.title, election_y.title, "Votes"
+                self.election_x.title, self.election_y.title, "Votes"
             )
         )
         lines.append(
@@ -68,18 +66,24 @@ class SankeyReportTransitionReportMixin(
         assert isinstance(values, tuple) and len(values) >= 1
         return "| " + " | ".join([str(v).strip() for v in values]) + " |"
 
-    def get_lines_for_elections_summary(self, election_x, election_y):
+    def get_lines_for_elections_summary(self):
         def md_table_row_for_value(label, value_func):
             return SankeyReportTransitionReportMixin.md_table_row(
                 f"**{label}**",
-                value_func(election_x.country_final_result.summary_statistics),
-                value_func(election_y.country_final_result.summary_statistics),
+                value_func(
+                    self.election_x.country_final_result.summary_statistics
+                ),
+                value_func(
+                    self.election_y.country_final_result.summary_statistics
+                ),
             )
 
         lines = [
             "## Elections Summary",
             "",
-            self.md_table_row("  ", election_x.title, election_y.title),
+            self.md_table_row(
+                "  ", self.election_x.title, self.election_y.title
+            ),
             self.md_table_row(":--", "--:", "--:"),
             md_table_row_for_value(
                 "Registered Voters",
@@ -102,7 +106,8 @@ class SankeyReportTransitionReportMixin(
         return lines
 
     def get_lines_for_vote_transitions_summary(
-        self, transitions, title_x, title_y
+        self,
+        transitions,
     ):
         lines = [
             "## Vote Transitions",
@@ -126,7 +131,7 @@ class SankeyReportTransitionReportMixin(
                 for party_x, party_y, votes in transitions
                 if filter_func(party_x, party_y)
             ]
-            description = description_func(title_x, title_y)
+            description = description_func(self.election_x, self.election_y)
             total_votes = sum(votes for _, _, votes in transition_subset)
             p_total_votes = total_votes / total_total_votes
             lines.append(
@@ -149,13 +154,11 @@ class SankeyReportTransitionReportMixin(
         lines.append("")
         return lines
 
-    @staticmethod
     def get_lines_for_transition_subsets(
-        transitions, title_x, title_y, election_x, election_y
+        self,
+        transitions,
     ):
         lines = []
-        title_x = f"From **{election_x.title}**"
-        title_y = f"To **{election_y.title}**"
         for i_subset, subset_config in enumerate(
             SankeyReportTransitionReportMixin.get_config_list(), start=1
         ):
@@ -165,14 +168,12 @@ class SankeyReportTransitionReportMixin(
                 for party_x, party_y, votes in transitions
                 if filter_func(party_x, party_y)
             ]
-            description = description_func(title_x, title_y)
+            description = description_func(self.election_x, self.election_y)
             lines.extend(
-                SankeyReportTransitionReportMixin.get_lines_for_transition_subset(  # noqa: E501
+                self.get_lines_for_transition_subset(
                     f"`Type {i_subset}` {title}",
                     description,
                     transition_subset,
-                    election_x,
-                    election_y,
                 )
             )
         return lines
@@ -195,23 +196,15 @@ class SankeyReportTransitionReportMixin(
             "",
         ]
 
-        lines.extend(
-            self.get_lines_for_elections_summary(
-                self.election_x, self.election_y
-            )
-        )
+        lines.extend(self.get_lines_for_elections_summary())
         lines.extend(
             self.get_lines_for_vote_transitions_summary(
-                transitions, title_x, title_y
+                transitions,
             )
         )
         lines.extend(
             self.get_lines_for_transition_subsets(
                 transitions,
-                title_x,
-                title_y,
-                self.election_x,
-                self.election_y,
             )
         )
 
