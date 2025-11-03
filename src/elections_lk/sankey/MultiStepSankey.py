@@ -4,7 +4,7 @@ from utils import Log
 
 from elections_lk.sankey.Sankey import Sankey
 from elections_lk.sankey.SankeyBase import SankeyBase
-from elections_lk.sankey.SankeyDrawMixin import SankeyDraw
+from elections_lk.sankey.SankeyDrawMixin import SankeyDrawMixin
 
 # ElectionParliamentary, ElectionPresidential, ElectionLocalAuthority
 
@@ -12,7 +12,7 @@ from elections_lk.sankey.SankeyDrawMixin import SankeyDraw
 log = Log("MultiStepSankey")
 
 
-class MultiStepSankey(SankeyDraw, SankeyBase):
+class MultiStepSankey(SankeyDrawMixin, SankeyBase):
     @cached_property
     def matrices(self):
         matrices = []

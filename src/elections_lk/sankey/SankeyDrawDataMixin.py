@@ -5,7 +5,7 @@ from utils import Log
 
 from elections_lk import Party
 
-log = Log("SankeyDraw")
+log = Log("SankeyDrawDataMixin")
 
 
 class SankeyDrawDataMixin:
