@@ -150,17 +150,21 @@ class SankeyReportTransitionReportMixin:
         self, transitions, title_x, title_y
     ):
         lines = [
-            "## Vote Transitions Summary",
+            "## Vote Transitions",
+            "",
+            "### Summary",
             "",
             SankeyReportTransitionReportMixin.md_table_row(
-                "Transition Type", "Total Votes", "Description"
+                "Voter Type", "Total Votes", "Description"
             ),
             SankeyReportTransitionReportMixin.md_table_row(
                 ":--", "--:", ":--"
             ),
         ]
 
-        for subset_config in self.SUBSET_CONFIG_LIST:
+        for i_subset, subset_config in enumerate(
+            self.SUBSET_CONFIG_LIST, start=1
+        ):
             title, filter_func, description_func = subset_config
             transition_subset = [
                 (party_x, party_y, votes)
@@ -171,7 +175,7 @@ class SankeyReportTransitionReportMixin:
             total_votes = sum(votes for _, _, votes in transition_subset)
             lines.append(
                 SankeyReportTransitionReportMixin.md_table_row(
-                    title,
+                    f"`Type {i_subset}` {title}",
                     f"{total_votes:,}",
                     description,
                 )
@@ -194,9 +198,9 @@ class SankeyReportTransitionReportMixin:
         lines = []
         title_x = f"From **{election_x.title}**"
         title_y = f"To **{election_y.title}**"
-        for (
-            subset_config
-        ) in SankeyReportTransitionReportMixin.SUBSET_CONFIG_LIST:
+        for i_subset, subset_config in enumerate(
+            SankeyReportTransitionReportMixin.SUBSET_CONFIG_LIST, start=1
+        ):
             title, filter_func, description_func = subset_config
             transition_subset = [
                 (party_x, party_y, votes)
@@ -206,7 +210,7 @@ class SankeyReportTransitionReportMixin:
             description = description_func(title_x, title_y)
             lines.extend(
                 SankeyReportTransitionReportMixin.get_lines_for_transition_subset(  # noqa: E501
-                    title,
+                    f"`Type {i_subset}` {title}",
                     description,
                     transition_subset,
                     election_x,
