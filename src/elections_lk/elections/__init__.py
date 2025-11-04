@@ -2,7 +2,9 @@
 # flake8: noqa: F408
 
 from elections_lk.elections.Election import Election
+from elections_lk.elections.ElectionBase import ElectionBase
 from elections_lk.elections.ElectionHistory import ElectionHistory
+from elections_lk.elections.ElectionLoaderMixin import ElectionLoaderMixin
 from elections_lk.elections.ElectionLocalAuthority import \
     ElectionLocalAuthority
 from elections_lk.elections.ElectionParliamentary import ElectionParliamentary
