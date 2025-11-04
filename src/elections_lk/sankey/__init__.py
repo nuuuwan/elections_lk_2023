@@ -2,16 +2,14 @@
 # flake8: noqa: F408
 
 from elections_lk.sankey.MultiStepSankey import MultiStepSankey
-from elections_lk.sankey.report import (AbstractTransition,
-                                        SankeyReportMatrixDataMixin,
-                                        SankeyReportMixin,
-                                        SankeyReportTransitionReportMixin,
-                                        TransitionDisengagedOrFormerVoters,
-                                        TransitionLoyalVoters,
-                                        TransitionNonVoters,
-                                        TransitionPartySwitchers,
-                                        TransitionReengagedOrFirstTimeVoters,
-                                        VoteTransitionFactory)
+from elections_lk.sankey.report import (
+    AbstractTransition, SankeyReportMatrixDataMixin, SankeyReportMixin,
+    SankeyReportTransitionReportElectionMixin,
+    SankeyReportTransitionReportMixin,
+    SankeyReportTransitionReportTransitionMixin,
+    TransitionDisengagedOrFormerVoters, TransitionLoyalVoters,
+    TransitionNonVoters, TransitionPartySwitchers,
+    TransitionReengagedOrFirstTimeVoters, VoteTransitionFactory)
 from elections_lk.sankey.Sankey import Sankey
 from elections_lk.sankey.SankeyBase import SankeyBase
 from elections_lk.sankey.SankeyDrawDataMixin import SankeyDrawDataMixin
