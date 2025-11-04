@@ -4,8 +4,9 @@ from elections_lk.core.FinalResult import FinalResult
 from elections_lk.core.PartyToSeats import PartyToSeats
 from elections_lk.core.Result import Result
 from elections_lk.elections.ElectionWithPDResults import ElectionWithPDResults
-from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import \
-    YEAR_TO_REGION_TO_SEATS
+from elections_lk.elections.YEAR_TO_REGION_TO_SEATS import (
+    YEAR_TO_REGION_TO_SEATS,
+)
 
 P_OTHER_LIMIT_ED = 0.05
 BONUS_ED = 1
@@ -31,8 +32,18 @@ class ElectionParliamentary(ElectionWithPDResults):
         return "parliamentary"
 
     @classmethod
-    def get_years(cls):
-        return [1989, 1994, 2000, 2001, 2004, 2010, 2015, 2020, 2024]
+    def get_dates(cls):
+        return [
+            "1989-02-15",
+            "1994-08-16",
+            "2000-10-10",
+            "2001-12-05",
+            "2004-04-02",
+            "2010-04-08",
+            "2015-08-17",
+            "2020-08-05",
+            "2024-11-14",
+        ]
 
     @cached_property
     def ed_final_results(self) -> list[FinalResult]:

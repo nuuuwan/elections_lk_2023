@@ -18,11 +18,15 @@ def correct_int(x):
 
 @dataclass
 class Election:
-    year: int
+    date: str
     results: list
 
     def get_election_type(self):
         raise NotImplementedError
+
+    @property
+    def year(self):
+        return int(self.date[:4])
 
     @property
     def country_final_result(self):
@@ -37,8 +41,12 @@ class Election:
         return f"{self.year} {self.get_election_type().title()[:5]}."
 
     @property
+    def date_id(self):
+        return self.date.replace("-", "")
+
+    @property
     def id(self):
-        return f"{self.get_election_type()[:2]}{self.year}"
+        return f"{self.date_id}_{self.get_election_type()}"
 
     @property
     def results_idx(self):
@@ -108,8 +116,16 @@ class Election:
         )
 
     @classmethod
-    def get_years(cls):
+    def get_dates(cls):
         raise NotImplementedError
+
+    @classmethod
+    def get_years(cls):
+        years = []
+        for date in cls.get_dates():
+            year = int(date[:4])
+            years.append(year)
+        return years
 
     @classmethod
     def get_ent_list(cls):
@@ -121,8 +137,12 @@ class Election:
 
     @classmethod
     def from_year(cls, year):
-        if year not in cls.get_years():
-            raise ValueError(f"Invalid year: {year}")
+        date = None
+        for date in cls.get_dates():
+            if int(date[:4]) == year:
+                break
+        if date is None:
+            raise ValueError(f"Election year {year} not found.")
 
         ent_list = cls.get_ent_list()
         gig_table = cls.get_gig_table(year)
@@ -131,4 +151,4 @@ class Election:
             result = cls.load_result(gig_table, ent)
             if result:
                 results.append(result)
-        return cls(year=year, results=results)
+        return cls(date=date, results=results)

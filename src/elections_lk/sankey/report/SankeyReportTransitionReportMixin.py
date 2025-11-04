@@ -1,8 +1,9 @@
 from utils import File, Log
 
 from elections_lk.base import MarkdownUtils
-from elections_lk.sankey.report.transitions.VoteTransitionFactory import \
-    VoteTransitionFactory
+from elections_lk.sankey.report.transitions.VoteTransitionFactory import (
+    VoteTransitionFactory,
+)
 
 log = Log("SankeyReportTransitionReportMixin")
 
@@ -220,11 +221,11 @@ class SankeyReportTransitionReportMixin:
                 transitions,
             )
         )
-        lines.extend(
-            self.get_lines_for_transition_subsets(
-                transitions,
-            )
-        )
+        # lines.extend(
+        #     self.get_lines_for_transition_subsets(
+        #         transitions,
+        #     )
+        # )
 
         return lines
 
