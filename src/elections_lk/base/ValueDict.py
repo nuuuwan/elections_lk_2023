@@ -29,7 +29,7 @@ class ValueDict(Dict):
     def items_sorted(self):
         return sorted(self.items(), key=lambda x: x[1], reverse=True)
 
-    def get_othered_dict(self, keys):
+    def get_othered_dict(self, keys, include_others):
         d = {}
         others = 0
         for k, v in self.items():
@@ -37,7 +37,8 @@ class ValueDict(Dict):
                 d[k] = v
             else:
                 others += v
-        d[self.OTHERS] = others
+        if include_others:
+            d[self.OTHERS] = others
         return d
 
     @classmethod

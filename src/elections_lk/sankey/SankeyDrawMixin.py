@@ -42,9 +42,7 @@ class SankeyDrawMixin(SankeyDrawDataMixin):
         )
         log.info(f"Saved {self.image_file_path}")
 
-    def __annotate_election_title_in_footer__(
-        self, fig, i_election, election
-    ):
+    def __annotate_election_title_in_footer__(self, fig, i_election, election):
         fig.add_annotation(
             x=i_election,
             y=-0.09,
@@ -87,19 +85,35 @@ class SankeyDrawMixin(SankeyDrawDataMixin):
 
         fig.add_annotation(
             x=0.5,
+            y=1.075,
+            xref="x domain",
+            yref="y domain",
+            text=" · ".join(
+                [
+                    "no vote = Eligible voters minus total valid votes cast",
+                    f"others = Parties receiving less than {self.P_OTHER_LIMIT:.0%} of the national vote",
+                ]
+            ),
+            showarrow=False,
+            align="center",
+            font_size=30,
+            font=dict(color="rgba(0,0,0,0.4)"),
+        )
+        fig.add_annotation(
+            x=0.5,
             y=-0.18,
             xref="x domain",
             yref="y domain",
             text=" · ".join(
                 [
-                    "data from elections.gov.lk",
-                    "model & visualization by @nuuuwan",
+                    "Data Source: Election Commission of Sri Lanka (elections.gov.lk)",
+                    "Model and visualisation by Nuwan I. Senaratna (@nuuuwan)",
                 ]
             ),
             showarrow=False,
             align="center",
-            font_size=15,
-            font=dict(color="rgba(0,0,0,0.2)"),
+            font_size=30,
+            font=dict(color="rgba(0,0,0,0.4)"),
         )
 
     def draw(self):

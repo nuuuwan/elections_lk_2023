@@ -9,12 +9,12 @@ log = Log("SankeyModel")
 
 
 class SankeyModelMixin:
-    P_OTHER_LIMIT = 0.01
+
     N_NORMALIZATION_ITERATIONS = 5
     NOT_COUNTED = NOT_COUNTED
 
     @classmethod
-    def get_feature_idx(cls, election, election_end):
+    def get_feature_idx(cls, election, election_end, include_others):
         popular_parties = election.get_popular_parties(cls.P_OTHER_LIMIT)
         idx = {}
 
@@ -31,7 +31,9 @@ class SankeyModelMixin:
             if total < 10:
                 continue
 
-            d = result.party_to_votes.get_othered_dict(popular_parties)
+            d = result.party_to_votes.get_othered_dict(
+                popular_parties, include_others
+            )
             p_not_counted = (total - result.summary_statistics.valid) / total
 
             x = [d.get(party, 0) / total for party in popular_parties] + [
@@ -52,9 +54,11 @@ class SankeyModelMixin:
         return idx
 
     @classmethod
-    def get_training_data(cls, election_x, election_y, election_end):
-        X_idx = cls.get_feature_idx(election_x, election_end)
-        Y_idx = cls.get_feature_idx(election_y, election_end)
+    def get_training_data(
+        cls, election_x, election_y, election_end, include_others
+    ):
+        X_idx = cls.get_feature_idx(election_x, election_end, include_others)
+        Y_idx = cls.get_feature_idx(election_y, election_end, include_others)
         sample_weight_idx = cls.get_sample_weight_idx(election_end)
 
         common_keys = list(sorted(set(X_idx.keys()) & set(Y_idx.keys())))
@@ -65,9 +69,11 @@ class SankeyModelMixin:
         return X, Y, sample_weight
 
     @classmethod
-    def get_trained_model(cls, election_x, election_y, election_end):
+    def get_trained_model(
+        cls, election_x, election_y, election_end, include_others
+    ):
         X, Y, sample_weight = cls.get_training_data(
-            election_x, election_y, election_end
+            election_x, election_y, election_end, include_others
         )
         n = len(X)
         assert n == len(Y)
@@ -84,14 +90,16 @@ class SankeyModelMixin:
         return model
 
     @classmethod
-    def get_matrix(cls, election_x, election_y, election_end):
-        model = cls.get_trained_model(election_x, election_y, election_end)
+    def get_matrix(cls, election_x, election_y, election_end, include_others):
+        model = cls.get_trained_model(
+            election_x, election_y, election_end, include_others
+        )
         popular_parties_x = election_x.get_popular_parties(cls.P_OTHER_LIMIT)
         popular_parties_y = election_y.get_popular_parties(cls.P_OTHER_LIMIT)
 
         othered_dict_x = (
             election_x.country_final_result.party_to_votes.get_othered_dict(
-                popular_parties_x
+                popular_parties_x, include_others
             )
         )
 
@@ -107,7 +115,7 @@ class SankeyModelMixin:
                     - election_x.country_final_result.summary_statistics.valid
                 )
             else:
-                total_x = othered_dict_x[party_x]
+                total_x = othered_dict_x.get(party_x, 0)
 
             p_x = total_x / total
 
@@ -121,10 +129,16 @@ class SankeyModelMixin:
     @cached_property
     def pmatrix_model_unnormalized(self):
         matrix_x_to_y = self.get_matrix(
-            self.election_x, self.election_y, self.election_y
+            self.election_x,
+            self.election_y,
+            self.election_y,
+            self.include_others,
         )
         matrix_y_to_x = self.get_matrix(
-            self.election_y, self.election_x, self.election_y
+            self.election_y,
+            self.election_x,
+            self.election_y,
+            self.include_others,
         )
 
         PXY = 0.5

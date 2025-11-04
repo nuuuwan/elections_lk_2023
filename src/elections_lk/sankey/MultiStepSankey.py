@@ -14,8 +14,10 @@ log = Log("MultiStepSankey")
 
 class MultiStepSankey(SankeyDrawMixin, SankeyBase):
 
-    def __init__(self, election_list, title):
-        super().__init__(election_list[0], election_list[-1], title)
+    def __init__(self, election_list, title, include_others):
+        super().__init__(
+            election_list[0], election_list[-1], title, include_others
+        )
         self.__election_list__ = election_list
         self.title = title
 
@@ -29,6 +31,8 @@ class MultiStepSankey(SankeyDrawMixin, SankeyBase):
         for election_x, election_y in zip(
             self.election_list[:-1], self.election_list[1:]
         ):
-            sankey = Sankey(election_x, election_y, self.title)
+            sankey = Sankey(
+                election_x, election_y, self.title, self.include_others
+            )
             matrices.append(sankey.matrix)
         return matrices

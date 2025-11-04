@@ -22,7 +22,7 @@ class SankeyModelNormalizeMixin:
         correction_factor_idx = {}
         for party_x in popular_parties_x + [self.NOT_COUNTED]:
             othered_dict_x = final_result_x.party_to_votes.get_othered_dict(
-                popular_parties_x
+                popular_parties_x, self.include_others
             )
 
             p_matrix = 0
@@ -34,7 +34,7 @@ class SankeyModelNormalizeMixin:
                     total - final_result_x.summary_statistics.valid
                 ) / total
             else:
-                p_actual = othered_dict_x[party_x] / total
+                p_actual = othered_dict_x.get(party_x, 0) / total
 
             correction_factor = p_actual / p_matrix
             if math.isnan(correction_factor):
@@ -57,7 +57,7 @@ class SankeyModelNormalizeMixin:
         correction_factor_idx = {}
         for party_y in popular_parties_y + [self.NOT_COUNTED]:
             othered_dict_y = final_result_y.party_to_votes.get_othered_dict(
-                popular_parties_y
+                popular_parties_y, self.include_others
             )
 
             p_matrix = 0
@@ -69,7 +69,7 @@ class SankeyModelNormalizeMixin:
                     total - final_result_y.summary_statistics.valid
                 ) / total
             else:
-                p_actual = othered_dict_y[party_y] / total
+                p_actual = othered_dict_y.get(party_y, 0) / total
 
             correction_factor = p_actual / p_matrix
             if math.isnan(correction_factor):

@@ -4,13 +4,15 @@ from utils import Hash
 
 
 class SankeyBase:
+    P_OTHER_LIMIT = 0.01
     LABEL_ARROW = " ⮕ "
     DIR_TMP_SANKEY = os.path.join("/tmp", "sankey")
 
-    def __init__(self, election_x, election_y, title):
+    def __init__(self, election_x, election_y, title, include_others):
         self.election_x = election_x
         self.election_y = election_y
         self.title = title
+        self.include_others = include_others
 
     @property
     def election_list(self):
@@ -36,4 +38,9 @@ class SankeyBase:
     @property
     def file_base(self):
         os.makedirs(self.DIR_TMP_SANKEY, exist_ok=True)
-        return os.path.join(self.DIR_TMP_SANKEY, f"sankey_{self.id}")
+        others_label = (
+            "with_others" if self.include_others else "without_others"
+        )
+        return os.path.join(
+            self.DIR_TMP_SANKEY, f"sankey_{self.id}_{others_label}"
+        )

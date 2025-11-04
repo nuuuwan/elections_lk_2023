@@ -19,11 +19,12 @@ if __name__ == "__main__":
                 # 2020s
                 ElectionPresidential.from_year(2024),
             ],
-            "Presidential Elections (1982 - Present)",
+            "Presidential Elections (1982 - 2024)",
         ],
     ]:
         mss = MultiStepSankey(
             election_list,
             title,
+            include_others=True,
         )
         mss.draw()

@@ -38,7 +38,7 @@ if __name__ == "__main__":
     for i in range(n - 1):
         election_x = ALL_ELECTIONS[i]
         election_y = ALL_ELECTIONS[i + 1]
-        s = Sankey(election_x, election_y, "")
+        s = Sankey(election_x, election_y, "", include_others=True)
         s.save_md()
 
     content_list = []
