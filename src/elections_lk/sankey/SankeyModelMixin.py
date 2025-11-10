@@ -146,6 +146,8 @@ class SankeyModelMixin:
             self.election_y,
             self.include_others,
         )
+        log.debug(f"{matrix_x_to_y=}")
+        log.debug(f"{matrix_y_to_x=}")
 
         PXY = 0.5
         PYX = 1 - PXY
