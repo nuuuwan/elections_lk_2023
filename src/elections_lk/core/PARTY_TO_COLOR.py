@@ -38,6 +38,9 @@ COLOR_TO_PARTY_LIST = {
     "#ffff00": ["AITC", "ITAK", "TULF", "ACTC", "IND9"],
     "#ffffff": ["ELJP", "INDI"],
     "#ff8822": ["IND16"],
+    # Validation only
+    "#0088ff": ["A"],
+    "#ff0000": ["B"],
 }
 
 PARTY_TO_COLOR = {}
