@@ -15,18 +15,20 @@ class SankeyModelMixin:
 
     @classmethod
     def get_feature_idx(cls, election, election_end, include_others):
-        popular_parties = election.get_popular_parties(cls.P_OTHER_LIMIT)
+        popular_parties = election.get_popular_parties(
+            cls.P_OTHER_LIMIT, include_others
+        )
         idx = {}
 
         results_idx = election_end.results_idx
         for result in election.results:
-            id = result.region_id
-            if id in ["EC-11D"]:
+            region_id = result.region_id
+            if region_id in ["EC-11D"]:
                 continue
-            if id not in results_idx:
+            if region_id not in results_idx:
                 continue
 
-            result_end = results_idx[id]
+            result_end = results_idx[region_id]
             total = result_end.summary_statistics.electors
             if total < 10:
                 continue
@@ -39,7 +41,7 @@ class SankeyModelMixin:
             x = [d.get(party, 0) / total for party in popular_parties] + [
                 p_not_counted
             ]
-            idx[id] = x
+            idx[region_id] = x
 
         return idx
 
@@ -94,8 +96,12 @@ class SankeyModelMixin:
         model = cls.get_trained_model(
             election_x, election_y, election_end, include_others
         )
-        popular_parties_x = election_x.get_popular_parties(cls.P_OTHER_LIMIT)
-        popular_parties_y = election_y.get_popular_parties(cls.P_OTHER_LIMIT)
+        popular_parties_x = election_x.get_popular_parties(
+            cls.P_OTHER_LIMIT, include_others
+        )
+        popular_parties_y = election_y.get_popular_parties(
+            cls.P_OTHER_LIMIT, include_others
+        )
 
         othered_dict_x = (
             election_x.country_final_result.party_to_votes.get_othered_dict(

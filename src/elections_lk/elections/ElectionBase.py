@@ -44,17 +44,21 @@ class ElectionBase:
     def all_parties(self):
         return sorted(self.country_final_result.party_to_votes.keys())
 
-    def get_popular_parties(self, P_OTHER_LIMIT):
+    def get_popular_parties(self, P_OTHER_LIMIT, include_others):
         party_to_votes = self.country_final_result.party_to_votes
         total = party_to_votes.total
         vote_limit = total * P_OTHER_LIMIT
-        return [
+        popular_parties = [
             x[0]
             for x in sorted(
                 party_to_votes.items(), key=lambda x: x[1], reverse=False
             )
             if x[1] > vote_limit
-        ] + [ValueDict.OTHERS]
+        ]
+        if include_others:
+            popular_parties.append(ValueDict.OTHERS)
+
+        return popular_parties
 
     @classmethod
     def get_dates(cls):

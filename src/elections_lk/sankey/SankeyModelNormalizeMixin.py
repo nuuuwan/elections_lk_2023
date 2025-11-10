@@ -13,10 +13,10 @@ class SankeyModelNormalizeMixin:
         )
         final_result_x = self.election_x.country_final_result
         popular_parties_x = self.election_x.get_popular_parties(
-            self.P_OTHER_LIMIT
+            self.P_OTHER_LIMIT, self.include_others
         )
         popular_parties_y = self.election_y.get_popular_parties(
-            self.P_OTHER_LIMIT
+            self.P_OTHER_LIMIT, self.include_others
         )
 
         correction_factor_idx = {}
@@ -48,10 +48,10 @@ class SankeyModelNormalizeMixin:
         )
         final_result_y = self.election_y.country_final_result
         popular_parties_x = self.election_x.get_popular_parties(
-            self.P_OTHER_LIMIT
+            self.P_OTHER_LIMIT, self.include_others
         )
         popular_parties_y = self.election_y.get_popular_parties(
-            self.P_OTHER_LIMIT
+            self.P_OTHER_LIMIT, self.include_others
         )
 
         correction_factor_idx = {}
