@@ -16,7 +16,7 @@ class DummyElectionFactory:
     def gen_dummy(year):
         results = []
         for i_pd in range(N_PDS):
-            electors = random.randint(1000, 10_000)
+            electors = random.randint(10_000, 1_000_000)
             p_turnout = random.uniform(0.5, 0.9)
             polled = int(electors * p_turnout)
             p_rejected = random.uniform(0.01, 0.1)

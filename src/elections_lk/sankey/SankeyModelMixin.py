@@ -81,7 +81,11 @@ class SankeyModelMixin:
         assert n == len(Y)
         nX = len(X[0])
         nY = len(Y[0])
-        model = LinearRegression(positive=True, fit_intercept=False)
+        positive = True
+        fit_intercept = False
+        model = LinearRegression(
+            positive=positive, fit_intercept=fit_intercept
+        )
         model.fit(X, Y, sample_weight=sample_weight)
         log.debug(
             f"LinearRegression fitted ({positive=}, {fit_intercept=},"
