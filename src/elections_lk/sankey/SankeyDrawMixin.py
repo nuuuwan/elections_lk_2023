@@ -42,7 +42,9 @@ class SankeyDrawMixin(SankeyDrawDataMixin):
         )
         log.info(f"Saved {self.image_file_path}")
 
-    def __annotate_election_title_in_footer__(self, fig, i_election, election):
+    def __annotate_election_title_in_footer__(
+        self, fig, i_election, election
+    ):
         fig.add_annotation(
             x=i_election,
             y=-0.09,
@@ -91,7 +93,8 @@ class SankeyDrawMixin(SankeyDrawDataMixin):
             text=" · ".join(
                 [
                     "no vote = Eligible voters minus total valid votes cast",
-                    f"others = Parties receiving less than {self.P_OTHER_LIMIT:.0%} of the national vote",
+                    f"others = Parties receiving less than {
+                        self.P_OTHER_LIMIT:.0%} of the national vote",
                 ]
             ),
             showarrow=False,
