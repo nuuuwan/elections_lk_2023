@@ -1,9 +1,9 @@
 from elections_lk.base.ValueDict import ValueDict
 
-NOT_COUNTED = "no vote"
+NO_VOTE = "no vote"
 
 COLOR_TO_PARTY_LIST = {
-    "#cccccc": [NOT_COUNTED],
+    "#cccccc": [NO_VOTE],
     "#444444": [ValueDict.OTHERS],
     "#222288": ["SLFP", "PA", "UPFA"],
     "#004400": ["ACMC", "MNA", "NC", "SLMC", "NUA"],

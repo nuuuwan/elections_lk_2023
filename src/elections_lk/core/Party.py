@@ -1,13 +1,13 @@
 from utils import Log
 
-from elections_lk.core.PARTY_TO_COLOR import NOT_COUNTED, PARTY_TO_COLOR
+from elections_lk.core.PARTY_TO_COLOR import NO_VOTE, PARTY_TO_COLOR
 
-log = Log('Party')
+log = Log("Party")
 
 
 class Party:
-    DEFAULT_COLOR = '#404040'
-    NOT_COUNTED = NOT_COUNTED
+    DEFAULT_COLOR = "#404040"
+    NO_VOTE = NO_VOTE
 
     def __init__(self, party: str):
         self.party = party
@@ -15,7 +15,7 @@ class Party:
     @property
     def color(self):
         if self.party not in PARTY_TO_COLOR:
-            log.error(f'Party {self.party} not found in PARTY_TO_COLOR')
+            log.error(f"Party {self.party} not found in PARTY_TO_COLOR")
             return Party.DEFAULT_COLOR
         return PARTY_TO_COLOR[self.party]
 
@@ -28,4 +28,4 @@ class Party:
         r = hex_to_int(color[1:3])
         g = hex_to_int(color[3:5])
         b = hex_to_int(color[5:7])
-        return f'rgba({r}, {g}, {b}, {alpha})'
+        return f"rgba({r}, {g}, {b}, {alpha})"

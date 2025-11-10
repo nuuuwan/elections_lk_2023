@@ -3,7 +3,7 @@ from functools import cached_property
 from sklearn.linear_model import LinearRegression
 from utils import Log
 
-from elections_lk.core.Party import NOT_COUNTED
+from elections_lk.core.Party import NO_VOTE
 
 log = Log("SankeyModel")
 
@@ -11,7 +11,7 @@ log = Log("SankeyModel")
 class SankeyModelMixin:
 
     N_NORMALIZATION_ITERATIONS = 5
-    NOT_COUNTED = NOT_COUNTED
+    NO_VOTE = NO_VOTE
 
     @classmethod
     def get_feature_idx(cls, election, election_end, include_others):
@@ -112,10 +112,10 @@ class SankeyModelMixin:
         total = election_end.country_final_result.summary_statistics.electors
 
         matrix = {}
-        for i_x, party_x in enumerate(popular_parties_x + [cls.NOT_COUNTED]):
+        for i_x, party_x in enumerate(popular_parties_x + [cls.NO_VOTE]):
             matrix[party_x] = {}
 
-            if party_x == cls.NOT_COUNTED:
+            if party_x == cls.NO_VOTE:
                 total_x = (
                     total
                     - election_x.country_final_result.summary_statistics.valid
@@ -125,9 +125,7 @@ class SankeyModelMixin:
 
             p_x = total_x / total
 
-            for i_y, party_y in enumerate(
-                popular_parties_y + [cls.NOT_COUNTED]
-            ):
+            for i_y, party_y in enumerate(popular_parties_y + [cls.NO_VOTE]):
                 matrix[party_x][party_y] = p_x * model.coef_[i_y][i_x]
 
         return matrix
