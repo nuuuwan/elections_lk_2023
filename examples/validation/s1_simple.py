@@ -23,7 +23,7 @@ class DummyElectionFactory:
             rejected = int(polled * p_rejected)
             valid = polled - rejected
 
-            party_a_votes = random.randint(int(valid * 0.3), int(valid * 0.7))
+            party_a_votes = random.randint(int(valid * 0.1), int(valid * 0.9))
             party_b_votes = valid - party_a_votes
 
             result = Result(
