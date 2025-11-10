@@ -91,6 +91,7 @@ class SankeyModelMixin:
             f"LinearRegression fitted ({positive=}, {fit_intercept=},"
             + f" {n=}, {nX=}, {nY=})."
         )
+        log.debug(f"model.coef_={model.coef_}")
         return model
 
     @classmethod
@@ -98,7 +99,7 @@ class SankeyModelMixin:
         model = cls.get_trained_model(
             election_x, election_y, election_end, include_others
         )
-        print("model.coef_=", model.coef_)
+
         popular_parties_x = election_x.get_popular_parties(
             cls.P_OTHER_LIMIT, include_others
         )
