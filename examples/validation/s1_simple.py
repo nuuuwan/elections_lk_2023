@@ -13,7 +13,7 @@ N_PDS = 100
 
 class DummyElectionFactory:
     @staticmethod
-    def gen_dummy():
+    def gen_dummy(year):
         results = []
         for i_pd in range(N_PDS):
             electors = random.randint(1000, 10_000)
@@ -27,7 +27,7 @@ class DummyElectionFactory:
             party_b_votes = valid - party_a_votes
 
             result = Result(
-                region_id=f"region_{i_pd:03d}",
+                region_id=f"region_{i_pd:04d}",
                 summary_statistics=SummaryStatistics(
                     electors=electors,
                     polled=polled,
@@ -44,7 +44,7 @@ class DummyElectionFactory:
             results.append(result)
 
         election = ElectionPresidential(
-            date="3000-01-01",
+            date=f"{year}-01-01",
             results=results,
         )
         return election
@@ -96,23 +96,46 @@ class DummyElectionFactory:
                     }
                 ),
             )
+
             results.append(new_result)
 
+        year_prev = int(election_prev.date[:4])
+        year = year_prev + 5
         new_election = ElectionPresidential(
-            date="4000-01-01",
+            date=f"{year}-01-01",
             results=results,
         )
         return new_election
 
 
 if __name__ == "__main__":
-    election_1 = DummyElectionFactory.gen_dummy()
-    matrix = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    election_2 = DummyElectionFactory.gen_dummy_from_prev(election_1, matrix)
 
-    s = Sankey(
-        election_1, election_2, "Validation - Scenario 1", include_others=False
-    )
-    s.save_tsv()
-    s.save_md()
-    s.draw()
+    for i_matrix, (label, matrix) in enumerate(
+        [
+            # ["100% All voters loyal", ((1, 0, 0), (0, 1, 0), (0, 0, 1))],
+            # ["100% Party Switch", ((0, 1, 0), (1, 0, 0), (0, 0, 1))],
+            [
+                "50% Party Switch",
+                ((0.50, 0.50, 0), (0.50, 0.50, 0), (0, 0, 1)),
+            ],
+            [
+                "25% Party Switch",
+                ((0.75, 0.25, 0), (0.25, 0.75, 0), (0, 0, 1)),
+            ],
+        ],
+        start=1,
+    ):
+        election_1 = DummyElectionFactory.gen_dummy(year=3000 + 10 * i_matrix)
+        election_2 = DummyElectionFactory.gen_dummy_from_prev(
+            election_1, matrix
+        )
+
+        s = Sankey(
+            election_1,
+            election_2,
+            f"Scenario 1.{i_matrix} {label}",
+            include_others=False,
+        )
+        s.save_tsv()
+        s.save_md()
+        s.draw()
