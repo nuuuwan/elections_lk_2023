@@ -81,8 +81,6 @@ class SankeyModelMixin:
         assert n == len(Y)
         nX = len(X[0])
         nY = len(Y[0])
-        positive = True
-        fit_intercept = False
         model = LinearRegression(positive=True, fit_intercept=False)
         model.fit(X, Y, sample_weight=sample_weight)
         log.debug(
@@ -96,6 +94,7 @@ class SankeyModelMixin:
         model = cls.get_trained_model(
             election_x, election_y, election_end, include_others
         )
+        print("model.coef_=", model.coef_)
         popular_parties_x = election_x.get_popular_parties(
             cls.P_OTHER_LIMIT, include_others
         )
