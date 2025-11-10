@@ -36,10 +36,10 @@ class SankeyModelMixin:
             d = result.party_to_votes.get_othered_dict(
                 popular_parties, include_others
             )
-            p_not_counted = (total - result.summary_statistics.valid) / total
+            p_no_vote = (total - result.summary_statistics.valid) / total
 
             x = [d.get(party, 0) / total for party in popular_parties] + [
-                p_not_counted
+                p_no_vote
             ]
             idx[region_id] = x
 
