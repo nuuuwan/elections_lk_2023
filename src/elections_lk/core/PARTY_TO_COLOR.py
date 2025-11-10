@@ -39,8 +39,8 @@ COLOR_TO_PARTY_LIST = {
     "#ffffff": ["ELJP", "INDI"],
     "#ff8822": ["IND16"],
     # Validation only
-    "#0088ff": ["A"],
-    "#ff0000": ["B"],
+    "#0088f1": ["A"],
+    "#ff0001": ["B"],
 }
 
 PARTY_TO_COLOR = {}
